@@ -44,6 +44,11 @@ npm i @emotion/react @emotion/styled @mui/lab @mui/material @mui/x-date-pickers 
 10. 인피니티 스크롤 관련 라이브러리(어떤거 쓸지 미정,,, 직접 만들어도 되고요...)
 
 11. 스위트 얼러트 쓰실래요...???
+    <!--
+    npm install --save sweetalert2 sweetalert2-react-content
+    https://sweetalert2.github.io/
+     -->
+    <!-- npm install @mui/material @emotion/react @emotion/styled -->
 
 ## init
 
