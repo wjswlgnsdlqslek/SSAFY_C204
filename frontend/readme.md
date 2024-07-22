@@ -34,7 +34,7 @@ npm i nanoid
 
    react-bootstrap-daterangepicker
    <!--
-   npm i zustand tailwindcss @heroicons/react @headlessui/react react-router-dom react-beautiful-dnd nanoid @fullcalendar/daygrid @fullcalendar/interaction @fullcalendar/react @fullcalendar/timegrid
+   npm i zustand tailwindcss @heroicons/react @headlessui/react react-router-dom react-beautiful-dnd nanoid @fullcalendar/daygrid @fullcalendar/interaction @fullcalendar/react @fullcalendar/timegrid axios
     -->
 
 9. +@ MUI 필요한 컴포넌트만 설치?(필요한거 알아서 설치하고 추가하기...)
