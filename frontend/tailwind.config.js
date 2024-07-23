@@ -19,14 +19,6 @@ module.exports = {
         slideIn: "slideIn 3.5s ease-out forwards",
         dropIn: "dropIn 0.5s ease-out forwards",
       },
-      colors: {
-        mainBlue: "rgb(28, 119, 195)",
-        subBlue: "rgb(57, 169, 219)",
-        btnBlue: "rgb(64, 188, 216)",
-        mainOrange: "rgb(243, 146, 55)",
-        mainRed: "rgb(214, 50, 48)",
-        mainTxt: "rgb(45, 45, 42)",
-      },
     },
   },
   variants: {
