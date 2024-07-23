@@ -8,7 +8,7 @@ import CreateWorkationPage from "./pages/CreateWorkation";
 import DashboardPage from "./pages/DashboardPage";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
-import Navbar from "./components/common/navbar";
+import Navbar from "./components/common/Navbar";
 
 function App() {
   const { user } = useAuthStore();

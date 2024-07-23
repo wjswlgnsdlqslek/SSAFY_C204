@@ -7,7 +7,7 @@ function HomePage() {
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
   return (
-    <div className=" p-4">
+    <div className=" px-24">
       <h1 className="text-2xl mb-4">React Portal Example</h1>
       <button
         onClick={openModal}
