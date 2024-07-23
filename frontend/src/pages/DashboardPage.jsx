@@ -7,7 +7,7 @@ function DashboardPage() {
   const isMobile = useDeviceStore((state) => state.isMobile);
 
   return (
-    <div className="flex h-screen">
+    <div className="flex h-screen ">
       {/* Explorer 컴포넌트의 너비를 비례적으로 조정 */}
       <div
         className={`flex-none ${
