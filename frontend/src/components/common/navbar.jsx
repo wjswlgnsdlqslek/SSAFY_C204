@@ -14,11 +14,7 @@ function Navbar({ children }) {
       >
         <div className="flex lg:flex-1">
           <Link to="/" className="-m-1.5 p-1.5">
-            <img
-              alt=""
-              src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-              className="h-8 w-auto"
-            />
+            <img alt="" src="/wavalogo.png" className="h-8 w-auto" />
           </Link>
         </div>
         <div className="flex lg:hidden">

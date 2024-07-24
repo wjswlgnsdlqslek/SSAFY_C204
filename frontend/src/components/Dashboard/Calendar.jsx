@@ -138,8 +138,6 @@ const Calendar = () => {
   return (
     <div className="bg-white text-black h-full p-4">
       <div className="flex">
-        <h1 className="text-2xl">2024년 00월</h1>
-
         <button className="ml-auto" onClick={openModal}>
           TodoCreate
         </button>
