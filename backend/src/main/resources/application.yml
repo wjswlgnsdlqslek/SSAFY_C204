@@ -13,3 +13,8 @@ spring:
       properties:
         hibernate:
           dialect: org.hibernate.dialect.MySQL8Dialect
+
+jwt :
+  access_expiration_time : 3600000 # 1시간
+  refresh_expiration_time : 604800016 # 1주일
+  secret : ${SECRET}
