@@ -56,7 +56,7 @@ const useTodoStore = create((set) => ({
       }));
       return true;
     } else {
-      alert("delete 에러");
+      alert("update 에러");
       return false;
     }
   },

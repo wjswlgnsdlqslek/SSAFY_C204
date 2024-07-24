@@ -4,7 +4,7 @@ import { get_response } from "./dummy";
 
 // api 함수용 파일
 const server_address = process.env.REACT_APP_SERVER_ADDRESS + "/plan";
-
+// const server_address = "https://1b66ee69-95f1-4301-8969-9e0144076d1d.mock.pstmn.io" + "/plan";
 /**
  * 예시 api 함수 :
  * 서버에서 todo 이벤트 목록을 가져옵니다.
@@ -29,9 +29,10 @@ export const getTodoList = async () => {
     const token = "your_bearer_token_here";
     // Bearer 토큰은 필요에 따라 변경
 
+    // 요청 본문 데이터
     // const response = await axios.get(
-    //   `${server_address}/view`,
-    //   {}, // 요청 본문 데이터
+    //   `${server_address}/view/`,
+    //   {},
     //   {
     //     headers: {
     //       "Content-Type": "application/json",
@@ -41,15 +42,15 @@ export const getTodoList = async () => {
     // );
 
     // 더미데이터
-    const response = get_response;
+    const response = { data: get_response, status: 200 };
 
-    if (!response.ok) {
+    if (response.status !== 200) {
       console.log(response.message);
       throw new Error(`HTTP 오류! 상태: ${response.status}`);
     }
 
     // const data = await response.json();
-    const data = response.data;
+    const { data } = response.data;
     return data;
   } catch (error) {
     console.error("todo 목록을 가져오는 중 오류 발생:", error);
@@ -58,13 +59,13 @@ export const getTodoList = async () => {
 };
 
 // C
-export const createTodoRequest = (newTodoItem) => {
+export const createTodoRequest = async (newTodoItem) => {
   try {
     const token = "your_bearer_token_here";
 
-    // const response = axios.post(
-    //   server_address + "/create",
-    //   JSON.stringify(newTodoItem) ,
+    // const response = await axios.post(
+    //   server_address + "/create/",
+    //   JSON.stringify(newTodoItem),
     //   {
     //     headers: {
     //       "Content-Type": "application/json",
@@ -73,17 +74,21 @@ export const createTodoRequest = (newTodoItem) => {
     //   }
     // );
 
-    newTodoItem.id = nanoid();
-    let response = {};
-    response.ok = true;
-    response.data = newTodoItem;
-    if (!response.ok) {
+    // 테스트코드
+    let response = { status: 201 };
+
+    if (response.status !== 201) {
       console.log(response.message);
       throw new Error(`HTTP 오류! 상태: ${response.status}`);
     }
+
+    // 더미 코드
+    newTodoItem.id = nanoid();
+    return newTodoItem;
+    //
+
     // const data = await response.json();
-    const data = response.data;
-    return data;
+    // return data;
   } catch (e) {
     console.error("todo 항목을 생성하는 중 오류 발생:", e);
     return false;
@@ -123,7 +128,7 @@ export const updateTodoRequest = async (todoItem) => {
   const token = "your_bearer_token_here";
   try {
     // const response = await axios.put(
-    //   server_address + `/update/${todoItem?.id}`,
+    //   server_address + `/update/${todoItem?.id}/`,
     //   JSON.stringify(todoItem),
     //   {
     //     headers: {
@@ -132,6 +137,8 @@ export const updateTodoRequest = async (todoItem) => {
     //     },
     //   }
     // );
+
+    // 테스트코드
     const response = { status: 200 };
 
     if (response.status === 200) {

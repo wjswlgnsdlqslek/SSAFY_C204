@@ -44,7 +44,7 @@ const Calendar = () => {
     (async () => {
       await fetchEvents();
     })();
-  }, [fetchEvents]);
+  }, []);
 
   // 유효성 검증 없어도 될 듯?
   useEffect(() => {

@@ -1,5 +1,6 @@
 import { nanoid } from "nanoid";
 let todayStr = new Date().toISOString().replace(/T.*$/, "");
+// console.log(todayStr);
 export const get_response = {
   data: [
     {
