@@ -1,9 +1,9 @@
-package com.worq.worcation.domain.dashboard.application;
+package com.worq.worcation.domain.worcation.application;
 
-import com.worq.worcation.domain.dashboard.dao.WorcationRepository;
-import com.worq.worcation.domain.dashboard.domain.Worcation;
-import com.worq.worcation.domain.dashboard.dto.WorcationRequestDto;
-import com.worq.worcation.domain.dashboard.dto.WorcationResponseDto;
+import com.worq.worcation.domain.worcation.dao.WorcationRepository;
+import com.worq.worcation.domain.worcation.domain.Worcation;
+import com.worq.worcation.domain.worcation.dto.WorcationRequestDto;
+import com.worq.worcation.domain.worcation.dto.WorcationResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

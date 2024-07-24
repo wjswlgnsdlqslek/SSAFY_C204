@@ -1,7 +1,7 @@
-// src/main/java/com/worq/worcation/domain/dashboard/dto/WorcationResponseDto.java
-package com.worq.worcation.domain.dashboard.dto;
+// src/main/java/com/worq/worcation/domain/worcation/dto/WorcationResponseDto.java
+package com.worq.worcation.domain.worcation.dto;
 
-import com.worq.worcation.domain.dashboard.domain.Worcation;
+import com.worq.worcation.domain.worcation.domain.Worcation;
 
 import java.util.Date;
 

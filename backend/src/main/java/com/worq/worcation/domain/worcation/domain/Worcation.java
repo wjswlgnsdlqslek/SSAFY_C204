@@ -1,5 +1,5 @@
-// src/main/java/com/worq/worcation/domain/dashboard/domain/Worcation.java
-package com.worq.worcation.domain.dashboard.domain;
+// src/main/java/com/worq/worcation/domain/worcation/domain/Worcation.java
+package com.worq.worcation.domain.worcation.domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

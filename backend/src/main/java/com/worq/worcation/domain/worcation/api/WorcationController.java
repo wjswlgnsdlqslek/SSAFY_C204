@@ -1,10 +1,10 @@
-// src/main/java/com/worq/worcation/domain/dashboard/api/WorcationController.java
-package com.worq.worcation.domain.dashboard.api;
+// src/main/java/com/worq/worcation/domain/worcation/api/WorcationController.java
+package com.worq.worcation.domain.worcation.api;
 
-import com.worq.worcation.domain.dashboard.application.WorcationService;
-import com.worq.worcation.domain.dashboard.dto.WorcationRequestDto;
-import com.worq.worcation.domain.dashboard.dto.WorcationResponseDto;
-import com.worq.worcation.domain.dashboard.exception.WorcationNotFoundException;
+import com.worq.worcation.domain.worcation.application.WorcationService;
+import com.worq.worcation.domain.worcation.dto.WorcationRequestDto;
+import com.worq.worcation.domain.worcation.dto.WorcationResponseDto;
+import com.worq.worcation.domain.worcation.exception.WorcationNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
