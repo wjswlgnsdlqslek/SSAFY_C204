@@ -1,0 +1,54 @@
+// src/main/java/com/worq/worcation/domain/dashboard/api/WorcationController.java
+package com.worq.worcation.domain.dashboard.api;
+
+import com.worq.worcation.domain.dashboard.application.WorcationService;
+import com.worq.worcation.domain.dashboard.dto.WorcationRequestDto;
+import com.worq.worcation.domain.dashboard.dto.WorcationResponseDto;
+import com.worq.worcation.domain.dashboard.exception.WorcationNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/worcation")
+public class WorcationController {
+
+    @Autowired
+    private WorcationService worcationService;
+
+    @PostMapping("/create")
+    public ResponseEntity<?> createWorcation(@RequestBody WorcationRequestDto worcationRequestDto) {
+        try {
+            WorcationResponseDto response = worcationService.createWorcation(worcationRequestDto);
+            return ResponseEntity.ok(response);
+        } catch (WorcationNotFoundException e) {
+            return ResponseEntity.status(400).body("존재하지 않는 워케이션 입니다.");
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("일시적인 오류가 발생하였습니다. 다시 시도해주세요.");
+        }
+    }
+
+    @PatchMapping("/update/{worcationid}")
+    public ResponseEntity<?> getAllWorcations(@PathVariable Long worcationid ,@RequestBody WorcationRequestDto worcationRequestDto) {
+        try{
+            WorcationResponseDto responseDto = worcationService.updateWorcation(worcationid,worcationRequestDto);
+            return ResponseEntity.ok(responseDto);
+        } catch (WorcationNotFoundException e) {
+            return ResponseEntity.status(400).body("존재하지 않는 워케이션 입니다.");
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("일시적인 오류가 발생하였습니다. 다시 시도해주세요.");
+        }
+    }
+
+    @DeleteMapping("/delete/{worcationid}")
+    public ResponseEntity<?> getAllWorcations(@PathVariable Long worcationid) {
+        try{
+            worcationService.deleteWorcation(worcationid);
+            return ResponseEntity.ok().build();
+        } catch (WorcationNotFoundException e) {
+            return ResponseEntity.status(400).body("존재하지 않는 워케이션 입니다.");
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("일시적인 오류가 발생하였습니다. 다시 시도해주세요.");
+        }
+    }
+}
