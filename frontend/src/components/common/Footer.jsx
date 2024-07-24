@@ -12,7 +12,7 @@ function Footer() {
     } else {
       setHiddenFooter(false);
     }
-  }, []);
+  }, [location]);
 
   if (hiddenFooter) return null;
 
@@ -76,6 +76,7 @@ function Footer() {
                 <a
                   href={url}
                   target="_blank"
+                  rel="noreferrer"
                   className="text-lg bg-gray-200 p-1.5 rounded-full hover:bg-mainBlue hover:text-white transition-all duration-300 cursor-pointer mb-1"
                 >
                   {icon}

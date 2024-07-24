@@ -1,41 +1,33 @@
-import { useState } from "react";
+import { typeOptions } from "./dataset";
 
 function TypeRadio({ selected, setSelected }) {
   const handleChange = (e) => {
     setSelected(e.target.value);
   };
+  const options = typeOptions;
   return (
     <>
       {/* <!-- TYPE 라디오 그룹 --> */}
       <div className="flex flex-col items-center">
         <span className="label-text mb-2">TYPE</span>
         <div className="flex">
-          <div className="form-control mr-4">
-            <label className="label cursor-pointer flex flex-col items-center">
-              <span className="label-text mb-2">WORK</span>
-              <input
-                type="radio"
-                name="type"
-                value="WORK"
-                className="radio checked:bg-red-500"
-                checked={selected === "WORK"}
-                onChange={handleChange}
-              />
-            </label>
-          </div>
-          <div className="form-control">
-            <label className="label cursor-pointer flex flex-col items-center">
-              <span className="label-text mb-2">REST</span>
-              <input
-                type="radio"
-                name="type"
-                value="REST"
-                onChange={handleChange}
-                checked={selected === "REST"}
-                className="radio checked:bg-blue-500"
-              />
-            </label>
-          </div>
+          {options.map((option) => (
+            <>
+              <div className="form-control m-2">
+                <label className="label cursor-pointer flex flex-col items-center">
+                  <span className="label-text mb-2">{option.label}</span>
+                  <input
+                    type="radio"
+                    name="type"
+                    value={option.value}
+                    className={`radio checked:${option.color}`}
+                    checked={selected === option.value}
+                    onChange={handleChange}
+                  />
+                </label>
+              </div>
+            </>
+          ))}
         </div>
       </div>
     </>

@@ -16,11 +16,15 @@ import DateRangePicker from "./Calendar/DateRangePicker";
 import { validateEvent } from "../../util/func";
 import TypeRadio from "./Calendar/TypeRadio";
 import ImportantRadio from "./Calendar/ImportantRadio";
+import Filters from "./Calendar/Filters";
 
 const Calendar = () => {
   const [filteredEvents, setFilteredEvents] = useState([]);
   // 타입별로 설정+ 필터링된 이벤트
-  const [eventsTypeFilter, setEventsTypeFilter] = useState("all");
+  const [eventsTypeFilter, setEventsTypeFilter] = useState({
+    type: "ALL",
+    important: "ALL",
+  });
   const calendarRef = useRef(null);
   const [state, setState] = useState({});
   const [isOpen, setIsOpen] = useState(false); // 모달오픈여부
@@ -44,22 +48,36 @@ const Calendar = () => {
     (async () => {
       await fetchEvents();
     })();
-  }, []);
+  }, [fetchEvents]);
 
   // 유효성 검증 없어도 될 듯?
   useEffect(() => {
     // type 있으면 쓰고 아님 말고
     let filtered = null;
-    switch (eventsTypeFilter) {
+    switch (eventsTypeFilter.type) {
       case "WORK":
-        filtered = events?.filter((el) => el.type === "WORK");
+        filtered = events?.filter((el) => el?.type === "WORK");
         break;
       case "REST":
-        filtered = events?.filter((el) => el.type === "REST");
+        filtered = events?.filter((el) => el?.type === "REST");
         break;
-      case "all":
+      case "ALL":
       default:
         filtered = events;
+        break;
+    }
+    switch (eventsTypeFilter.important) {
+      case "상":
+        filtered = filtered?.filter((el) => el?.important === "상");
+        break;
+      case "중":
+        filtered = filtered?.filter((el) => el?.important === "중");
+        break;
+      case "하":
+        filtered = filtered?.filter((el) => el?.important === "하");
+        break;
+      case "ALL":
+      default:
         break;
     }
 
@@ -219,7 +237,12 @@ const Calendar = () => {
   return (
     <div className="bg-white text-black h-full p-4">
       <div className="flex">
-        <button className="ml-auto" onClick={openModal}>
+        <Filters filter={eventsTypeFilter} setFilter={setEventsTypeFilter} />
+
+        <button
+          className="btn btn-outline btn-primary ml-auto"
+          onClick={openModal}
+        >
           TodoCreate
         </button>
       </div>

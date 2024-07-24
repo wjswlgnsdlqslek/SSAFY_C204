@@ -6,7 +6,6 @@ function TodoModal({
   isOpen,
   children,
   onClose,
-  // onCancel,
   cancelText,
   onSubmit,
   submitText,
