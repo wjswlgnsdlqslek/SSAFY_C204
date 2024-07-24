@@ -61,7 +61,11 @@ export function validateEvent(event) {
   }
 
   // 시작 날짜와 종료 날짜 비교
-  if (event.start && event.end && new Date(event.start) > new Date(event.end)) {
+  if (
+    event.start &&
+    event.end &&
+    new Date(event.start) >= new Date(event.end)
+  ) {
     console.error("sted value");
     return false;
   }

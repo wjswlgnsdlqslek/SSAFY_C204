@@ -14,8 +14,8 @@ import TodoModal from "./Calendar/TodoModal";
 import DateRangePicker from "./Calendar/DateRangePicker";
 
 import { validateEvent } from "../../util/func";
-import TypeList from "./Calendar/TypeList";
-import zIndex from "@mui/material/styles/zIndex";
+import TypeRadio from "./Calendar/TypeRadio";
+import ImportantRadio from "./Calendar/ImportantRadio";
 
 const Calendar = () => {
   const [filteredEvents, setFilteredEvents] = useState([]);
@@ -95,6 +95,7 @@ const Calendar = () => {
     setEnd(new Date());
     setIsFinish(false);
     setContent("");
+    setImportant("하");
   };
 
   // 달력에 뜨는 이벤트 커스텀
@@ -305,16 +306,21 @@ const Calendar = () => {
               onChange={(e) => setContent(e.target.value)}
             />
           </Field>
+
+          {/* 옵션 선택 */}
           <Field>
             <Label>Type:</Label>
             <div style={{ zIndex: 1 }}>
-              <TypeList
-                selected={type}
-                setSelected={setType}
-                data={["WORK", "REST"]}
-              />
+              <div className="flex justify-between">
+                <TypeRadio selected={type} setSelected={setType} />
+                <ImportantRadio
+                  selected={important}
+                  setSelected={setImportant}
+                />
+              </div>
             </div>
           </Field>
+          {/* 옵션 선택 끝 */}
           <Field>
             <div className="bg-slate-400">
               <Label htmlFor="exampleEmail" className="text-black">
