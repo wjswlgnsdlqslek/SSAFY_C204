@@ -138,3 +138,11 @@ NOTE: for old browsers, will need to restart watcher after changing a variable
   border: 0px;
   background-color: yellow;
 }
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
+.todo-finish {
+  opacity: 0.5;
+}

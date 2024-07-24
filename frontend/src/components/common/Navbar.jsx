@@ -1,11 +1,21 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Dialog, DialogPanel } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 function Navbar({ children }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [hiddenNav, setHiddenNav] = useState(false);
+  const location = useLocation();
+  useEffect(() => {
+    if (location.pathname === "/dashboard") {
+      setHiddenNav(true);
+    } else {
+      setHiddenNav(true);
+    }
+  }, [location]);
 
+  if (hiddenNav) return null;
   return (
     <header className="bg-white">
       <nav

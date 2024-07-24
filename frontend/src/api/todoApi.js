@@ -16,7 +16,10 @@ const server_address = process.env.REACT_APP_SERVER_ADDRESS + "/plan";
  * @property {string} start - 이벤트의 시작 날짜와 시간 (ISO 형식).
  * @property {string} end - 이벤트의 종료 날짜와 시간 (ISO 형식).
  * @property {string} content - 이벤트에 대한 추가 설명 또는 내용.
- * @property {boolean} done - 이벤트가 완료되었는지 여부.
+ * @property {boolean} isFinish - 이벤트가 완료되었는지 여부.
+ * @property {"WORK"|"REST"} type - 이벤트가 완료되었는지 여부.
+ * @property {string} important - 이벤트가 완료되었는지 여부.
+ * @property {string} className - 이벤트가 완료되었는지 여부.
  *
  * @returns {Promise<TodoEvent[]>} - todo 이벤트 목록의 배열을 포함하는 프로미스를 반환합니다.
  * @throws {Error} - 네트워크 요청이 실패할 경우 오류를 발생시킵니다.
@@ -50,17 +53,18 @@ export const getTodoList = async () => {
     return data;
   } catch (error) {
     console.error("todo 목록을 가져오는 중 오류 발생:", error);
-    return error;
+    return false;
   }
 };
 
+// C
 export const createTodoRequest = (newTodoItem) => {
   try {
     const token = "your_bearer_token_here";
 
     // const response = axios.post(
     //   server_address + "/create",
-    //   { newTodo },
+    //   JSON.stringify(newTodoItem) ,
     //   {
     //     headers: {
     //       "Content-Type": "application/json",
@@ -82,6 +86,61 @@ export const createTodoRequest = (newTodoItem) => {
     return data;
   } catch (e) {
     console.error("todo 항목을 생성하는 중 오류 발생:", e);
-    return e;
+    return false;
+  }
+};
+
+// D
+export const deleteTodoRequest = async (todoItem) => {
+  try {
+    const token = "your_bearer_token_here";
+
+    // const response = await axios.delete(
+    //   server_address + `/delete/${todoItem?.id}`,
+    //   {
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       Authorization: `Bearer ${token}`,
+    //     },
+    //   }
+    // );
+
+    const response = { status: 200 };
+
+    if (response.status === 200) {
+      return true;
+    } else {
+      throw new Error(`HTTP 오류! 상태: ${response.status}`);
+    }
+  } catch (e) {
+    console.error("todo 항목을 삭제하는 중 오류 발생:", e);
+    return false;
+  }
+};
+
+// U
+export const updateTodoRequest = async (todoItem) => {
+  const token = "your_bearer_token_here";
+  try {
+    // const response = await axios.put(
+    //   server_address + `/update/${todoItem?.id}`,
+    //   JSON.stringify(todoItem),
+    //   {
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       Authorization: `Bearer ${token}`,
+    //     },
+    //   }
+    // );
+    const response = { status: 200 };
+
+    if (response.status === 200) {
+      return true;
+    } else {
+      throw new Error(`HTTP 오류! 상태: ${response.status}`);
+    }
+  } catch (e) {
+    console.error("todo 항목을 수정하는 중 오류 발생:", e);
+    return false;
   }
 };

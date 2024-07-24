@@ -14,6 +14,8 @@ import TodoModal from "./Calendar/TodoModal";
 import DateRangePicker from "./Calendar/DateRangePicker";
 
 import { validateEvent } from "../../util/func";
+import TypeList from "./Calendar/TypeList";
+import zIndex from "@mui/material/styles/zIndex";
 
 const Calendar = () => {
   const [filteredEvents, setFilteredEvents] = useState([]);
@@ -49,9 +51,12 @@ const Calendar = () => {
     // type 있으면 쓰고 아님 말고
     let filtered = null;
     switch (eventsTypeFilter) {
-      // case "work":
-      //   filtered = events?.filter((el) => el.isWork);
-      //   break;
+      case "WORK":
+        filtered = events?.filter((el) => el.type === "WORK");
+        break;
+      case "REST":
+        filtered = events?.filter((el) => el.type === "REST");
+        break;
       case "all":
       default:
         filtered = events;
@@ -72,8 +77,6 @@ const Calendar = () => {
     ) {
       selectInfo.view.calendar.unselect();
       setState({ selectInfo, state: "create" });
-      // Open modal create
-      // console.log(selectInfo);
       setStart(selectInfo.start);
       setEnd(selectInfo.end);
       openModal(true);
@@ -94,11 +97,15 @@ const Calendar = () => {
     setContent("");
   };
 
+  // 달력에 뜨는 이벤트 커스텀
   function renderEventContent(eventInfo) {
-    const { classNames } = eventInfo.event;
-    console.log(classNames[0]);
     return (
-      <div className={[...eventInfo.event.classNames]}>
+      <div
+        className={
+          `${eventInfo.event?.extendedProps?.isFinish ? "todo-finish " : ""}` +
+          [...eventInfo.event.classNames]
+        }
+      >
         {/* <b>{eventInfo.timeText}</b> */}
         <i
           style={{
@@ -113,8 +120,39 @@ const Calendar = () => {
     );
   }
 
-  const handleEdit = () => {};
+  // 수정 함수
+  const handleEdit = async () => {
+    state.clickInfo.event.setStart(start);
+    state.clickInfo.event.setEnd(end);
 
+    state.clickInfo.event.mutate({
+      standardProps: {
+        title,
+      },
+    });
+    const event = {
+      id: state.clickInfo.event.id,
+      title,
+      start,
+      end,
+      className: important,
+      content,
+      important,
+      isFinish,
+      type,
+    };
+    if (validateEvent(event)) {
+      const result = await updateEvent(event);
+      if (result) {
+        closeModal();
+      }
+    } else {
+      alert("입력값을 확인해 주세요.");
+    }
+    // console.log(events);
+  };
+
+  // 생성 함수
   const handleSubmit = async () => {
     const newEvent = {
       title,
@@ -127,7 +165,7 @@ const Calendar = () => {
       isFinish,
     };
 
-    if (validateEvent(newEvent)) {
+    if (!validateEvent(newEvent)) {
       return alert("입력값을 확인해 주세요.");
     }
 
@@ -135,11 +173,51 @@ const Calendar = () => {
     closeModal();
   };
 
+  // 삭제 함수
+  const handleDelete = async () => {
+    const rst = await deleteEvent(state.clickInfo.event.id);
+    console.log(state.clickInfo.event.id);
+    if (rst) {
+      state.clickInfo.event.remove();
+    }
+    closeModal();
+  };
+
+  // 항목 클릭 -> 수정 모달 오픈
+  const handleEventClick = (clickInfo) => {
+    setState({ clickInfo, state: "update" });
+    setTitle(clickInfo.event.title);
+    setStart(clickInfo.event.start);
+    setIsFinish(clickInfo.event.extendedProps?.isFinish);
+    setContent(clickInfo.event.extendedProps?.content);
+    setImportant(clickInfo.event.extendedProps?.important);
+    setType(clickInfo.event.extendedProps?.type);
+    setEnd(clickInfo.event.end);
+    setIsOpen(true);
+  };
+
+  // 이벤트 크기 줄이기늘리기, 옮기기 -> 시간만 변경됨
+  const handleEventResizeAmdDrop = (checkInfo) => {
+    setState({ checkInfo, state: "resize" });
+    const { start, end, id, title } = checkInfo?.event;
+    const { content, important, isFinish, type } =
+      checkInfo?.event?.extendedProps;
+    const editedEvent = {
+      id,
+      start,
+      end,
+      title,
+      content,
+      important,
+      isFinish,
+      type,
+      className: important,
+    };
+    updateEvent(editedEvent);
+  };
   return (
     <div className="bg-white text-black h-full p-4">
       <div className="flex">
-        <h1 className="text-2xl">2024년 00월</h1>
-
         <button className="ml-auto" onClick={openModal}>
           TodoCreate
         </button>
@@ -154,7 +232,7 @@ const Calendar = () => {
           },
         }}
         allDaySlot={false}
-        locale={"ko"}
+        // locale={"ko"}
         ref={calendarRef}
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
         headerToolbar={{
@@ -178,22 +256,10 @@ const Calendar = () => {
         events={filteredEvents}
         select={handleDateSelect} // 이벤트 날짜 드래그
         eventContent={renderEventContent} // custom render function
-        // eventClick={handleEventClick}
-        // eventDrop={handleEventDrop}
-        // eventResize={handleEventResize}
+        eventClick={handleEventClick}
+        eventDrop={handleEventResizeAmdDrop}
+        eventResize={handleEventResizeAmdDrop}
         // dateClick={handleDateClick}
-        //
-        eventAdd={(e) => {
-          console.log("eventAdd", e);
-        }}
-        eventChange={(e) => {
-          updateEvent(e);
-          console.log("eventChange", e);
-        }}
-        eventRemove={(e) => {
-          deleteEvent(e?.event?.id);
-          console.log("eventRemove", e);
-        }}
         // 이벤트 설정 끝
       />
 
@@ -202,7 +268,7 @@ const Calendar = () => {
         onClose={closeModal}
         title={state.state === "update" ? "일정 수정" : "일정 추가"}
         onSubmit={state.clickInfo ? handleEdit : handleSubmit}
-        // onDelete={state.clickInfo && handleDelete}
+        onDelete={state.clickInfo && handleDelete}
         submitText={state.clickInfo ? "Update" : "Save"}
         deleteText="Delete"
       >
@@ -226,7 +292,8 @@ const Calendar = () => {
               onChange={(e) => setIsFinish(e.target.checked)}
             />
           </Field>
-          {/* <Field>
+
+          <Field>
             <Label htmlFor="content">Content</Label>
             <Input
               defaultValue={content}
@@ -237,7 +304,17 @@ const Calendar = () => {
               placeholder="내용을 입력해주세요."
               onChange={(e) => setContent(e.target.value)}
             />
-          </Field> */}
+          </Field>
+          <Field>
+            <Label>Type:</Label>
+            <div style={{ zIndex: 1 }}>
+              <TypeList
+                selected={type}
+                setSelected={setType}
+                data={["WORK", "REST"]}
+              />
+            </div>
+          </Field>
           <Field>
             <div className="bg-slate-400">
               <Label htmlFor="exampleEmail" className="text-black">

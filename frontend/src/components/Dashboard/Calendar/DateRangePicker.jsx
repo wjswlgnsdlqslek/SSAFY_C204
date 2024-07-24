@@ -11,16 +11,14 @@ import dayjs from "dayjs";
  * @param {Date} date
  * @returns
  */
-function getYMD(date) {
-  const year = date.getFullYear().toString();
-  let month = (date.getMonth() + 1).toString();
-  let day = (date.getDate() + 1).toString();
-  return year + "-" + month + "-" + day;
-}
+// function getYMD(date) {
+//   const year = date.getFullYear().toString();
+//   let month = (date.getMonth() + 1).toString();
+//   let day = (date.getDate() + 1).toString();
+//   return year + "-" + month + "-" + day;
+// }
 
 function DateRangerPicker({ timeSet, editTimeSet }) {
-  const [value, setValue] = React.useState([new Date(), new Date()]);
-  // console.log(dayjs(timeSet));
   return (
     <div className="w-full">
       <div className="bg-white flex">

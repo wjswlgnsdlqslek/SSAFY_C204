@@ -1,8 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaGithub, FaGitlab } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 function Footer() {
+  const [hiddenFooter, setHiddenFooter] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname === "/dashboard") {
+      setHiddenFooter(true);
+    } else {
+      setHiddenFooter(false);
+    }
+  }, []);
+
+  if (hiddenFooter) return null;
+
   const iconsTab = [
     {
       icon: <FaGithub />,
