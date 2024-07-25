@@ -3,7 +3,7 @@ import Carousel from "../components/Home/Carousel";
 
 function HomePage() {
   return (
-    <div className="max-w-screen-xl mx-auto">
+    <div className="w-full mx-auto">
       {/* 메인 Section */}
       <section
         id="서비스 소개"
