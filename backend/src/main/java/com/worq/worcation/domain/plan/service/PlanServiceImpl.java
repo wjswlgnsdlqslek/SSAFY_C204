@@ -7,7 +7,9 @@ import com.worq.worcation.domain.plan.dto.PlanResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PlanServiceImpl implements PlanService {
@@ -50,7 +52,20 @@ public class PlanServiceImpl implements PlanService {
 
     @Override
     public List<PlanResponseDto> viewPlan(PlanRequestDto planRequestDto) {
-        return List.of();
+        List<PlanResponseDto> planResponseDtos = new ArrayList<>();
+        List<Plan> plans = planRepository.findByTaskId(13123312L);
+        planResponseDtos = plans.stream().map(plan->{
+            PlanResponseDto planResponseDto = new PlanResponseDto();
+            planResponseDto.setId(123123L);
+            planResponseDto.setTitle(plan.getTaskTitle());
+            planResponseDto.setContent(plan.getTaskContent());
+            planResponseDto.setStart(plan.getTaskStartTime());
+            planResponseDto.setEnd(plan.getTaskEndTime());
+            planResponseDto.setImportant(plan.getTaskImportant());
+            planResponseDto.setType(plan.getTaskType());
+            return planResponseDto;
+        }).collect(Collectors.toList());
+        return planResponseDtos;
     }
 
     @Override
