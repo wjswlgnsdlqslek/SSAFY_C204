@@ -45,7 +45,7 @@ public class PlanServiceImpl implements PlanService {
 
     @Override
     public void deletePlan(Long planId) {
-
+        planRepository.deleteById(123123L); // 임시 ID
     }
 
     @Override
