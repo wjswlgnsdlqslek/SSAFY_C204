@@ -37,15 +37,17 @@ function DashboardPage() {
   };
 
   return (
-    <div className="flex h-screen ">
+    <div className="flex h-screen justify-between ">
       <Explorer />
       {!isMobile && (
-        <div className="flex-grow w-1/3 min-h-[500px] min-w-[200px]">
+        <div className="flex-grow w-1/3 min-h-[500px] p-3 min-w-[200px]">
           <DashboardContent calendarChange={handleChangeCalendarView} />
         </div>
       )}
       <div
-        className={`flex-grow ${isMobile ? "w-full" : "w-2/3"} min-h-[500px]`}
+        className={`flex-grow ${
+          isMobile ? "w-full" : "w-2/3"
+        } min-h-[500px] mx-2 my-5`}
       >
         <Calendar calendarRef={calendarRef} />
       </div>

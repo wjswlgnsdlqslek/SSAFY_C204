@@ -235,8 +235,8 @@ const Calendar = ({ calendarRef }) => {
     updateEvent(editedEvent);
   };
   return (
-    <div className="bg-white text-black h-full p-4">
-      <div className="flex">
+    <div className="bg-white relative rounded-lg shadow-lg text-black h-full px-4 overflow-scroll   scroll">
+      <div className="flex sticky top-0 bg-white z-10 my-2">
         <Filters filter={eventsTypeFilter} setFilter={setEventsTypeFilter} />
 
         <button
@@ -248,6 +248,8 @@ const Calendar = ({ calendarRef }) => {
       </div>
 
       <FullCalendar
+        stickyHeaderDates={false}
+        height="auto"
         views={{
           threeDays: {
             type: "timeGrid",
@@ -286,6 +288,7 @@ const Calendar = ({ calendarRef }) => {
         // dateClick={handleDateClick}
         // 이벤트 설정 끝
       />
+      <div className="divider" />
 
       <TodoModal
         isOpen={isOpen}
