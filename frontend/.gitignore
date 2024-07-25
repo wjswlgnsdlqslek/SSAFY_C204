@@ -172,6 +172,8 @@ sketch
 # Ignore all local history of files
 .history
 .ionide
+/.vscode/
+
 
 ### Windows ###
 # Windows thumbnail cache files
@@ -198,5 +200,7 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+
 
 # End of https://www.toptal.com/developers/gitignore/api/react,node,windows,visualstudiocode
