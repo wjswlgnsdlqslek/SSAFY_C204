@@ -6,13 +6,12 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.Instant;
-
 @Getter
 @Setter
 @Entity
 @Table(name = "task", schema = "worQ")
 public class Plan {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "task_id", nullable = false)
@@ -25,11 +24,11 @@ public class Plan {
 
     @NotNull
     @Column(name = "task_start_time", nullable = false)
-    private Instant taskStartTime;
+    private String taskStartTime;
 
     @NotNull
     @Column(name = "task_end_time", nullable = false)
-    private Instant taskEndTime;
+    private String taskEndTime;
 
     @NotNull
     @Column(name = "task_is_finish", nullable = false)
@@ -40,9 +39,9 @@ public class Plan {
     private String taskImportant;
 
     @NotNull
-    @Lob
+    @Enumerated(EnumType.STRING)
     @Column(name = "task_type", nullable = false)
-    private String taskType;
+    private PlanType taskType;
 
     @Size(max = 100)
     @NotNull

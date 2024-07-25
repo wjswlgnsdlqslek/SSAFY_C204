@@ -1,5 +1,6 @@
 package com.worq.worcation.domain.plan.dto;
 
+import com.worq.worcation.domain.plan.domain.PlanType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,9 +16,4 @@ public class PlanRequestDto {
     private String className; // DTO만 사용
     private Boolean isFinish;
 
-    // ENUM 타입 정의
-    public enum PlanType {
-        WORK,
-        REST
-    }
 }

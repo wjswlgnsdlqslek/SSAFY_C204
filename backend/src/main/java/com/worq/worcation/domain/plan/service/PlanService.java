@@ -1,15 +1,16 @@
 package com.worq.worcation.domain.plan.service;
 
+import com.worq.worcation.domain.plan.dto.PlanRequestDto;
 import com.worq.worcation.domain.plan.dto.PlanResponseDto;
 
 import java.util.List;
 
 public interface PlanService {
-    PlanResponseDto createPlan(final PlanResponseDto planResponseDto);
+    PlanResponseDto createPlan(final PlanRequestDto planRequestDto);
 
-    PlanResponseDto deletePlan(PlanResponseDto planResponseDto, Long planId);
+    void deletePlan( Long planId);
 
-    List<PlanResponseDto> viewPlan(PlanResponseDto planResponseDto);
+    List<PlanResponseDto> viewPlan(PlanRequestDto planRequestDto);
 
-    PlanResponseDto updatePlan(PlanResponseDto planResponseDto, Long planId);
+    PlanResponseDto updatePlan(PlanRequestDto planRequestDto, Long planId);
 }
