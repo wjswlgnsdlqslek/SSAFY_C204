@@ -33,10 +33,10 @@ const centerTextPlugin = {
     const centerY = chartArea.top + (chartArea.bottom - chartArea.top) / 2;
     const textY = centerY;
     const textX = Math.round((width - ctx.measureText(text).width) / 2);
-    ctx.shadowColor = "rgba(0, 0, 0, 0.5)";
-    ctx.shadowBlur = 10;
-    ctx.shadowOffsetX = 5;
-    ctx.shadowOffsetY = 5;
+    ctx.shadowColor = "rgba(121,11,97, 0.7)";
+    ctx.shadowBlur = 15;
+    ctx.shadowOffsetX = 8;
+    ctx.shadowOffsetY = 8;
     ctx.fillText(text, textX, textY);
     ctx.save();
   },
@@ -106,7 +106,10 @@ function GraphView({ category }) {
   };
 
   return (
-    <div className="relative h-100 w-100 p-1" style={{ minWidth: "230px" }}>
+    <div
+      className="relative"
+      style={{ minWidth: "200px", height: "70%", width: "70%" }}
+    >
       <Doughnut
         data={category === "important" ? importantData : finishData}
         options={options}
