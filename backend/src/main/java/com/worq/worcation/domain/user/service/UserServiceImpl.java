@@ -4,14 +4,16 @@ import com.worq.worcation.common.response.ApiResponse;
 import com.worq.worcation.common.response.ErrorCode;
 import com.worq.worcation.domain.user.domain.Role;
 import com.worq.worcation.domain.user.domain.User;
+import com.worq.worcation.domain.user.dto.request.LoginRequestDto;
 import com.worq.worcation.domain.user.dto.request.SignUpRequestDto;
-import com.worq.worcation.domain.user.dto.response.SignUpResponseDto;
+import com.worq.worcation.domain.user.dto.response.UserResponseDto;
 import com.worq.worcation.domain.user.repository.UserRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,7 +32,7 @@ public class UserServiceImpl implements UserService{
      */
     @Override
     @Transactional
-    public ResponseEntity<ApiResponse<SignUpResponseDto>> signUp(@Valid final SignUpRequestDto requestDto) {
+    public ResponseEntity<ApiResponse<UserResponseDto>> signUp(@Valid final SignUpRequestDto requestDto) {
         if(emailValidate(requestDto.getEmail())) {
             return ResponseEntity.status(ErrorCode.DUPLICATE_EMAIL.getStatus())
                                 .body(ApiResponse.error(ErrorCode.DUPLICATE_EMAIL));
@@ -57,7 +59,7 @@ public class UserServiceImpl implements UserService{
                     .build());
 
         return ResponseEntity.status(HttpStatus.OK)
-                        .body(ApiResponse.success(SignUpResponseDto.builder()
+                        .body(ApiResponse.success(UserResponseDto.builder()
                                 .id(user.getId())
                                 .email(user.getEmail())
                                 .phone(user.getPhone())

@@ -2,7 +2,7 @@ package com.worq.worcation.domain.user.controller;
 
 import com.worq.worcation.common.response.ApiResponse;
 import com.worq.worcation.domain.user.dto.request.SignUpRequestDto;
-import com.worq.worcation.domain.user.dto.response.SignUpResponseDto;
+import com.worq.worcation.domain.user.dto.response.UserResponseDto;
 import com.worq.worcation.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +20,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/signup")
-    public ResponseEntity<ApiResponse<SignUpResponseDto>> signup(@RequestBody SignUpRequestDto requestDto) {
+    public ResponseEntity<ApiResponse<UserResponseDto>> signup(@RequestBody SignUpRequestDto requestDto) {
         return userService.signUp(requestDto);
     }
 }
