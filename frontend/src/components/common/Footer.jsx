@@ -65,11 +65,7 @@ function Footer() {
       <div className="container mx-auto px-4 py-4 flex justify-between items-start">
         {/* 로고 및 아이콘 섹션 */}
         <div className="flex flex-col w-1/3 gap-4">
-          <img
-            src={"https://i.imgur.com/520zDfd.png"}
-            alt="footer_logo"
-            className="w-24"
-          />
+          <img src="/wavalogo.png" alt="footer_logo" className="w-24" />
           <div className="flex gap-2 text-mainTxt flex-wrap">
             {iconsTab.map(({ icon, url, name }, index) => (
               <div key={index} className="flex flex-col items-center">
