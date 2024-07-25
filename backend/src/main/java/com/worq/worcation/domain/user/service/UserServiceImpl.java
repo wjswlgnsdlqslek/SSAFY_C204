@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 public class UserServiceImpl implements UserService{
     private final UserRepository userRepository;
-
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     /**
      * 유저 회원 가입
@@ -42,10 +43,11 @@ public class UserServiceImpl implements UserService{
                     .body(ApiResponse.error(ErrorCode.DUPLICATE_NICKNAME));
         }
 
+        String encodedPassword = bCryptPasswordEncoder.encode(requestDto.getPassword());
         User user = userRepository.save(User.builder()
                     .email(requestDto.getEmail())
                     .phone(requestDto.getPhone())
-                    .password(requestDto.getPassword())
+                    .password(encodedPassword)
                     .nickName(requestDto.getNickName())
                     .sido(requestDto.getSido())
                     .gugun(requestDto.getGugun())
