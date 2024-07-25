@@ -53,8 +53,8 @@ public class PlanServiceImpl implements PlanService {
 
     @Override
     public List<PlanResponseDto> viewPlan(PlanRequestDto planRequestDto) {
-        List<PlanResponseDto> planResponseDtos = new ArrayList<>();
-        List<Plan> plans = planRepository.findByTaskId(13123312L);
+        List<PlanResponseDto> planResponseDtos;
+        List<Plan> plans = planRepository.findById(13123312L);
         planResponseDtos = plans.stream().map(plan->{
             PlanResponseDto planResponseDto = new PlanResponseDto();
             planResponseDto.setId(123123L);
