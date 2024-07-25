@@ -2,6 +2,7 @@ package com.worq.worcation.domain.user.service;
 
 import com.worq.worcation.common.response.ApiResponse;
 import com.worq.worcation.common.response.ErrorCode;
+import com.worq.worcation.domain.user.domain.Role;
 import com.worq.worcation.domain.user.domain.User;
 import com.worq.worcation.domain.user.dto.request.SignUpRequestDto;
 import com.worq.worcation.domain.user.dto.response.SignUpResponseDto;
@@ -50,7 +51,9 @@ public class UserServiceImpl implements UserService{
                     .password(encodedPassword)
                     .nickName(requestDto.getNickName())
                     .sido(requestDto.getSido())
-                    .gugun(requestDto.getGugun())
+                    .sigungu(requestDto.getGugun())
+                    .report(0L)
+                    .role(Role.ROLE_VISITOR)
                     .build());
 
         return ResponseEntity.status(HttpStatus.OK)
@@ -60,7 +63,7 @@ public class UserServiceImpl implements UserService{
                                 .phone(user.getPhone())
                                 .nickName(user.getNickName())
                                 .sido(user.getSido())
-                                .gugun(user.getGugun())
+                                .gugun(user.getSigungu())
                                 .build()));
 
     }
