@@ -11,7 +11,7 @@ function Navbar({ children }) {
     if (location.pathname === "/dashboard") {
       setHiddenNav(true);
     } else {
-      setHiddenNav(true);
+      setHiddenNav(false);
     }
   }, [location]);
 

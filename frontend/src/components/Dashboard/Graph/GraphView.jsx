@@ -33,7 +33,10 @@ const centerTextPlugin = {
     const centerY = chartArea.top + (chartArea.bottom - chartArea.top) / 2;
     const textY = centerY;
     const textX = Math.round((width - ctx.measureText(text).width) / 2);
-
+    ctx.shadowColor = "rgba(0, 0, 0, 0.5)";
+    ctx.shadowBlur = 10;
+    ctx.shadowOffsetX = 5;
+    ctx.shadowOffsetY = 5;
     ctx.fillText(text, textX, textY);
     ctx.save();
   },
