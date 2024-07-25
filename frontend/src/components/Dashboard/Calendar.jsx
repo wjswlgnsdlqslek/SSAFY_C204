@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import FullCalendar from "@fullcalendar/react";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
@@ -18,14 +18,14 @@ import TypeRadio from "./Calendar/TypeRadio";
 import ImportantRadio from "./Calendar/ImportantRadio";
 import Filters from "./Calendar/Filters";
 
-const Calendar = () => {
+const Calendar = ({ calendarRef }) => {
   const [filteredEvents, setFilteredEvents] = useState([]);
   // 타입별로 설정+ 필터링된 이벤트
   const [eventsTypeFilter, setEventsTypeFilter] = useState({
     type: "ALL",
     important: "ALL",
   });
-  const calendarRef = useRef(null);
+
   const [state, setState] = useState({});
   const [isOpen, setIsOpen] = useState(false); // 모달오픈여부
 

@@ -1,4 +1,4 @@
-import { importantOptions, typeOptions } from "./dataset";
+import { importantOptions, typeOptions } from "../dataset";
 
 function Filters({ filter, setFilter }) {
   const imOptions = [{ label: "ALL", value: "ALL" }, ...importantOptions];

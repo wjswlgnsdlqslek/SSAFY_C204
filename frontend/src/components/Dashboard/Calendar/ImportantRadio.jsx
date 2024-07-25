@@ -1,4 +1,4 @@
-import { importantOptions } from "./dataset";
+import { importantOptions } from "../dataset";
 
 function ImportantRadio({ selected, setSelected }) {
   const handleChange = (e) => {

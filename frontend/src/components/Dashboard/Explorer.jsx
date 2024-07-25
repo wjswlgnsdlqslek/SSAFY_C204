@@ -7,7 +7,7 @@ const Explorer = () => {
   }, []);
   return (
     <div
-      className={`bg-gray-800 text-white h-full p-4 min-h-[500px] min-w-[70px] max-w-[120px] ${
+      className={`bg-gray-800 text-white h-full p-4 min-h-[500px]  ${
         animate ? "animate-slideIn" : ""
       }}`}
     >

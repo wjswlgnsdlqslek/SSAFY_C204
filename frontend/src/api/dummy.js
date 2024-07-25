@@ -12,7 +12,7 @@ export const get_response = {
       className: "중",
       important: "중",
       // date: "2020-07-29"
-      end: todayStr,
+      end: todayStr + "T12:30:00",
       type: "WORK",
     },
     {
