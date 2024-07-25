@@ -4,6 +4,7 @@ import com.worq.worcation.domain.plan.dao.PlanRepository;
 import com.worq.worcation.domain.plan.domain.Plan;
 import com.worq.worcation.domain.plan.dto.PlanRequestDto;
 import com.worq.worcation.domain.plan.dto.PlanResponseDto;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -70,6 +71,29 @@ public class PlanServiceImpl implements PlanService {
 
     @Override
     public PlanResponseDto updatePlan(PlanRequestDto planRequestDto, Long planId) {
-        return null;
+        Plan plan = planRepository.findById(planId)
+                .orElseThrow(() -> new EntityNotFoundException("Plan not found"));
+
+        plan.setTaskTitle(planRequestDto.getTitle());
+        plan.setTaskContent(planRequestDto.getContent());
+        plan.setTaskStartTime(planRequestDto.getStart());
+        plan.setTaskEndTime(planRequestDto.getEnd());
+        plan.setTaskImportant(planRequestDto.getImportant());
+        plan.setTaskType(planRequestDto.getType());
+        plan.setTaskIsFinish(planRequestDto.getIsFinish());
+
+        Plan updatedPlan = planRepository.save(plan);
+
+        PlanResponseDto planResponseDto = new PlanResponseDto();
+        planResponseDto.setId(updatedPlan.getId());
+        planResponseDto.setTitle(updatedPlan.getTaskTitle());
+        planResponseDto.setContent(updatedPlan.getTaskContent());
+        planResponseDto.setStart(updatedPlan.getTaskStartTime());
+        planResponseDto.setEnd(updatedPlan.getTaskEndTime());
+        planResponseDto.setImportant(updatedPlan.getTaskImportant());
+        planResponseDto.setType(updatedPlan.getTaskType());
+        planResponseDto.setIsFinish(updatedPlan.getTaskIsFinish());
+
+        return planResponseDto;
     }
 }
