@@ -16,17 +16,17 @@ const Explorer = () => {
       {/* Explorer 컴포넌트의 너비를 비례적으로 조정 */}
       <div
         className={`relative ${
-          isMobile ? "w-[70px]" : "w-1/12 min-w-[80px] "
+          isMobile ? "w-[42px]" : "w-12 min-w-[48px]"
         } max-w-[110px]`}
       >
         <div
-          className={`bg-gray-800 text-white h-full p-4 min-h-[500px]  ${
+          className={`bg-mainBlue text-mainTxt h-full min-h-[500px]  ${
             animate ? "animate-slideIn" : ""
           }}`}
         >
           <h1
             className={`text-2xl ${animate ? "animate-dropIn" : ""}`}
-            style={{ fontSize: "1.25rem" }}
+            style={{ fontSize: "1rem" }}
           >
             홈
           </h1>
