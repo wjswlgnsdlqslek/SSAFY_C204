@@ -104,19 +104,19 @@ const CarouselComponent = () => {
       swipeable
     >
       {carouselItems.map((item, index) => (
-        <div key={index} className="card bg-transparent w-96 mx-auto">
-          <figure className="relative">
-            <img src={item.image} alt={item.title} />
-            <button
-              className="btn bg-transparent border border-white absolute bottom-4 left-1/2 transform -translate-x-1/2 text-white"
-              onClick={() => openInNewTab(item.url)}
-            >
-              이동하기
-            </button>
-          </figure>
+        <div key={index} className=" bg-transparent w-96 mx-auto">
           <div className="card-body items-center p-4 bg-transparent">
             <h2 className="card-title text-mainTxt font-bold">{item.title}</h2>
           </div>
+          <figure className="relative">
+            <img className="rounded-xl" src={item.image} alt={item.title} />
+            <button
+              className="btn backdrop-blur-lg bg-transparent border border-white absolute bottom-4 left-1/2 transform -translate-x-1/2 text-white"
+              onClick={() => openInNewTab(item.url)}
+            >
+              <span className="[text-shadow:#000_1px_0_10px]">이동하기</span>
+            </button>
+          </figure>
         </div>
       ))}
     </Carousel>
