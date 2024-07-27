@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import useDeviceStore from "../../store/deviceStore";
+import { NavLink } from "react-router-dom";
 
 const Explorer = () => {
   const isMobile = useDeviceStore((state) => state.isMobile);
@@ -24,18 +25,30 @@ const Explorer = () => {
             animate ? "animate-slideIn" : ""
           }}`}
         >
-          <h1
-            className={`text-2xl ${animate ? "animate-dropIn" : ""}`}
-            style={{ fontSize: "1rem" }}
-          >
-            홈
-          </h1>
-          <h2
-            className={`text-xl mt-4 ${animate ? "animate-dropIn" : ""}`}
-            style={{ fontSize: "1rem" }}
-          >
-            채널
-          </h2>
+          <NavLink to="/">
+            <h1
+              className={`text-2xl ${animate ? "animate-dropIn" : ""}`}
+              style={{ fontSize: "1rem" }}
+            >
+              홈
+            </h1>
+          </NavLink>
+          <NavLink to="/channel">
+            <h2
+              className={`text-xl mt-4 ${animate ? "animate-dropIn" : ""}`}
+              style={{ fontSize: "1rem" }}
+            >
+              채널
+            </h2>
+          </NavLink>
+          <NavLink to="/dashboard">
+            <h2
+              className={`text-xl mt-4 ${animate ? "animate-dropIn" : ""}`}
+              style={{ fontSize: "1rem" }}
+            >
+              대시보드
+            </h2>
+          </NavLink>
         </div>
       </div>
     </>
