@@ -1,12 +1,12 @@
 package com.worq.worcation.domain.user.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.worq.worcation.domain.worcation.domain.Worcation;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -21,6 +21,9 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long id;
+
+    @OneToOne(mappedBy = "user")
+    private Worcation worcation;
 
     @Column(name = "user_email", nullable = false, unique = true)
     private String email;
