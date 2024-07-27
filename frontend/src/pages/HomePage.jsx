@@ -63,7 +63,7 @@ function HomePage() {
           height: "95vh",
         }}
       >
-        <h1 className="text-4xl font-bold text-white transform -translate-y-72">
+        <h1 className="text-4xl font-bold text-white transform -translate-y-64">
           워케이션이란?
         </h1>
         <div className="absolute bottom-0 right-0 text-right p-4">
