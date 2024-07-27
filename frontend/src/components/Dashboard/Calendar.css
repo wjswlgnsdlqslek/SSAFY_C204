@@ -120,6 +120,8 @@ NOTE: for old browsers, will need to restart watcher after changing a variable
 
   .fc-scroller-harness,
   .fc-scroller-harness-liquid {
+    overflow-y: auto !important; /* 수직 스크롤을 활성화 */
+    -webkit-overflow-scrolling: touch; /* iOS에서 부드러운 스크롤을 지원 */
     max-height: 300px;
   }
 }
