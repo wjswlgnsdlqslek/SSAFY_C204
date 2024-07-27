@@ -1,30 +1,58 @@
-// src/main/java/com/worq/worcation/domain/worcation/domain/Worcation.java
-package com.worq.worcation.domain.worcation.domain;
+    // src/main/java/com/worq/worcation/domain/worcation/domain/Worcation.java
+    package com.worq.worcation.domain.worcation.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.Getter;
-import lombok.Setter;
+    import com.worq.worcation.domain.user.domain.User;
+    import com.worq.worcation.domain.worcation.dto.WorcationRequestDto;
+    import jakarta.persistence.*;
+    import lombok.Builder;
+    import lombok.Data;
+    import lombok.Getter;
 
-import java.util.Date;
+    import java.util.Date;
 
-@Setter
-@Getter
-@Entity
-public class Worcation {
+    @Entity
+    @Data
+    @Builder
+    @Getter
+    public class Worcation {
 
-    // Getters and Setters
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private Long userId;
-    private Date start;
-    private Date end;
-    private String sido;
-    private String gugun;
-    private String job;
-    private String type;
+        // Getters and Setters
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private Long id;
 
-}
+        @OneToOne
+        @JoinColumn(name = "user_id")
+        private User user;
+
+        private Date start;
+        private Date end;
+        private String sido;
+        private String gugun;
+        private String job;
+        private String type;
+
+        public Worcation() {
+        }
+
+        public void Update(WorcationRequestDto worcationRequestDto){
+            if (worcationRequestDto.getStart() != null) {
+                this.start = worcationRequestDto.getStart();
+            }
+            if (worcationRequestDto.getEnd() != null) {
+                this.end = worcationRequestDto.getEnd();
+            }
+            if (worcationRequestDto.getSido() != null) {
+                this.sido = worcationRequestDto.getSido();
+            }
+            if (worcationRequestDto.getGugun() != null) {
+                this.gugun = worcationRequestDto.getGugun();
+            }
+            if (worcationRequestDto.getJob() != null) {
+                this.job = worcationRequestDto.getJob();
+            }
+            if (worcationRequestDto.getType() != null) {
+                this.type = worcationRequestDto.getType();
+            }
+        }
+    }

@@ -15,13 +15,14 @@ public class WorcationServiceImpl implements WorcationService {
 
     @Override
     public WorcationResponseDto createWorcation(WorcationRequestDto worcationRequestDto) {
-        Worcation worcation = new Worcation();
-        worcation.setStart(worcationRequestDto.getStart());
-        worcation.setEnd(worcationRequestDto.getEnd());
-        worcation.setSido(worcationRequestDto.getSido());
-        worcation.setGugun(worcationRequestDto.getGugun());
-        worcation.setJob(worcationRequestDto.getJob());
-        worcation.setType(worcationRequestDto.getType());
+        Worcation worcation = Worcation.builder()
+                .start(worcationRequestDto.getStart())
+                .end(worcationRequestDto.getEnd())
+                .sido(worcationRequestDto.getSido())
+                .gugun(worcationRequestDto.getGugun())
+                .job(worcationRequestDto.getJob())
+                .type(worcationRequestDto.getType())
+                .build();
 
         Worcation savedWorcation = worcationRepository.save(worcation);
         return new WorcationResponseDto(savedWorcation);
@@ -32,24 +33,7 @@ public class WorcationServiceImpl implements WorcationService {
         Worcation worcation = worcationRepository.findById(worcationId)
                 .orElseThrow(() -> new RuntimeException("Worcation not found"));
 
-        if (worcationRequestDto.getStart() != null) {
-            worcation.setStart(worcationRequestDto.getStart());
-        }
-        if (worcationRequestDto.getEnd() != null) {
-            worcation.setEnd(worcationRequestDto.getEnd());
-        }
-        if (worcationRequestDto.getSido() != null) {
-            worcation.setSido(worcationRequestDto.getSido());
-        }
-        if (worcationRequestDto.getGugun() != null) {
-            worcation.setGugun(worcationRequestDto.getGugun());
-        }
-        if (worcationRequestDto.getJob() != null) {
-            worcation.setJob(worcationRequestDto.getJob());
-        }
-        if (worcationRequestDto.getType() != null) {
-            worcation.setType(worcationRequestDto.getType());
-        }
+        worcation.Update(worcationRequestDto);
 
         Worcation updatedWorcation = worcationRepository.save(worcation);
         return new WorcationResponseDto(updatedWorcation);

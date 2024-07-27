@@ -2,9 +2,15 @@
 package com.worq.worcation.domain.worcation.dto;
 
 import com.worq.worcation.domain.worcation.domain.Worcation;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Date;
 
+@Getter
+@Setter
+@Builder
 public class WorcationResponseDto {
     private Long id;
     private Long userId;
@@ -17,7 +23,7 @@ public class WorcationResponseDto {
 
     public WorcationResponseDto(Worcation worcation) {
         this.id = worcation.getId();
-        this.userId = worcation.getUserId();
+        this.userId = (worcation.getUser() != null) ? worcation.getUser().getId() : null;
         this.start = worcation.getStart();
         this.end = worcation.getEnd();
         this.sido = worcation.getSido();
@@ -26,68 +32,5 @@ public class WorcationResponseDto {
         this.type = worcation.getType();
     }
 
-    // Getters and Setters
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public Date getStart() {
-        return start;
-    }
-
-    public void setStart(Date start) {
-        this.start = start;
-    }
-
-    public Date getEnd() {
-        return end;
-    }
-
-    public void setEnd(Date end) {
-        this.end = end;
-    }
-
-    public String getSido() {
-        return sido;
-    }
-
-    public void setSido(String sido) {
-        this.sido = sido;
-    }
-
-    public String getGugun() {
-        return gugun;
-    }
-
-    public void setGugun(String gugun) {
-        this.gugun = gugun;
-    }
-
-    public String getJob() {
-        return job;
-    }
-
-    public void setJob(String job) {
-        this.job = job;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
 }
