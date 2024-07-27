@@ -48,4 +48,9 @@ public class Plan {
     @Column(name = "task_title", nullable = false, length = 100)
     private String taskTitle;
 
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "task_dashboard_id", nullable = false)
+    private Dashboard dashboard;
+
 }
