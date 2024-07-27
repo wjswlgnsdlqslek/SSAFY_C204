@@ -8,7 +8,10 @@ function Navbar({ children }) {
   const [hiddenNav, setHiddenNav] = useState(false);
   const location = useLocation();
   useEffect(() => {
-    if (location.pathname === "/dashboard") {
+    if (
+      location.pathname === "/dashboard" ||
+      location.pathname === "/channel"
+    ) {
       setHiddenNav(true);
     } else {
       setHiddenNav(false);
