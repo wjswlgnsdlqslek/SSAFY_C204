@@ -1,5 +1,6 @@
 package com.worq.worcation.domain.user.controller;
 
+import com.worq.worcation.common.response.ApiResponse;
 import com.worq.worcation.domain.user.dto.request.SignUpRequestDto;
 import com.worq.worcation.domain.user.dto.response.SignUpResponseDto;
 import com.worq.worcation.domain.user.service.UserService;
@@ -19,8 +20,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/signup")
-    public ResponseEntity<SignUpResponseDto> signup(@RequestBody SignUpRequestDto requestDto) {
-        log.info("in");
+    public ResponseEntity<ApiResponse<SignUpResponseDto>> signup(@RequestBody SignUpRequestDto requestDto) {
         return userService.signUp(requestDto);
     }
 }

@@ -1,6 +1,7 @@
 package com.worq.worcation.domain.user.service;
 
-import com.sun.jdi.request.DuplicateRequestException;
+import com.worq.worcation.common.response.ApiResponse;
+import com.worq.worcation.common.response.ErrorCode;
 import com.worq.worcation.domain.user.domain.User;
 import com.worq.worcation.domain.user.dto.request.SignUpRequestDto;
 import com.worq.worcation.domain.user.dto.response.SignUpResponseDto;
@@ -8,6 +9,7 @@ import com.worq.worcation.domain.user.repository.UserRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,13 +20,27 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserServiceImpl implements UserService{
     private final UserRepository userRepository;
 
+
+    /**
+     * 유저 회원 가입
+     * @param requestDto
+     * @return ResponseEntity
+     */
     @Override
     @Transactional
-    public ResponseEntity<SignUpResponseDto> signUp(@Valid final SignUpRequestDto requestDto) {
-        log.info("in");
-        emailValidate(requestDto.getEmail());
-        phoneNumberValidate(requestDto.getPhone());
-        nickNameValidate(requestDto.getNickName());
+    public ResponseEntity<ApiResponse<SignUpResponseDto>> signUp(@Valid final SignUpRequestDto requestDto) {
+        if(emailValidate(requestDto.getEmail())) {
+            return ResponseEntity.status(ErrorCode.DUPLICATE_EMAIL.getStatus())
+                                .body(ApiResponse.error(ErrorCode.DUPLICATE_EMAIL));
+        }
+        if(phoneNumberValidate(requestDto.getPhone())) {
+            return ResponseEntity.status(ErrorCode.DUPLICATE_PHONE_NUMBER.getStatus())
+                    .body(ApiResponse.error(ErrorCode.DUPLICATE_PHONE_NUMBER));
+        }
+        if(nickNameValidate(requestDto.getNickName())) {
+            return ResponseEntity.status(ErrorCode.DUPLICATE_NICKNAME.getStatus())
+                    .body(ApiResponse.error(ErrorCode.DUPLICATE_NICKNAME));
+        }
 
         User user = userRepository.save(User.builder()
                     .email(requestDto.getEmail())
@@ -35,28 +51,33 @@ public class UserServiceImpl implements UserService{
                     .gugun(requestDto.getGugun())
                     .build());
 
-        return ResponseEntity.ok(SignUpResponseDto.builder()
-                        .id(user.getId())
-                        .email(user.getEmail())
-                        .phone(user.getPhone())
-                        .nickName(user.getNickName())
-                        .sido(user.getSido())
-                        .gugun(user.getGugun())
-                        .build());
+        return ResponseEntity.status(HttpStatus.OK)
+                        .body(ApiResponse.success(SignUpResponseDto.builder()
+                                .id(user.getId())
+                                .email(user.getEmail())
+                                .phone(user.getPhone())
+                                .nickName(user.getNickName())
+                                .sido(user.getSido())
+                                .gugun(user.getGugun())
+                                .build()));
+
     }
-    private void emailValidate(String email) {
+    private boolean emailValidate(String email) {
         if(userRepository.findByEmail(email) != null) {
-            throw new DuplicateRequestException("이미 가입되어있는 이메일 입니다.");
+            return true;
         }
+        return false;
     }
-    private void phoneNumberValidate(String phone) {
+    private boolean phoneNumberValidate(String phone) {
         if(userRepository.findByPhone(phone) != null) {
-            throw new DuplicateRequestException("이미 가입되어있는 전화번호 입니다.");
+            return true;
         }
+        return false;
     }
-    private void nickNameValidate(String nickName) {
+    private boolean nickNameValidate(String nickName) {
         if(userRepository.findByNickName(nickName) != null) {
-            throw new DuplicateRequestException("이미 가입되어있는 닉네임 입니다.");
+            return true;
         }
+        return false;
     }
 }
