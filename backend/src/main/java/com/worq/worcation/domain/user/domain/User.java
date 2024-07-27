@@ -1,5 +1,6 @@
 package com.worq.worcation.domain.user.domain;
 
+import com.worq.worcation.domain.worcation.domain.Worcation;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -13,6 +14,9 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long id;
+
+    @OneToOne(mappedBy = "user")
+    private Worcation worcation;
 
     @Column(name = "user_email", nullable = false, unique = true)
     private String email;
