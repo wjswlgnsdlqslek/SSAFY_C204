@@ -79,14 +79,14 @@ const CarouselComponent = () => {
       arrows
       autoPlay
       autoPlaySpeed={4500}
-      centerMode={false}
+      centerMode={true}
       className=""
       containerClass="container-with-dots"
       dotListClass=""
       draggable
       focusOnSelect={false}
       infinite
-      itemClass=""
+      itemClass="flex justify-center items-center"
       keyBoardControl
       minimumTouchDrag={80}
       pauseOnHover
@@ -104,17 +104,28 @@ const CarouselComponent = () => {
       swipeable
     >
       {carouselItems.map((item, index) => (
-        <div key={index} className=" bg-transparent w-96 mx-auto">
+        <div
+          key={index}
+          className="bg-transparent w-full px-2 flex flex-col items-center"
+        >
           <div className="card-body items-center p-4 bg-transparent">
-            <h2 className="card-title text-mainTxt font-bold">{item.title}</h2>
+            <h2 className="card-title text-mainTxt font-bold text-base sm:text-lg">
+              {item.title}
+            </h2>
           </div>
           <figure className="relative">
-            <img className="rounded-xl" src={item.image} alt={item.title} />
+            <img
+              className="rounded-xl w-full h-auto"
+              src={item.image}
+              alt={item.title}
+            />
             <button
-              className="btn backdrop-blur-lg bg-transparent border border-white absolute bottom-4 left-1/2 transform -translate-x-1/2 text-white"
+              className="btn btn-sm sm:btn-md backdrop-blur-lg bg-transparent border border-white absolute bottom-2 sm:bottom-4 left-1/2 transform -translate-x-1/2 text-white"
               onClick={() => openInNewTab(item.url)}
             >
-              <span className="[text-shadow:#000_1px_0_10px]">이동하기</span>
+              <span className="[text-shadow:#000_1px_0_10px] text-xs sm:text-sm">
+                이동하기
+              </span>
             </button>
           </figure>
         </div>
