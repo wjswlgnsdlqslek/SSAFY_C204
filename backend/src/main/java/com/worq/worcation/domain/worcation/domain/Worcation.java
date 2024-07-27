@@ -4,6 +4,7 @@
     import com.worq.worcation.domain.user.domain.User;
     import com.worq.worcation.domain.worcation.dto.WorcationRequestDto;
     import jakarta.persistence.*;
+    import lombok.AllArgsConstructor;
     import lombok.Builder;
     import lombok.Data;
     import lombok.Getter;
@@ -14,6 +15,7 @@
     @Data
     @Builder
     @Getter
+    @AllArgsConstructor
     public class Worcation {
 
         // Getters and Setters
