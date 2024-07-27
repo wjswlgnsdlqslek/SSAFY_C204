@@ -1,15 +1,14 @@
 package com.worq.worcation.domain.user.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.worq.worcation.domain.worcation.domain.Worcation;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Getter
@@ -40,8 +39,8 @@ public class User implements UserDetails {
     @Column(name = "user_favorite_sido", nullable = false)
     private String sido;
 
-    @Column(name = "user_favorite_sigungu", nullable = false)
-    private String sigungu;
+    @Column(name = "user_favorite_gugun", nullable = false)
+    private String gugun;
 
     @Column(name = "user_photo")
     private String profileImg;
@@ -49,15 +48,14 @@ public class User implements UserDetails {
     @Column(name = "user_report_count")
     private Long report;
 
-    @Enumerated(EnumType.STRING)
-    @JsonIgnore
-    private Role role;
+    @ElementCollection
+    private List<String> roles;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        Collection<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(this.role.toString()));
-        return authorities;
+        return this.roles.stream()
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
     }
     @Override
     public String getUsername() {
