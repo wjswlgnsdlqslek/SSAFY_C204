@@ -7,7 +7,10 @@ function Footer() {
   const location = useLocation();
 
   useEffect(() => {
-    if (location.pathname === "/dashboard") {
+    if (
+      location.pathname === "/dashboard" ||
+      location.pathname === "/channel"
+    ) {
       setHiddenFooter(true);
     } else {
       setHiddenFooter(false);

@@ -5,6 +5,7 @@ function ChannelPage() {
   const myChannelRef = useRef(null);
   const meetingChannelsRef = useRef(null);
   const infoChannelsRef = useRef(null);
+  /* CSS 파일 */
 
   const handleMouseEvents = (ref) => {
     let isDown = false;
@@ -27,7 +28,7 @@ function ChannelPage() {
 
     const onMouseMove = (e) => {
       if (!isDown) return;
-      e.preventDefault();
+      // e.preventDefault();
       const y = e.pageY - ref.current.offsetTop;
       const walk = (y - startY) * 2;
       ref.current.scrollTop = scrollTop - walk;
@@ -69,7 +70,7 @@ function ChannelPage() {
 
     const onTouchMove = (e) => {
       if (!isDown) return;
-      e.preventDefault();
+      // e.preventDefault();
       const y = e.touches[0].pageY - ref.current.offsetTop;
       const walk = (y - startY) * 2;
       ref.current.scrollTop = scrollTop - walk;
@@ -107,9 +108,8 @@ function ChannelPage() {
       <Explorer />
 
       {/* 여기부터 채널 탐색기 */}
-      <div className="flex flex-col w-16  bg-white shadow-lg">
+      <div className="flex flex-col w-16 bg-white shadow-lg h-screen">
         {/* 내채널 */}
-
         <div ref={myChannelRef} className="flex-shrink-0 text-center">
           <div>
             <div className="divider mx-2" />
@@ -119,18 +119,42 @@ function ChannelPage() {
             <button className="w-10 h-10 mx-auto my-2 bg-gray-300 rounded-full"></button>
           </div>
         </div>
+
         {/* 모임채널 */}
-        <div ref={meetingChannelsRef} className="flex-1 scrollable text-center">
+        <div
+          ref={meetingChannelsRef}
+          className="flex-1       const walk = (y - startY) * 2;
+ overflow-y-auto text-center"
+        >
           <div className="divider mx-2" />
           <span>모임 채널</span>
           <div className="my-2">
+            {/* 많은 버튼들 */}
             <button className="w-10 h-10 mx-auto my-2 bg-gray-300 rounded-full"></button>
             <button className="w-10 h-10 mx-auto my-2 bg-gray-300 rounded-full"></button>
+            <button className="w-10 h-10 mx-auto my-2 bg-gray-300 rounded-full"></button>
+            <button className="w-10 h-10 mx-auto my-2 bg-gray-300 rounded-full"></button>
+            <button className="w-10 h-10 mx-auto my-2 bg-gray-300 rounded-full"></button>
+            <button className="w-10 h-10 mx-auto my-2 bg-gray-300 rounded-full"></button>
+            <button className="w-10 h-10 mx-auto my-2 bg-gray-300 rounded-full"></button>
+            <button className="w-10 h-10 mx-auto my-2 bg-gray-300 rounded-full"></button>
+            <button className="w-10 h-10 mx-auto my-2 bg-gray-300 rounded-full"></button>
+            <button className="w-10 h-10 mx-auto my-2 bg-gray-300 rounded-full"></button>
+            <button className="w-10 h-10 mx-auto my-2 bg-gray-300 rounded-full"></button>
+            <button className="w-10 h-10 mx-auto my-2 bg-gray-300 rounded-full"></button>
+            <button className="w-10 h-10 mx-auto my-2 bg-gray-300 rounded-full"></button>
+            <button className="w-10 h-10 mx-auto my-2 bg-gray-300 rounded-full"></button>
+            <button className="w-10 h-10 mx-auto my-2 bg-gray-300 rounded-full"></button>
+            {/* ... 추가 버튼들 */}
           </div>
         </div>
 
         {/* 정보채널 */}
-        <div ref={infoChannelsRef} className="flex-1 scrollable text-center">
+        <div
+          ref={infoChannelsRef}
+          className="flex-1       const walk = (y - startY) * 2;
+ overflow-y-auto text-center"
+        >
           <div className="divider mx-2" />
           <span>정보 채널</span>
           <div className="my-2">
