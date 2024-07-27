@@ -22,15 +22,3 @@ export const graphWORQBorderColor = [
   "rgba(255, 99, 132, 1)",
   "rgba(54, 162, 235, 1)",
 ];
-
-// 그래프의 우선순위 색상
-export const graphImportantBgColor = ["green", "yellow", "perple"];
-
-// 그래프의 우선순위 보더 색상
-export const grpahImportantBorderColor = ["gray", "red", "black"];
-
-// 그래프 스위치 버튼의 색상
-export const graphCategoryButtonColor = {
-  WORK: "bg-secondary hover:opacity-40",
-  important: "bg-primary hover:opacity-40",
-};

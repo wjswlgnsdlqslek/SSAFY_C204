@@ -8,6 +8,10 @@ import {
 
 const useTodoStore = create((set) => ({
   events: [],
+  filteredEvents: [],
+  setFilteredEvents: (evts) => {
+    set(() => ({ filteredEvents: evts }));
+  },
   fetchEvents: async () => {
     const events = await getTodoList();
     if (events) {

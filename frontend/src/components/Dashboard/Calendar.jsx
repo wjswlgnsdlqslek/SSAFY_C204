@@ -19,7 +19,7 @@ import ImportantRadio from "./Calendar/ImportantRadio";
 import Filters from "./Calendar/Filters";
 
 const Calendar = ({ calendarRef }) => {
-  const [filteredEvents, setFilteredEvents] = useState([]);
+  // const [filteredEvents, setFilteredEvents] = useState([]);
   // 타입별로 설정+ 필터링된 이벤트
   const [eventsTypeFilter, setEventsTypeFilter] = useState({
     type: "ALL",
@@ -41,8 +41,15 @@ const Calendar = ({ calendarRef }) => {
 
   const isMobile = useDeviceStore((state) => state.isMobile);
 
-  const { events, addEvent, fetchEvents, updateEvent, deleteEvent } =
-    useTodoStore();
+  const {
+    filteredEvents,
+    setFilteredEvents,
+    events,
+    addEvent,
+    fetchEvents,
+    updateEvent,
+    deleteEvent,
+  } = useTodoStore();
   // 최초 접속 시 이벤트목록 받아오기
   useEffect(() => {
     (async () => {

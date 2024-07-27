@@ -1,7 +1,7 @@
 import DashboardContent from "../components/Dashboard/DashboardContent";
 import Calendar from "../components/Dashboard/Calendar";
 import useDeviceStore from "../store/deviceStore";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import dayjs from "dayjs";
 import useTodoStore from "../store/todoStore";
 import Explorer from "../components/common/Explorer";
@@ -12,19 +12,7 @@ function DashboardPage() {
   const { events } = useTodoStore();
   const calendarRef = useRef(null);
 
-  useEffect(() => {
-    handleDatesSet();
-  }, [events]);
-
-  const handleChangeCalendarView = (viewType) => {
-    // let calendarApi = calendarRef.current?.getApi();
-    // let events = calendarApi.getEvents();
-    // console.log(events);
-    // calendarApi.changeView(viewType);
-    console.log(recentEvents);
-  };
-
-  const handleDatesSet = () => {
+  const handleDatesSet = useCallback(() => {
     let today = dayjs();
     let start = today.subtract(6, "day").startOf("day"); // 일주일 전
     let end = today.add(1, "day").startOf("day"); // 내일의 시작 시점
@@ -34,6 +22,18 @@ function DashboardPage() {
     });
 
     setRecentEvents(filteredEvents);
+  }, [events, setRecentEvents]);
+
+  useEffect(() => {
+    handleDatesSet();
+  }, [handleDatesSet]);
+
+  const handleChangeCalendarView = (viewType) => {
+    // let calendarApi = calendarRef.current?.getApi();
+    // let events = calendarApi.getEvents();
+    // console.log(events);
+    // calendarApi.changeView(viewType);
+    console.log(recentEvents);
   };
 
   return (

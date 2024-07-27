@@ -1,11 +1,6 @@
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
-import {
-  graphWORQBgColor,
-  graphWORQBorderColor,
-  graphImportantBgColor,
-  grpahImportantBorderColor,
-} from "../dataset";
+import { graphWORQBgColor, graphWORQBorderColor } from "../dataset";
 import useTodoStore from "../../../store/todoStore";
 import { useEffect, useState } from "react";
 import useCountNum from "./useCountUp";
@@ -44,30 +39,24 @@ const centerTextPlugin = {
 
 ChartJS.register(ArcElement, Tooltip, Legend, centerTextPlugin);
 
-function GraphView({ category }) {
-  const { events } = useTodoStore();
+function GraphView({}) {
+  const { filteredEvents } = useTodoStore();
   const [finishCnt, setFinishCnt] = useState(0);
-  const [importantCnt, setImportantCnt] = useState({ 상: 0, 중: 0, 하: 0 });
   const [percentage, setPercentage] = useState(0);
 
   useEffect(() => {
-    const completedCount = events?.filter((i) => i?.isFinish).length || 0;
-    setImportantCnt((state) => {
-      const cnts = { 상: 0, 중: 0, 하: 0 };
-      for (let item of events) {
-        cnts[item?.important] += 1;
-      }
-      return cnts;
-    });
+    const completedCount =
+      filteredEvents?.filter((i) => i?.isFinish).length || 0;
+
     setFinishCnt(completedCount);
-    setPercentage(Math.round((completedCount / events.length) * 100));
-  }, [events]);
+    setPercentage(Math.round((completedCount / filteredEvents.length) * 100));
+  }, [filteredEvents]);
 
   const finishData = {
     labels: ["미완료", "완료"],
     datasets: [
       {
-        data: [events.length - finishCnt, finishCnt],
+        data: [filteredEvents.length - finishCnt, finishCnt],
         backgroundColor: graphWORQBgColor,
         borderColor: graphWORQBorderColor,
         borderWidth: 1,
@@ -75,17 +64,6 @@ function GraphView({ category }) {
     ],
   };
 
-  const importantData = {
-    labels: ["상", "중", "하"],
-    datasets: [
-      {
-        data: [importantCnt["상"], importantCnt["중"], importantCnt["하"]],
-        backgroundColor: graphImportantBgColor,
-        borderColor: grpahImportantBorderColor,
-        borderWidth: 1,
-      },
-    ],
-  };
   const options = {
     cutout: "65%",
     // maintainAspectRatio: false,
@@ -93,14 +71,14 @@ function GraphView({ category }) {
     responsive: true,
     plugins: {
       legend: {
-        display: true,
+        display: false,
       },
       tooltip: {
         enabled: true,
       },
       centerTextPlugin: {
         percentage: useCountNum(percentage), // 플러그인에 상태값 전달
-        eventCnt: events?.length,
+        eventCnt: filteredEvents?.length,
       },
     },
   };
@@ -111,16 +89,13 @@ function GraphView({ category }) {
       style={{ minWidth: "200px", height: "70%", width: "70%" }}
     >
       <Doughnut
-        data={category === "important" ? importantData : finishData}
+        data={finishData}
         options={options}
         plugins={[centerTextPlugin]} // 플러그인을 이곳에 추가
         // height={"31rem"}
       />
-      {`상 : ${importantCnt.상} 개`} <br />
-      {`중 : ${importantCnt.중} 개`} <br />
-      {`하 : ${importantCnt.하} 개`} <br />
       {`완료 : ${finishCnt} 개`} <br />
-      {`미완료 : ${events.length - finishCnt} 개`} <br />
+      {`미완료 : ${filteredEvents.length - finishCnt} 개`} <br />
       <br />
     </div>
   );
