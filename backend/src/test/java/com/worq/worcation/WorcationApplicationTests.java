@@ -1,4 +1,4 @@
-package com.ssafy.worcation;
+package com.worq.worcation;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
