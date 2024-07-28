@@ -52,7 +52,7 @@ server:
 
 ---
 
-# Common settings for all environments
+# Common settings for all environments/
 spring:
   config:
     activate:
