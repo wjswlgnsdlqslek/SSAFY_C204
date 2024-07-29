@@ -2,6 +2,7 @@ package com.worq.worcation.domain.user.service;
 import com.worq.worcation.common.jwt.TokenProvider;
 import com.worq.worcation.common.response.ApiResponse;
 import com.worq.worcation.common.response.ErrorCode;
+import com.worq.worcation.common.util.RedisUtil;
 import com.worq.worcation.domain.user.domain.User;
 import com.worq.worcation.domain.user.dto.request.LoginRequestDto;
 import com.worq.worcation.domain.user.dto.request.SignUpRequestDto;
@@ -12,6 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -31,6 +33,7 @@ public class UserServiceImpl implements UserService{
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final AuthenticationManagerBuilder managerBuilder;
     private final TokenProvider tokenProvider;
+    private final RedisUtil redisUtil;
     /**
      * 유저 회원 가입
      * @param requestDto
@@ -52,10 +55,12 @@ public class UserServiceImpl implements UserService{
                     .body(ApiResponse.error(ErrorCode.DUPLICATE_NICKNAME));
         }
 
+        String encodedPassword = bCryptPasswordEncoder.encode(requestDto.getPassword());
+
         User user = userRepository.save(User.builder()
                     .email(requestDto.getEmail())
                     .phone(requestDto.getPhone())
-                    .password(requestDto.getPassword())
+                    .password(encodedPassword)
                     .nickName(requestDto.getNickName())
                     .sido(requestDto.getSido())
                     .gugun(requestDto.getGugun())
@@ -93,8 +98,8 @@ public class UserServiceImpl implements UserService{
         TokenDto tokenDto = tokenProvider.generateToken(authentication);
         response.setHeader("Authorization",tokenDto.accessToken());
         response.setHeader("refreshToken",tokenDto.refreshToken());
-
-        // TODO : Redis 추가 예정
+        
+        redisUtil.setData(requestDto.getEmail(), tokenDto.refreshToken(),tokenDto.refreshTokenExpiresIn());
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(ApiResponse.success(tokenDto));
