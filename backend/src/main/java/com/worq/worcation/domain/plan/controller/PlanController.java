@@ -17,12 +17,12 @@ import java.util.List;
 @RequestMapping("/plan")
 public class PlanController {
     @Autowired
-    private PlanService PlanService;
+    private PlanService planService;
 
     @PostMapping("/create")
     public ResponseEntity<?> createPlan(@RequestBody PlanRequestDto planRequestDto){
         try {
-            PlanResponseDto response = PlanService.createPlan(planRequestDto);
+            PlanResponseDto response = planService.createPlan(planRequestDto);
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             return  ResponseEntity.status(500).body("일시적인 오류가 발생했습니다");
@@ -31,7 +31,7 @@ public class PlanController {
     @DeleteMapping("/delete/{planId}")
     public ResponseEntity<?> deletePlan(@RequestParam Long planId){
         try {
-            PlanService.deletePlan(planId);
+            planService.deletePlan(planId);
             return ResponseEntity.ok("Success");
         } catch (Exception e) {
             return  ResponseEntity.status(500).body("일시적인 오류가 발생했습니다");
@@ -40,7 +40,7 @@ public class PlanController {
     @GetMapping("/view")
     public ResponseEntity<?> viewPlan(@RequestBody PlanRequestDto planRequestDto){
         try {
-            List<PlanResponseDto> response = PlanService.viewPlan(planRequestDto);
+            List<PlanResponseDto> response = planService.viewPlan(planRequestDto);
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             return  ResponseEntity.status(500).body("일시적인 오류가 발생했습니다");
@@ -49,7 +49,7 @@ public class PlanController {
     @PatchMapping("/update/{planId}")
     public ResponseEntity<?> updatePlan(@RequestBody PlanRequestDto planRequestDto,@RequestParam Long planId){
         try {
-            PlanResponseDto response = PlanService.updatePlan(planRequestDto,planId);
+            PlanResponseDto response = planService.updatePlan(planRequestDto,planId);
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             return  ResponseEntity.status(500).body("일시적인 오류가 발생했습니다");

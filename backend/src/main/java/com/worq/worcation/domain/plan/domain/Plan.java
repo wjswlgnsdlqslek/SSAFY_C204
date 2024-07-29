@@ -56,6 +56,4 @@ public class Plan {
     @JoinColumn(name = "task_dashboard_id", nullable = false)
     private Dashboard dashboard;
 
-    @Transient
-    private String TaskId;
 }
