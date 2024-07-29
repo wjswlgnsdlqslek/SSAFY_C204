@@ -13,6 +13,14 @@ RUN npm install
 # 소스 복사
 COPY . .
 
+# 환경변수 세팅
+
+ARG SEVER_DOMAIN
+ARG SERVER_PORT
+
+RUN echo "REACT_APP_SERVER_ADDRESS=${SERVER_DOMAIN}:${SERVER_PORT}" > .env
+
+
 # 애플리케이션 빌드
 RUN npm run build
 
