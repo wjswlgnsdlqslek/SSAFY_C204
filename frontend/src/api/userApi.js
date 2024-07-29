@@ -7,6 +7,16 @@ async function register(newUser, success, fail) {
     await local.post(`user/signup`, newUser).then(success).catch(fail);
 }
 
+async function login(user, success, fail) {
+    await local.post(`user/login`, user).then(success).catch(fail);
+}
+
+async function tokenRegeneration(user, success, fail) {
+    await local.post(`user/reissue`, user).then(success).catch(fail);
+}
+
 export {
-    register
+    register,
+    login,
+    tokenRegeneration
 };
