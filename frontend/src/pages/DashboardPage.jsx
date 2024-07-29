@@ -5,7 +5,6 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import dayjs from "dayjs";
 import useTodoStore from "../store/todoStore";
 import Explorer from "../components/common/Explorer";
-import MobileExplorer from "../components/common/MobileExplorer";
 
 function DashboardPage() {
   const [recentEvents, setRecentEvents] = useState([]);

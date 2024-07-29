@@ -8,8 +8,8 @@ function Footer() {
 
   useEffect(() => {
     if (
-      location.pathname === "/dashboard" ||
-      location.pathname === "/channel"
+      location.pathname.match("/dashboard") ||
+      location.pathname.match("/channel")
     ) {
       setHiddenFooter(true);
     } else {
