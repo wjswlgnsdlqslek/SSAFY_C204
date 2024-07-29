@@ -5,6 +5,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import dayjs from "dayjs";
 import useTodoStore from "../store/todoStore";
 import Explorer from "../components/common/Explorer";
+import MobileExplorer from "../components/common/MobileExplorer";
 
 function DashboardPage() {
   const [recentEvents, setRecentEvents] = useState([]);
@@ -37,13 +38,15 @@ function DashboardPage() {
   };
 
   return (
-    <div className="flex h-screen justify-between ">
+    <div className="flex h-screen justify-between">
       <Explorer />
+
       {!isMobile && (
         <div className="flex-grow w-1/5 min-h-[500px] mx-2 min-w-[200px]">
           <DashboardContent calendarChange={handleChangeCalendarView} />
         </div>
       )}
+
       <div
         className={`flex-grow ${
           isMobile ? "w-full" : "w-4/5"

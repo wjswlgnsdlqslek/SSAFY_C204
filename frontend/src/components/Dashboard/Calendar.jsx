@@ -17,6 +17,7 @@ import { validateEvent } from "../../util/func";
 import TypeRadio from "./Calendar/TypeRadio";
 import ImportantRadio from "./Calendar/ImportantRadio";
 import Filters from "./Calendar/Filters";
+import MobileExplorer from "../common/MobileExplorer";
 
 const Calendar = ({ calendarRef }) => {
   // const [filteredEvents, setFilteredEvents] = useState([]);
@@ -245,6 +246,7 @@ const Calendar = ({ calendarRef }) => {
     <div className="bg-white relative rounded-lg shadow-lg text-black h-full px-4 overflow-scroll   scroll">
       <div className="flex sticky top-0 bg-white z-10 my-2">
         <Filters filter={eventsTypeFilter} setFilter={setEventsTypeFilter} />
+        {isMobile && <MobileExplorer />}
 
         <button
           className="btn btn-outline btn-primary ml-auto"

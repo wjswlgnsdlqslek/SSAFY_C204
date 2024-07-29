@@ -11,6 +11,9 @@ const Explorer = () => {
     setAnimate(true);
   }, []);
 
+  if (isMobile) {
+    return null;
+  }
   // 대시보드, 채널에서 사용하는 navbar
   return (
     <>
