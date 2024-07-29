@@ -93,7 +93,7 @@ const Calendar = ({ calendarRef }) => {
     if (Array.isArray(filtered)) {
       setFilteredEvents(filtered);
     }
-  }, [events, eventsTypeFilter]);
+  }, [events, eventsTypeFilter, setFilteredEvents]);
 
   const handleDateSelect = (selectInfo) => {
     if (

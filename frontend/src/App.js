@@ -3,7 +3,9 @@ import HomePage from "./pages/HomePage";
 import NotFoundPage from "./pages/NotFoundPage";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import useAuthStore from "./store/authStore";
-import ChannelPage from "./pages/ChannelPage";
+import ChannelPageLayout from "./pages/ChannelPageLayout";
+import GroupChannelPage from "./pages/GroupChannelPage";
+import FeedChannelPage from "./pages/FeedChannelPage";
 import CreateWorkationPage from "./pages/CreateWorkation";
 import DashboardPage from "./pages/DashboardPage";
 import LoginPage from "./pages/LoginPage";
@@ -25,7 +27,11 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/createworkation" element={<CreateWorkationPage />} />
             <Route path="/dashboard" element={<DashboardPage />} />
-            <Route path="/channel" element={<ChannelPage />} />
+            <Route path="/channel" element={<ChannelPageLayout />}>
+              <Route path="group/:groupId" element={<GroupChannelPage />} />
+              <Route path="feed/" element={<FeedChannelPage />} />
+              <Route path="feed/:userId" element={<FeedChannelPage />} />
+            </Route>
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </main>

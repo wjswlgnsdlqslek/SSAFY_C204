@@ -3,14 +3,14 @@ import { Dialog, DialogPanel } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link, useLocation } from "react-router-dom";
 
-function Navbar({}) {
+function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [hiddenNav, setHiddenNav] = useState(false);
   const location = useLocation();
   useEffect(() => {
     if (
-      location.pathname === "/dashboard" ||
-      location.pathname === "/channel"
+      location.pathname.match("/dashboard") ||
+      location.pathname.match("/channel")
     ) {
       setHiddenNav(true);
     } else {

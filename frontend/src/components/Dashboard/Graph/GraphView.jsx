@@ -39,7 +39,7 @@ const centerTextPlugin = {
 
 ChartJS.register(ArcElement, Tooltip, Legend, centerTextPlugin);
 
-function GraphView({}) {
+function GraphView() {
   const { filteredEvents } = useTodoStore();
   const [finishCnt, setFinishCnt] = useState(0);
   const [percentage, setPercentage] = useState(0);
@@ -90,7 +90,17 @@ function GraphView({}) {
     >
       <Doughnut
         data={finishData}
-        options={options}
+        options={{
+          ...options,
+          layout: {
+            padding: {
+              // top: 20, // 필요한 경우 상단 여백 추가
+              bottom: 20, // 필요한 경우 하단 여백 추가
+              left: 10, // 필요한 경우 좌측 여백 추가
+              right: 10, // 필요한 경우 우측 여백 추가
+            },
+          },
+        }}
         plugins={[centerTextPlugin]} // 플러그인을 이곳에 추가
         // height={"31rem"}
       />
