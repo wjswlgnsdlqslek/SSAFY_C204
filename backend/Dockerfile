@@ -7,8 +7,7 @@ RUN apk add --no-cache tzdata && \
     echo "Asia/Seoul" > /etc/timezone
 
 # JAR 파일 경로 설정
-ARG JAR_FILE=target/*.jar
-
+ARG JAR_FILE=build/libs/ourClass-0.0.1-SNAPSHOT.jar
 # 빌드된 JAR 파일을 컨테이너로 복사
 COPY ${JAR_FILE} app.jar
 
