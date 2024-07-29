@@ -40,5 +40,5 @@ COPY --from=build-stage /app/build /usr/share/nginx/html
 EXPOSE 80
 EXPOSE 443
 
-# Nginx 실행 명령
+# Nginx 실행 명령 
 CMD ["nginx", "-g", "daemon off;"]
