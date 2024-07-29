@@ -8,6 +8,8 @@ import lombok.Getter;
 
 @Getter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class SignUpRequestDto {
     @NotBlank
     @Email
