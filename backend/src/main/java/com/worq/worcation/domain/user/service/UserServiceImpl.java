@@ -99,10 +99,19 @@ public class UserServiceImpl implements UserService{
         response.addHeader("Authorization",tokenDto.accessToken());
         response.addHeader("refreshToken",tokenDto.refreshToken());
 
+        redisUtil.setData(requestDto.getEmail(), tokenDto.refreshToken(),tokenDto.refreshTokenExpiresIn());
+
         return ResponseEntity.status(HttpStatus.OK)
                 .body(ApiResponse.success(tokenDto));
     }
 
+    @Override
+    public ResponseEntity<ApiResponse<String>> logout(final HttpServletRequest request) {
+        String token = request.getHeader("Authorization");
+        Authentication authentication = tokenProvider.getAuthentication(token);
+        redisUtil.deleteData(authentication.getName());
+        return ResponseEntity.ok(ApiResponse.success(token));
+    }
     private boolean emailValidate(String email) {
         Optional<User> user = userRepository.findByEmail(email);
         if(user.isPresent()) {
