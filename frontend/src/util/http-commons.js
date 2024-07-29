@@ -6,7 +6,6 @@ function localAxios() {
     });
     instance.defaults.headers.common["Authorization"] = "";
     instance.defaults.headers.common["Content-Type"] = "application/json";
-    instance.defaults.headers.common["Content-Type"] = "application/json";
     return instance;
 }
 
