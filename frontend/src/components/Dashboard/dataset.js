@@ -7,8 +7,8 @@ export const importantOptions = [
 
 // 필터의 타입 옵션
 export const typeOptions = [
-  { label: "WORK", value: "WORK", color: "rgb(243, 146, 55)" },
-  { label: "REST", value: "REST", color: "bg-blue-500" },
+  { label: "일정 및 업무", value: "WORK", color: "rgb(243, 146, 55)" },
+  { label: "여가 및 휴식", value: "REST", color: "bg-blue-500" },
 ];
 
 export const graphWORQBgColor = ["rgba(255, 143, 171, 0.2)"];
