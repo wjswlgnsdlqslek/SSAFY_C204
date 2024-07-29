@@ -17,9 +17,11 @@ const useUserStore = create(set => ({
                 console.log(response.status)
                 if (response.status === httpStatusCode.OK) {
                     console.log("로그인 성공");
-                    console.log(response.headers['authorization'])
+                    // console.log(response.data.data.accessToken)
                     let accessToken = response.headers['authorization'];
                     let refreshToken = response.headers['refreshtoken'];
+                    // let accessToken = response.data.data.accessToken
+                    // let refreshToken = response.data.data.refreshToken
                     console.log(accessToken);
                     // let { data } = response;
                     // let accessToken = data["accessToken"];
