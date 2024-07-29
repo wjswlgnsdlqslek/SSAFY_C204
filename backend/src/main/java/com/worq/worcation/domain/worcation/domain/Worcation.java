@@ -16,7 +16,6 @@
     @Builder
     @Getter
     @AllArgsConstructor
-
     public class Worcation {
 
         // Getters and Setters

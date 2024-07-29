@@ -8,8 +8,7 @@ import java.util.Date;
 
 @Getter
 @Setter
-@Builder
-@AllArgsConstructor
+@NoArgsConstructor
 public class WorcationResponseDto {
     private Long id;
     private Long userId;
@@ -19,6 +18,8 @@ public class WorcationResponseDto {
     private String gugun;
     private String job;
     private String type;
+
+    @Builder
     public WorcationResponseDto(Worcation worcation) {
         this.id = worcation.getId();
         this.userId = (worcation.getUser() != null) ? worcation.getUser().getId() : null;
