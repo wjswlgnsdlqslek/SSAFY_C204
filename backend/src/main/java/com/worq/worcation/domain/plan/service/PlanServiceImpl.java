@@ -70,18 +70,22 @@ public class PlanServiceImpl implements PlanService {
 
     @Override
     public PlanResponseDto updatePlan(PlanRequestDto planRequestDto, Long planId) {
-        Plan plan = planRepository.findById(planId)
+        Plan existingPlan = planRepository.findById(planId)
                 .orElseThrow(() -> new EntityNotFoundException("Plan not found"));
 
-        plan.setTaskTitle(planRequestDto.getTitle());
-        plan.setTaskContent(planRequestDto.getContent());
-        plan.setTaskStartTime(planRequestDto.getStart());
-        plan.setTaskEndTime(planRequestDto.getEnd());
-        plan.setTaskImportant(planRequestDto.getImportant());
-        plan.setTaskType(planRequestDto.getType());
-        plan.setTaskIsFinish(planRequestDto.getIsFinish());
+        Plan updatedPlan = Plan.builder()
+                .id(existingPlan.getId()) // 기존 ID 유지
+                .taskTitle(planRequestDto.getTitle())
+                .taskContent(planRequestDto.getContent())
+                .taskStartTime(planRequestDto.getStart())
+                .taskEndTime(planRequestDto.getEnd())
+                .taskImportant(planRequestDto.getImportant())
+                .taskType(planRequestDto.getType())
+                .taskIsFinish(planRequestDto.getIsFinish())
+                .dashboard(existingPlan.getDashboard()) // 기존 대시보드 정보 유지
+                .build();
 
-        Plan updatedPlan = planRepository.save(plan);
+        updatedPlan = planRepository.save(updatedPlan);
 
         return PlanResponseDto.builder()
                 .id(updatedPlan.getId())
