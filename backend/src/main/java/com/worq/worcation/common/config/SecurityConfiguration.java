@@ -3,6 +3,7 @@ package com.worq.worcation.common.config;
 
 import com.worq.worcation.common.jwt.AuthenticationFilter;
 import com.worq.worcation.common.jwt.TokenProvider;
+import com.worq.worcation.common.util.RedisUtil;
 import com.worq.worcation.domain.user.service.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -25,6 +26,7 @@ import java.util.Arrays;
 @Configuration
 public class SecurityConfiguration {
     private final TokenProvider tokenProvider;
+    private final RedisUtil redisUtil;
     String[] PERMIT_ALL_ARRAY = {
             "/","/user/signup", "/user/login", "/**"
     };
@@ -44,7 +46,7 @@ public class SecurityConfiguration {
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
-                .addFilterBefore(new AuthenticationFilter(tokenProvider), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new AuthenticationFilter(tokenProvider,redisUtil), UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 

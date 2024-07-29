@@ -107,10 +107,12 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public ResponseEntity<ApiResponse<String>> logout(final HttpServletRequest request) {
-        String token = request.getHeader("Authorization");
-        Authentication authentication = tokenProvider.getAuthentication(token);
-        redisUtil.deleteData(authentication.getName());
-        return ResponseEntity.ok(ApiResponse.success(token));
+        String token = request.getHeader("Authorization").substring(7); // 헤더에서 AccessToken 가져오기
+        Authentication authentication = tokenProvider.getAuthentication(token); // 토큰 인증 후 페이로드에서 유저 정보 추출
+        redisUtil.deleteData(authentication.getName()); // 해당 유저의 key 삭제
+        Long accessExpiration = tokenProvider.getAccessExpiration(token);// AccessToken의 남은 시간 가져오기
+        redisUtil.setData(token,"logout",accessExpiration); // 로그아웃을 하더라도 AccessToken의 시간이 남아있으면 인증이 가능하여 블랙리스트로 추가
+        return ResponseEntity.ok(ApiResponse.success("로그아웃 성공"));
     }
     private boolean emailValidate(String email) {
         Optional<User> user = userRepository.findByEmail(email);

@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 
 import java.security.Key;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.Collection;
 import java.util.Date;
 import java.util.stream.Collectors;
@@ -142,5 +143,22 @@ public class TokenProvider {
             log.info("JWT claims string is empty",e);
         }
         return false;
+    }
+
+    /**
+     * AccessToken 유효시간 가져오기 (로그아웃된 유저 블랙리스트 위함)
+     * @param accessToken
+     * @return
+     */
+    public Long getAccessExpiration(String accessToken) {
+        Date expiration = Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(accessToken)
+                .getBody()
+                .getExpiration();
+
+        Date now = new Date();
+        return expiration.getTime() - now.getTime();
     }
 }
