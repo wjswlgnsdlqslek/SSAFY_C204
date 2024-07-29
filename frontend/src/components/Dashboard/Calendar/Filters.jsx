@@ -23,15 +23,16 @@ function Filters({ filter, setFilter }) {
     <>
       <div className="collapse bg-base-200">
         <input type="checkbox" />
-        <div className="collapse-title text-xl font-medium">
-          Click me to show/hide content
+        <div className="collapse-title text-xl font-medium text-center">
+          필터 옵션
         </div>
         <div className="collapse-content">
           {/* collapse 시작 */}
-          <div className="flex flex-col">
-            <div>
+          <div className="grid grid-cols-2 gap-4">
+            <div className="border-solid border-2 bg-white border-black rounded-md px-3 py-1">
+              <h3 className="text-center">타입</h3>
               {tyOptions.map((opt) => (
-                <div key={opt.value} className="form-control ">
+                <div key={opt.value} className="form-control">
                   <label className="label cursor-pointer">
                     <span className="label-text">{opt.label}</span>
                     <input
@@ -45,9 +46,10 @@ function Filters({ filter, setFilter }) {
                 </div>
               ))}
             </div>
-            <div>
+            <div className="border-solid border-2 bg-white border-black rounded-md px-3 py-1">
+              <h3 className="text-center">우선순위</h3>
               {imOptions.map((opt) => (
-                <div key={opt.value} className="form-control ">
+                <div key={opt.value} className="form-control">
                   <label className="label cursor-pointer">
                     <span className="label-text">{opt.label}</span>
                     <input

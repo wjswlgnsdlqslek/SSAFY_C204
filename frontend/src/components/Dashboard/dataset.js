@@ -7,18 +7,11 @@ export const importantOptions = [
 
 // 필터의 타입 옵션
 export const typeOptions = [
-  { label: "WORK", value: "WORK", color: "bg-red-500" },
+  { label: "WORK", value: "WORK", color: "rgb(243, 146, 55)" },
   { label: "REST", value: "REST", color: "bg-blue-500" },
 ];
 
-// 그래프의 일정 색상
-export const graphWORQBgColor = [
-  "rgba(255, 99, 132, 0.2)",
-  "rgba(54, 162, 235, 0.2)",
-];
+export const graphWORQBgColor = ["rgba(255, 143, 171, 0.2)"];
 
 // 그래프의 일정 보더색상
-export const graphWORQBorderColor = [
-  "rgba(255, 99, 132, 1)",
-  "rgba(54, 162, 235, 1)",
-];
+export const graphWORQBorderColor = ["rgba(214, 50, 48, 1)"];

@@ -15,12 +15,12 @@ function TodoModal({
   return (
     <CustomModal isOpen={isOpen} onClose={onClose}>
       <div>
-        <div>{title}</div>
-        <div className="text-[#333] text-sm mb-4">{children}</div>
+        <div className="text-center mb-5">{title}</div>
+        <div className="text-mainTxt text-sm mb-4">{children}</div>
         <div className="flex gap-4 mt-4">
           {onClose && (
             <Button
-              className="inline-flex items-center gap-2 rounded-md bg-[#ff93ac] py-2 px-4 text-sm font-semibold text-white shadow-md shadow-[#ff93ac]/20 transition-colors duration-300 hover:bg-[#ff7b9d] focus:outline-none"
+              className="inline-flex items-center gap-2 rounded-md bg-mainBlue py-2 px-4 text-sm font-semibold text-white shadow-md shadow-[#ff93ac]/20 transition-colors duration-300 hover:bg-subBlue focus:outline-none"
               onClick={onClose}
             >
               {cancelText || "Cancel"}
@@ -28,7 +28,7 @@ function TodoModal({
           )}
           {onDelete && (
             <Button
-              className="inline-flex items-center gap-2 rounded-md bg-[#ff93ac] py-2 px-4 text-sm font-semibold text-white shadow-md shadow-[#ff93ac]/20 transition-colors duration-300 hover:bg-[#ff7b9d] focus:outline-none"
+              className="inline-flex items-center gap-2 rounded-md bg-mainBlue py-2 px-4 text-sm font-semibold text-white shadow-md shadow-[#ff93ac]/20 transition-colors duration-300 hover:bg-subBlue focus:outline-none"
               onClick={onDelete}
             >
               {deleteText || "Delete"}
@@ -36,7 +36,7 @@ function TodoModal({
           )}
           {onSubmit && (
             <Button
-              className="inline-flex items-center gap-2 rounded-md bg-[#ff93ac] py-2 px-4 text-sm font-semibold text-white shadow-md shadow-[#ff93ac]/20 transition-colors duration-300 hover:bg-[#ff7b9d] focus:outline-none"
+              className="inline-flex items-center gap-2 rounded-md bg-mainBlue py-2 px-4 text-sm font-semibold text-white shadow-md shadow-[#ff93ac]/20 transition-colors duration-300 hover:bg-subBlue focus:outline-none"
               onClick={onSubmit}
             >
               {submitText || "Submit"}

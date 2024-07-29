@@ -243,13 +243,13 @@ const Calendar = ({ calendarRef }) => {
     updateEvent(editedEvent);
   };
   return (
-    <div className="bg-white relative rounded-lg shadow-lg text-black h-full px-4 overflow-scroll   scroll">
+    <div className="bg-white relative rounded-lg shadow-lg text-black h-full px-4 overflow-scroll scroll">
       <div className="flex sticky top-0 bg-white z-10 my-2">
         <Filters filter={eventsTypeFilter} setFilter={setEventsTypeFilter} />
         {isMobile && <MobileExplorer />}
 
         <button
-          className="btn btn-outline btn-primary ml-auto"
+          className="btn ml-auto mt-2 bg-mainBlue hover:bg-subBlue text-white"
           onClick={openModal}
         >
           TodoCreate
@@ -271,9 +271,8 @@ const Calendar = ({ calendarRef }) => {
         ref={calendarRef}
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
         headerToolbar={{
-          left: "title",
           // center: isMobile ? "" : "title",
-          center: isMobile ? "prev,next" : "prev,today,next",
+          left: isMobile ? "prev,next" : "prev,today,next",
           right: isMobile
             ? "dayGridMonth,threeDays"
             : "dayGridMonth,timeGridWeek,threeDays,timeGridDay",
@@ -308,11 +307,14 @@ const Calendar = ({ calendarRef }) => {
         submitText={state.clickInfo ? "Update" : "Save"}
         deleteText="Delete"
       >
+        {/* 아래 수정 */}
         <Fieldset>
           <Field>
-            <Label htmlFor="title">Title</Label>
+            <Label htmlFor="title" className={"ms-14 me-3"}>
+              할 일 :
+            </Label>
             <Input
-              className="text-black"
+              className="text-mainTxt me-5"
               type="text"
               id="title"
               name="title"
@@ -328,9 +330,10 @@ const Calendar = ({ calendarRef }) => {
               onChange={(e) => setIsFinish(e.target.checked)}
             />
           </Field>
-
           <Field>
-            <Label htmlFor="content">Content</Label>
+            <Label htmlFor="content" className={"ms-14 me-3"}>
+              내 용 :
+            </Label>
             <Input
               defaultValue={content}
               className="text-black"
@@ -341,10 +344,9 @@ const Calendar = ({ calendarRef }) => {
               onChange={(e) => setContent(e.target.value)}
             />
           </Field>
-
           {/* 옵션 선택 */}
-          <Field>
-            <Label>Type:</Label>
+          <Field className={"ms-14 me-3 mt-7 mb-3"}>
+            {/* <Label>Type:</Label> */}
             <div style={{ zIndex: 1 }}>
               <div className="flex justify-between">
                 <TypeRadio selected={type} setSelected={setType} />
@@ -358,8 +360,11 @@ const Calendar = ({ calendarRef }) => {
           {/* 옵션 선택 끝 */}
           <Field>
             <div className="bg-slate-400">
-              <Label htmlFor="exampleEmail" className="text-black">
-                From - End
+              <Label
+                htmlFor="exampleEmail"
+                className="text-black justify-center"
+              >
+                시작 날짜(시간) - 마감 날짜(시간)
               </Label>
               <DateRangePicker timeSet={start} editTimeSet={setStart} />
               <DateRangePicker timeSet={end} editTimeSet={setEnd} />

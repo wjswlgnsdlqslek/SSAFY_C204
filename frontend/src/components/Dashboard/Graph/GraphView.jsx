@@ -1,6 +1,5 @@
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
-import { graphWORQBgColor, graphWORQBorderColor } from "../dataset";
 import useTodoStore from "../../../store/todoStore";
 import { useEffect, useState } from "react";
 import useCountNum from "./useCountUp";
@@ -12,7 +11,7 @@ const centerTextPlugin = {
     const { ctx, width, height } = chart;
     ctx.restore();
     const fontSize = (height / 114).toFixed(2);
-    console.log(fontSize);
+    // console.log(fontSize);
     ctx.font = `${fontSize}em sans-serif`;
     ctx.textBaseline = "middle";
 
@@ -28,7 +27,7 @@ const centerTextPlugin = {
     const centerY = chartArea.top + (chartArea.bottom - chartArea.top) / 2;
     const textY = centerY;
     const textX = Math.round((width - ctx.measureText(text).width) / 2);
-    ctx.shadowColor = "rgba(121,11,97, 0.7)";
+    ctx.shadowColor = "rgba(217, 217, 217, 0.7)";
     ctx.shadowBlur = 15;
     ctx.shadowOffsetX = 8;
     ctx.shadowOffsetY = 8;
@@ -57,15 +56,15 @@ function GraphView({}) {
     datasets: [
       {
         data: [filteredEvents.length - finishCnt, finishCnt],
-        backgroundColor: graphWORQBgColor,
-        borderColor: graphWORQBorderColor,
-        borderWidth: 1,
+        backgroundColor: ["rgb(255, 255, 255)", "rgb(28, 119, 195)"],
+        borderColor: ["rgb(255, 255, 255)", "rgb(28, 119, 195)"],
+        borderWidth: 0.5,
       },
     ],
   };
 
   const options = {
-    cutout: "65%",
+    cutout: "67%",
     // maintainAspectRatio: false,
 
     responsive: true,
@@ -86,17 +85,32 @@ function GraphView({}) {
   return (
     <div
       className="relative"
-      style={{ minWidth: "200px", height: "70%", width: "70%" }}
+      style={{
+        maxWidth: "200px",
+        height: "100%",
+        width: "100%",
+      }}
     >
       <Doughnut
         data={finishData}
-        options={options}
+        options={{
+          ...options,
+          layout: {
+            padding: {
+              // top: 20, // 필요한 경우 상단 여백 추가
+              bottom: 20, // 필요한 경우 하단 여백 추가
+              left: 10, // 필요한 경우 좌측 여백 추가
+              right: 10, // 필요한 경우 우측 여백 추가
+            },
+          },
+        }}
         plugins={[centerTextPlugin]} // 플러그인을 이곳에 추가
         // height={"31rem"}
       />
-      {`완료 : ${finishCnt} 개`} <br />
-      {`미완료 : ${filteredEvents.length - finishCnt} 개`} <br />
-      <br />
+      <div className="mt-3">
+        {`완료 : ${finishCnt} 개`} <br />
+        {`미완료 : ${filteredEvents.length - finishCnt} 개`} <br />
+      </div>
     </div>
   );
 }

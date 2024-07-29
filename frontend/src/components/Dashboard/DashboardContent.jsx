@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import GraphView from "./Graph/GraphView";
-import { graphCategoryButtonColor } from "./dataset";
 
 const DashboardContent = ({ calendarChange }) => {
   const [category, setCategory] = useState("WORQ"); // 카테고리 WORQ, important
@@ -21,8 +20,22 @@ const DashboardContent = ({ calendarChange }) => {
           <p>여기다가 내 워케이션 정보 카드 보여주면 될 듯 ㅇㅇ</p>
         </div>
 
-        <div className="w-full flex flex-col items-center  shadow-md rounded-lg py-2 m-1">
+        <div className="w-full flex flex-col items-center shadow-md rounded-lg py-5 me-3 ms-1 my-3">
           <GraphView category={category} />
+        </div>
+        <div className="w-full flex flex-col items-center shadow-md rounded-lg py-5 me-3 ms-1 my-3 max-h-min min-h-max">
+          <p>AI 출력 부분</p>
+          <p>AI 출력 부분</p>
+          <p>AI 출력 부분</p>
+          <p>AI 출력 부분</p>
+          <p>AI 출력 부분</p>
+          <p>AI 출력 부분</p>
+          <p>AI 출력 부분</p>
+          <p>AI 출력 부분</p>
+          <p>AI 출력 부분</p>
+          <p>AI 출력 부분</p>
+          <p>AI 출력 부분</p>
+          <p>AI 출력 부분</p>
         </div>
       </div>
     </>
