@@ -2,15 +2,14 @@
 package com.worq.worcation.domain.worcation.dto;
 
 import com.worq.worcation.domain.worcation.domain.Worcation;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Date;
 
 @Getter
 @Setter
 @Builder
+@AllArgsConstructor
 public class WorcationResponseDto {
     private Long id;
     private Long userId;
@@ -20,7 +19,6 @@ public class WorcationResponseDto {
     private String gugun;
     private String job;
     private String type;
-
     public WorcationResponseDto(Worcation worcation) {
         this.id = worcation.getId();
         this.userId = (worcation.getUser() != null) ? worcation.getUser().getId() : null;

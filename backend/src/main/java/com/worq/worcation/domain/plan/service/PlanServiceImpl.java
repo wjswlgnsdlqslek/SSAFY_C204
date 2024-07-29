@@ -8,7 +8,6 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,56 +17,56 @@ public class PlanServiceImpl implements PlanService {
     @Autowired
     private PlanRepository planRepository;
 
+    public List<Plan> getPlansByDashboardid(Long dashboardId) {
+        return planRepository.findByDashboard_id(dashboardId);
+    }
 
     @Override
     public PlanResponseDto createPlan(PlanRequestDto planRequestDto) {
-        Plan plan = new Plan();
+        Plan plan = Plan.builder()
+                .taskTitle(planRequestDto.getTitle())
+                .taskContent(planRequestDto.getContent())
+                .taskStartTime(planRequestDto.getStart())
+                .taskEndTime(planRequestDto.getEnd())
+                .taskImportant(planRequestDto.getImportant())
+                .taskType(planRequestDto.getType())
+                .build();
 
-        plan.setId(123123L); // 임시 ID 설정
-        plan.setTaskTitle(planRequestDto.getTitle()); // 제목 설정
-        plan.setTaskContent(planRequestDto.getContent()); // 내용 설정
-        plan.setTaskStartTime(planRequestDto.getStart()); // 시작 시간 설정
-        plan.setTaskEndTime(planRequestDto.getEnd()); // 종료 시간 설정
-        plan.setTaskImportant(planRequestDto.getImportant()); // 중요 여부 설정
-        plan.setTaskType(planRequestDto.getType()); // 유형 설정
+        Plan savedPlan = planRepository.save(plan);
 
-        planRepository.save(plan);
-
-        PlanResponseDto planResponseDto = new PlanResponseDto();
-        planResponseDto.setId(123123L);
-        planResponseDto.setTitle(plan.getTaskTitle());
-        planResponseDto.setContent(plan.getTaskContent());
-        planResponseDto.setStart(plan.getTaskStartTime());
-        planResponseDto.setEnd(plan.getTaskEndTime());
-        planResponseDto.setImportant(plan.getTaskImportant());
-        planResponseDto.setType(plan.getTaskType());
-
-        return planResponseDto;
+        return PlanResponseDto.builder()
+                .id(savedPlan.getId())
+                .title(savedPlan.getTaskTitle())
+                .content(savedPlan.getTaskContent())
+                .start(savedPlan.getTaskStartTime())
+                .end(savedPlan.getTaskEndTime())
+                .important(savedPlan.getTaskImportant())
+                .type(savedPlan.getTaskType())
+                .build();
     }
-
 
     @Override
     public void deletePlan(Long planId) {
-        planRepository.deleteById(123123L); // 임시 ID
+        planRepository.deleteById(planId);
     }
 
     @Override
     public List<PlanResponseDto> viewPlan(PlanRequestDto planRequestDto) {
-        List<PlanResponseDto> planResponseDtos;
-        List<Plan> plans = planRepository.findByTaskId(13123312L);
-        planResponseDtos = plans.stream().map(plan->{
-            PlanResponseDto planResponseDto = new PlanResponseDto();
-            planResponseDto.setId(123123L);
-            planResponseDto.setTitle(plan.getTaskTitle());
-            planResponseDto.setContent(plan.getTaskContent());
-            planResponseDto.setStart(plan.getTaskStartTime());
-            planResponseDto.setEnd(plan.getTaskEndTime());
-            planResponseDto.setImportant(plan.getTaskImportant());
-            planResponseDto.setType(plan.getTaskType());
-            return planResponseDto;
-        }).collect(Collectors.toList());
-        return planResponseDtos;
+        List<Plan> plans = planRepository.findByDashboard_id(123123L);
+        return plans.stream()
+                .map(plan -> PlanResponseDto.builder()
+                        .id(plan.getId())
+                        .title(plan.getTaskTitle())
+                        .content(plan.getTaskContent())
+                        .start(plan.getTaskStartTime())
+                        .end(plan.getTaskEndTime())
+                        .important(plan.getTaskImportant())
+                        .type(plan.getTaskType())
+                        .build())
+                .collect(Collectors.toList());
     }
+
+
 
     @Override
     public PlanResponseDto updatePlan(PlanRequestDto planRequestDto, Long planId) {
@@ -84,16 +83,15 @@ public class PlanServiceImpl implements PlanService {
 
         Plan updatedPlan = planRepository.save(plan);
 
-        PlanResponseDto planResponseDto = new PlanResponseDto();
-        planResponseDto.setId(updatedPlan.getId());
-        planResponseDto.setTitle(updatedPlan.getTaskTitle());
-        planResponseDto.setContent(updatedPlan.getTaskContent());
-        planResponseDto.setStart(updatedPlan.getTaskStartTime());
-        planResponseDto.setEnd(updatedPlan.getTaskEndTime());
-        planResponseDto.setImportant(updatedPlan.getTaskImportant());
-        planResponseDto.setType(updatedPlan.getTaskType());
-        planResponseDto.setIsFinish(updatedPlan.getTaskIsFinish());
-
-        return planResponseDto;
+        return PlanResponseDto.builder()
+                .id(updatedPlan.getId())
+                .title(updatedPlan.getTaskTitle())
+                .content(updatedPlan.getTaskContent())
+                .start(updatedPlan.getTaskStartTime())
+                .end(updatedPlan.getTaskEndTime())
+                .important(updatedPlan.getTaskImportant())
+                .type(updatedPlan.getTaskType())
+                .isFinish(updatedPlan.getTaskIsFinish())
+                .build();
     }
 }

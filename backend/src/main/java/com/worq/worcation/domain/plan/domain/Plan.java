@@ -3,12 +3,14 @@ package com.worq.worcation.domain.plan.domain;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @Entity
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "task", schema = "worQ")
 public class Plan {
 
@@ -30,6 +32,7 @@ public class Plan {
     @Column(name = "task_end_time", nullable = false)
     private String taskEndTime;
 
+    @Builder.Default
     @NotNull
     @Column(name = "task_is_finish", nullable = false)
     private Boolean taskIsFinish = false;
@@ -53,4 +56,6 @@ public class Plan {
     @JoinColumn(name = "task_dashboard_id", nullable = false)
     private Dashboard dashboard;
 
+    @Transient
+    private String TaskId;
 }

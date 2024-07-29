@@ -1,11 +1,15 @@
 package com.worq.worcation.domain.plan.dto;
 
 import com.worq.worcation.domain.plan.domain.PlanType;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
 public class PlanResponseDto {
 
     private Long id;
