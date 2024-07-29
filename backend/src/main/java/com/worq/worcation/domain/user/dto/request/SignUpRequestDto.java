@@ -22,5 +22,5 @@ public class SignUpRequestDto {
     @NotBlank
     private String sido;
     @NotBlank
-    private String gugun;
+    private String sigungu;
 }
