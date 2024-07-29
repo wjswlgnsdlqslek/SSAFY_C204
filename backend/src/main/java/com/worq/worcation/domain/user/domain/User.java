@@ -39,8 +39,8 @@ public class User implements UserDetails {
     @Column(name = "user_favorite_sido", nullable = false)
     private String sido;
 
-    @Column(name = "user_favorite_gugun", nullable = false)
-    private String gugun;
+    @Column(name = "user_favorite_sigungu", nullable = false)
+    private String sigungu;
 
     @Column(name = "user_photo")
     private String profileImg;

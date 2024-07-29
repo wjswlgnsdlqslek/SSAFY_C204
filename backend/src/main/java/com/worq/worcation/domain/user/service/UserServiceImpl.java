@@ -2,16 +2,19 @@ package com.worq.worcation.domain.user.service;
 import com.worq.worcation.common.jwt.TokenProvider;
 import com.worq.worcation.common.response.ApiResponse;
 import com.worq.worcation.common.response.ErrorCode;
+import com.worq.worcation.common.util.RedisUtil;
 import com.worq.worcation.domain.user.domain.User;
 import com.worq.worcation.domain.user.dto.request.LoginRequestDto;
 import com.worq.worcation.domain.user.dto.request.SignUpRequestDto;
 import com.worq.worcation.domain.user.dto.response.TokenDto;
 import com.worq.worcation.domain.user.dto.response.UserResponseDto;
 import com.worq.worcation.domain.user.repository.UserRepository;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -31,6 +34,7 @@ public class UserServiceImpl implements UserService{
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final AuthenticationManagerBuilder managerBuilder;
     private final TokenProvider tokenProvider;
+    private final RedisUtil redisUtil;
     /**
      * 유저 회원 가입
      * @param requestDto
@@ -41,7 +45,7 @@ public class UserServiceImpl implements UserService{
     public ResponseEntity<ApiResponse<UserResponseDto>> signUp(@Valid final SignUpRequestDto requestDto) {
         if(emailValidate(requestDto.getEmail())) {
             return ResponseEntity.status(ErrorCode.DUPLICATE_EMAIL.getStatus())
-                                .body(ApiResponse.error(ErrorCode.DUPLICATE_EMAIL));
+                    .body(ApiResponse.error(ErrorCode.DUPLICATE_EMAIL));
         }
         if(phoneNumberValidate(requestDto.getPhone())) {
             return ResponseEntity.status(ErrorCode.DUPLICATE_PHONE_NUMBER.getStatus())
@@ -52,34 +56,35 @@ public class UserServiceImpl implements UserService{
                     .body(ApiResponse.error(ErrorCode.DUPLICATE_NICKNAME));
         }
 
+        String encodedPassword = bCryptPasswordEncoder.encode(requestDto.getPassword());
+
         User user = userRepository.save(User.builder()
-                    .email(requestDto.getEmail())
-                    .phone(requestDto.getPhone())
-                    .password(requestDto.getPassword())
-                    .nickName(requestDto.getNickName())
-                    .sido(requestDto.getSido())
-                    .gugun(requestDto.getGugun())
-                    .gugun(requestDto.getGugun())
-                    .report(0L)
-                    .roles(Collections.singletonList("VISITOR"))
-                    .build());
+                .email(requestDto.getEmail())
+                .phone(requestDto.getPhone())
+                .password(encodedPassword)
+                .nickName(requestDto.getNickName())
+                .sido(requestDto.getSido())
+                .sigungu(requestDto.getSigungu())
+                .report(0L)
+                .roles(Collections.singletonList("VISITOR"))
+                .build());
 
         return ResponseEntity.status(HttpStatus.OK)
-                        .body(ApiResponse.success(UserResponseDto.builder()
-                                .id(user.getId())
-                                .email(user.getEmail())
-                                .phone(user.getPhone())
-                                .nickName(user.getNickName())
-                                .sido(user.getSido())
-                                .gugun(user.getGugun())
-                                .build()));
+                .body(ApiResponse.success(UserResponseDto.builder()
+                        .id(user.getId())
+                        .email(user.getEmail())
+                        .phone(user.getPhone())
+                        .nickName(user.getNickName())
+                        .sido(user.getSido())
+                        .sigungu(user.getSigungu())
+                        .build()));
 
     }
 
     /**
      * 로그인 : 로그인 성공 시 토큰 발급 및 헤어데 토큰 추가
-//     * @param requestDto
-//     * @param response
+     * @param requestDto
+     * @param response
      * @return ResponseEntity
      */
     @Transactional
@@ -91,10 +96,8 @@ public class UserServiceImpl implements UserService{
         Authentication authentication = managerBuilder.getObject().authenticate(authenticationToken);
 
         TokenDto tokenDto = tokenProvider.generateToken(authentication);
-        response.setHeader("Authorization",tokenDto.accessToken());
-        response.setHeader("refreshToken",tokenDto.refreshToken());
-
-        // TODO : Redis 추가 예정
+        response.addHeader("Authorization",tokenDto.accessToken());
+        response.addHeader("refreshToken",tokenDto.refreshToken());
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(ApiResponse.success(tokenDto));
