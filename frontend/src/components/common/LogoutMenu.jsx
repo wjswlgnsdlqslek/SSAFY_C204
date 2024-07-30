@@ -20,7 +20,7 @@ function LogoutMenu() {
             <Link
                 to="/"
                 className="text-sm font-semibold leading-6 text-mainTxt hover:text-mainBlue"
-                onClick={useUserStore((state) => state.LogoutMenu)}
+                onClick={useUserStore((state) => state.logoutFunc)}
             >
                 로그아웃
             </Link>
