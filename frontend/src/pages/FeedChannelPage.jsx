@@ -4,8 +4,8 @@ import ContentDrawer from "../components/Channel/feed/ContentDrawer";
 import { useState } from "react";
 
 function FeedChannelPage() {
-  const [selectedContent, setSelectedContent] = useState(null);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [selectedContent, setSelectedContent] = useState(null);
 
   const handleSelectContent = (content) => {
     setSelectedContent(content);
@@ -18,16 +18,16 @@ function FeedChannelPage() {
   };
 
   return (
-    <div className="flex">
-      <div className="flex-1">
+    <div className="flex h-full">
+      <div className="flex flex-col flex-1">
         <FeedHeader />
         <ContentItemGrid onSelectContent={handleSelectContent} />
+        <ContentDrawer
+          isOpen={isDrawerOpen}
+          onClose={handleCloseDrawer}
+          content={selectedContent}
+        />
       </div>
-      <ContentDrawer
-        isOpen={isDrawerOpen}
-        onClose={handleCloseDrawer}
-        content={selectedContent}
-      />
     </div>
   );
 }
