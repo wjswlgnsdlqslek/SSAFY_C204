@@ -214,7 +214,7 @@ function SignupComponent() {
                                 <option value="FR">France</option>
                                 <option value="DE">Germany</option>
                             </select>
-                            <select id="gugun" name="sigungu" value={gugun} onChange={onChangeGugun} class="ms-8 mb-3 bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-32 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <select id="sigungu" name="sigungu" value={gugun} onChange={onChangeGugun} class="ms-8 mb-3 bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-32 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                 <option selected>시/구/군 입력</option>
                                 <option value="US">United States</option>
                                 <option value="CA">Canada</option>
