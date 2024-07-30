@@ -13,5 +13,6 @@ import org.springframework.http.ResponseEntity;
 public interface UserService {
     ResponseEntity<ApiResponse<UserResponseDto>> signUp(@Valid final SignUpRequestDto requestDto);
     ResponseEntity<ApiResponse<TokenDto>> login(@Valid final LoginRequestDto loginRequestDto, HttpServletResponse response);
-    public ResponseEntity<ApiResponse<String>> logout(final HttpServletRequest request);
+    ResponseEntity<ApiResponse<String>> logout(final HttpServletRequest request);
+    ResponseEntity<ApiResponse<String>> reissue(final HttpServletRequest request, final HttpServletResponse response);
 }
