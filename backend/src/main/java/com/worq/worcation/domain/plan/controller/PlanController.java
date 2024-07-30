@@ -38,9 +38,9 @@ public class PlanController {
         }
     }
     @GetMapping("/view")
-    public ResponseEntity<?> viewPlan(@RequestBody PlanRequestDto planRequestDto){
+    public ResponseEntity<?> viewPlan(@RequestParam Long dashboardId){
         try {
-            List<PlanResponseDto> response = planService.viewPlan(planRequestDto);
+            List<PlanResponseDto> response = planService.viewPlan(dashboardId);
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             return  ResponseEntity.status(500).body("일시적인 오류가 발생했습니다");
