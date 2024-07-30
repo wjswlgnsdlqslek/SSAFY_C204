@@ -67,6 +67,12 @@ function LoginComponent() {
         }
     }
 
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            userLogin();
+        }
+    }
+
     return (
         <>
             <div className="grid grid-cols-1 justify-items-center mt-20 mb-20">
@@ -75,7 +81,7 @@ function LoginComponent() {
                 </div>
                 <div className="w-[340px] [h-0px] ms-8 mt-2 mb-2 border border-gray-200 "></div>
                 <div className="w-full max-w-xs">
-                    <form className="px-8 pt-6 pb-8 w-[350px] border border-[#1c77c3] rounded-lg shadow-lg shadow-blue-500/50">
+                    <form onKeyDown={handleKeyDown} className="px-8 pt-6 pb-8 w-[350px] border border-[#1c77c3] rounded-lg shadow-lg shadow-blue-500/50">
                         <div className="mb-3">
                             <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
                                 아이디

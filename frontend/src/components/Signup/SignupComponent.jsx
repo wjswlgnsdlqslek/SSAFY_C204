@@ -14,7 +14,7 @@ function SignupComponent() {
     const [phone, setPhone] = useState("");
     const [nickName, setNickName] = useState("");
     const [sido, setSido] = useState("");
-    const [gugun, setGugun] = useState("");
+    const [sigungu, setSigungu] = useState("");
 
     const [emailMessage, setEmailMessage] = useState("");
     const [passwordMessage, setPasswordMessage] = useState("");
@@ -114,9 +114,9 @@ function SignupComponent() {
         setSido(currentSido);
     }
 
-    const onChangeGugun = (e) => {
-        const currentGugun = e.target.value;
-        setGugun(currentGugun);
+    const onChangeSigungu = (e) => {
+        const currentSigungu = e.target.value;
+        setSigungu(currentSigungu);
     }
 
     const userRegister = () => {
@@ -127,7 +127,7 @@ function SignupComponent() {
             nickName,
             phone,
             sido,
-            gugun
+            sigungu
         };
 
         register(newUser,
@@ -137,9 +137,9 @@ function SignupComponent() {
                     icon: "success",
                     title: "회원가입이 완료되었습니다!",
                     showConfirmButton: false,
-                    timer: 1500
+                    timer: 2000
                 });
-                navigate('/');
+                navigate('/login');
             },
             (error) => {
                 Swal.fire({
@@ -147,11 +147,17 @@ function SignupComponent() {
                     icon: "error",
                     title: "회원가입이 실패하였습니다!",
                     showConfirmButton: false,
-                    timer: 1500
+                    timer: 2000
                 });
                 console.log(error);
             }
         )
+    }
+
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            userRegister();
+        }
     }
 
     return (
@@ -163,7 +169,7 @@ function SignupComponent() {
                 </div>
                 <div className="w-[340px] [h-0px] ms-8 mt-2 mb-2 border border-gray-200 "></div>
                 <div className="w-full max-w-xs">
-                    <form className="px-8 pt-6 pb-8 w-[350px] border border-[#1c77c3] rounded-lg shadow-lg shadow-blue-500/50">
+                    <form onKeyDown={handleKeyDown} className="px-8 pt-6 pb-8 w-[350px] border border-[#1c77c3] rounded-lg shadow-lg shadow-blue-500/50">
                         <div className="mb-5">
                             <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
                                 아이디 *
@@ -214,7 +220,7 @@ function SignupComponent() {
                                 <option value="FR">France</option>
                                 <option value="DE">Germany</option>
                             </select>
-                            <select id="sigungu" name="sigungu" value={gugun} onChange={onChangeGugun} class="ms-8 mb-3 bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-32 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <select id="sigungu" name="sigungu" value={sigungu} onChange={onChangeSigungu} class="ms-8 mb-3 bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-32 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                 <option selected>시/구/군 입력</option>
                                 <option value="US">United States</option>
                                 <option value="CA">Canada</option>
