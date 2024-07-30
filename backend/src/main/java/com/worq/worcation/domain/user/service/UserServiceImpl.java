@@ -27,6 +27,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.Collections;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -99,8 +100,7 @@ public class UserServiceImpl implements UserService{
         Authentication authentication = managerBuilder.getObject().authenticate(authenticationToken);
 
         TokenDto tokenDto = tokenProvider.generateToken(authentication);
-        response.addHeader("Authorization",tokenDto.accessToken());
-        response.addHeader("refreshToken",tokenDto.refreshToken());
+        tokenToHeader(tokenDto,response);
 
         redisUtil.setData(requestDto.getEmail(), tokenDto.refreshToken(),tokenDto.refreshTokenExpiresIn());
 
@@ -135,12 +135,12 @@ public class UserServiceImpl implements UserService{
 
         if(refreshToken == null)
             log.info("토큰이 존재하지 않습니다.");
-        if(!refreshToken.equals(request.getHeader("refreshToken")))
+        if(!Objects.equals(refreshToken, request.getHeader("refreshToken")))
             log.info("유효하지 않은 토큰입니다.");
 
         TokenDto tokenDto = tokenProvider.generateToken(authentication);
+        tokenToHeader(tokenDto,response);
 
-        response.addHeader("Authorization",tokenDto.accessToken());
         redisUtil.setData(authentication.getName(),tokenDto.refreshToken(),tokenDto.refreshTokenExpiresIn());
 
         return ResponseEntity.status(HttpStatus.OK)
@@ -165,5 +165,9 @@ public class UserServiceImpl implements UserService{
             return true;
         }
         return false;
+    }
+    private void tokenToHeader(TokenDto tokenDto, HttpServletResponse response){
+        response.addHeader("Authorization",tokenDto.accessToken());
+        response.addHeader("refreshToken",tokenDto.refreshToken());
     }
 }
