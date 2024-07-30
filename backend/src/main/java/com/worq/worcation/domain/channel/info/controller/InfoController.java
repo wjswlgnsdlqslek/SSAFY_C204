@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/channel/feed")
@@ -28,10 +29,29 @@ public class InfoController{
     }
 
     @GetMapping("/{userid}")
-    public ResponseEntity<InfoResponseDto> getInfo(@PathVariable("userid") String userid) {
+    public ResponseEntity<InfoResponseDto> getFeed(@PathVariable("userid") String userid) {
         return null;
     }
 
     @PostMapping("/{feedId}/comment")
-    public ResponseEntity<InfoResponseDto> getComment(@PathVariable("feedId") String feedId, @RequestParam Userid userid) {}
+    public ResponseEntity<?> createComment(@PathVariable("feedId") String feedId, @RequestBody Map<String, String> comment) {
+        Long userid = Long.valueOf(comment.get("userid"));
+        Long feedid = Long.valueOf(feedId);
+        String commentContext = comment.get("Comment");
+
+        Map<String, Object> commentMap = infoService.createComment(userid, feedid, commentContext);
+
+        return ResponseEntity.ok(commentMap);
+    }
+
+    @GetMapping("/{feedId}/detail")
+    public ResponseEntity<InfoResponseDto> viewComment(@PathVariable("feedId") String feedId, @RequestParam String userid) {
+        return null;
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<InfoResponseDto>> searchFeed(@RequestParam String keyword) {
+        return null;
+    }
+
 }

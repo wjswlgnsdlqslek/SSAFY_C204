@@ -51,7 +51,7 @@ public class PlanController {
         try {
             PlanResponseDto response = planService.updatePlan(planRequestDto,planId);
             return ResponseEntity.ok(response);
-        } catch (Exception e) {
+        } catch (Exception e){
             return  ResponseEntity.status(500).body("일시적인 오류가 발생했습니다");
         }
     }
