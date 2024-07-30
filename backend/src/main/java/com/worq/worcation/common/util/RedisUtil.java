@@ -13,7 +13,7 @@ public class RedisUtil {
 
     public void setData(String key, String value, Long expiredTime) {
         redisTemplate.opsForValue()
-                .set(key, value, expiredTime, TimeUnit.MICROSECONDS);
+                .set(key, value, expiredTime, TimeUnit.MILLISECONDS);
     }
 
     public String getData(String key) {
