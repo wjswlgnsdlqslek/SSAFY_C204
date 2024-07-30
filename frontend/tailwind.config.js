@@ -6,18 +6,36 @@ module.exports = {
   theme: {
     extend: {
       keyframes: {
+        // 우측에서 좌측으로 이동
         slideIn: {
           "0%": { transform: "translateX(100%)" },
           "100%": { transform: "translateX(0)" },
         },
+
+        // 위에서 아래로 이동
         dropIn: {
-          "0%": { transform: "translateY(-100%)" },
-          "100%": { transform: "translateY(0)" },
+          "0%": { transform: "translateY(-500%)" },
+          "100%": { transform: "translateY32" },
+        },
+
+        //오른쪽에서 왼쪽으로 오는데 점점 나타남
+        "fade-in-right": {
+          "0%": { opacity: "0", transform: "translateX(100%)" },
+          "100%": { opacity: "1", transform: "translateX(0)" },
+        },
+
+        // 제자리에서 나타남
+        "fade-in": {
+          "0%": { opacity: "0" },
+          "100%": { opacity: "1" },
         },
       },
       animation: {
         slideIn: "slideIn 3.5s ease-out forwards",
         dropIn: "dropIn 0.5s ease-out forwards",
+        dropInTitle: "dropIn 2s ease-out forwards",
+        "fade-in-right": "fade-in-right 1s ease-out forwards",
+        "fade-in": "fade-in 2.5s ease-out forwards",
       },
       colors: {
         mainBlue: "rgb(28, 119, 195)",
