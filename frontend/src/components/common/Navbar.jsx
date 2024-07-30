@@ -2,8 +2,14 @@ import { useState, useEffect } from "react";
 import { Dialog, DialogPanel } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link, useLocation } from "react-router-dom";
+import LoginMenu from "./LoginMenu";
+import LogoutMenu from "./LogoutMenu";
+import useUserStore from "../../store/userStore";
 
-function Navbar() {
+function Navbar({ }) {
+  
+  const isLogin = useUserStore((state) => state.isLogin);
+  
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [hiddenNav, setHiddenNav] = useState(false);
   const location = useLocation();
@@ -40,7 +46,8 @@ function Navbar() {
           </button>
         </div>
         <div className="hidden lg:flex lg:items-center lg:gap-x-12">
-          <Link
+          {isLogin ? <LogoutMenu/> : <LoginMenu/>}
+          {/* <Link
             to="/dashboard"
             className="text-sm font-semibold leading-6 text-mainTxt hover:text-mainBlue"
           >
@@ -57,7 +64,7 @@ function Navbar() {
             className="text-sm font-semibold leading-6 text-mainTxt hover:text-mainBlue"
           >
             로그인
-          </Link>
+          </Link> */}
         </div>
       </nav>
       <Dialog
