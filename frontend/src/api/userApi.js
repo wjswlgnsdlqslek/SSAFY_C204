@@ -11,8 +11,8 @@ async function login(user, success, fail) {
     await local.post(`user/login`, user).then(success).catch(fail);
 }
 
-async function logout(success, fail) {
-    await local.post(`user/logout`).then(success).catch(fail);
+async function logout(userInfo, success, fail) {
+    await local.post(`user/logout`, null, userInfo).then(success).catch(fail);
 }
 
 async function tokenRegeneration(user, success, fail) {

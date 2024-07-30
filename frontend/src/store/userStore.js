@@ -1,9 +1,10 @@
 import { create } from 'zustand';
+import { persist } from 'zustand/middleware'
 import { login, logout } from '../api/userApi'
 import { httpStatusCode } from '../util/http-status';
 import Swal from 'sweetalert2';
 
-const useUserStore = create(set => ({
+const useUserStore = create(persist((set, get) => ({
     isLogin: false,
     isLoginError: false,
     // userInfo: useState(""),
@@ -44,7 +45,12 @@ const useUserStore = create(set => ({
         )
     },
     logoutFunc: async () => {
-        await logout(
+        const token = {
+            headers: {
+                    Authorization: `Bearer ${sessionStorage.getItem('accessToken')}`
+                }
+        }
+        await logout(token,
             (response) => {
                 if (response.status === httpStatusCode.OK) {
                     console.log("로그아웃 성공");
@@ -53,6 +59,7 @@ const useUserStore = create(set => ({
                     set(() => ({ isValidToken: false }));
                     sessionStorage.removeItem("accessToken");
                     sessionStorage.removeItem("refreshToken");
+                    persist.clearStorage();
                 } else {
                     console.error("로그인 정보 없음");
                 }
@@ -62,8 +69,11 @@ const useUserStore = create(set => ({
             }
         );
     }
-})
-);
+}),
+    {
+        name: 'userStorage',
+    }
+));
 
 export default useUserStore;
 
