@@ -78,7 +78,7 @@ const CarouselComponent = () => {
       additionalTransfrom={0}
       arrows
       autoPlay
-      autoPlaySpeed={4500}
+      autoPlaySpeed={3000}
       centerMode={true}
       className=""
       containerClass="container-with-dots"
