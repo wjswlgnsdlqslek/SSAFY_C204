@@ -7,7 +7,6 @@ import Swal from 'sweetalert2';
 const useUserStore = create(persist((set, get) => ({
     isLogin: false,
     isLoginError: false,
-    // userInfo: useState(""),
     isValidToken: false,
     loginFunc: async(user) => {
         console.log(user)
@@ -59,7 +58,7 @@ const useUserStore = create(persist((set, get) => ({
                     set(() => ({ isValidToken: false }));
                     sessionStorage.removeItem("accessToken");
                     sessionStorage.removeItem("refreshToken");
-                    persist.clearStorage();
+                    localStorage.removeItem("userStorage")
                 } else {
                     console.error("로그인 정보 없음");
                 }
