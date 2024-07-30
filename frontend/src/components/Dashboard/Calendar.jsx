@@ -276,7 +276,7 @@ const Calendar = ({ calendarRef }) => {
           isMobile
             ? {
                 left: "filtersButton",
-                center: "todoCreate",
+
                 right: "dayGridMonth,threeDays",
               }
             : false
@@ -317,13 +317,16 @@ const Calendar = ({ calendarRef }) => {
         submitText={state.clickInfo ? "수정" : "저장"}
         deleteText="삭제"
       >
-        <Fieldset>
-          <Field>
-            <Label htmlFor="title" className={"ms-6 me-3"}>
+        <Fieldset className={isMobile ? "space-y-2" : ""}>
+          <Field className={isMobile ? "flex flex-col space-y-2" : ""}>
+            <Label
+              htmlFor="title"
+              className={isMobile ? "text-sm font-medium" : "ms-2 me-2"}
+            >
               할 일 :
             </Label>
             <Input
-              className="text-black border rounded-md p-2 w-auto"
+              className="text-black border rounded-md p-2 w-3/4"
               type="text"
               id="title"
               name="title"
@@ -331,37 +334,78 @@ const Calendar = ({ calendarRef }) => {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
             />
-            <Label htmlFor="isFinish" className={"ms-32 me-2"}>
-              완료 여부 :
-            </Label>
-            <Input
-              id="isFinish"
-              type="checkbox"
-              checked={isFinish}
-              onChange={(e) => setIsFinish(e.target.checked)}
-            />
+            <div className={isMobile ? "flex items-center space-x-2" : ""}>
+              <Label
+                htmlFor="isFinish"
+                className={
+                  isMobile
+                    ? "text-sm font-medium whitespace-nowrap"
+                    : "ms-2 me-2"
+                }
+              >
+                완료 여부 :
+              </Label>
+              <Input
+                id="isFinish"
+                type="checkbox"
+                checked={isFinish}
+                onChange={(e) => setIsFinish(e.target.checked)}
+                className={isMobile ? "h-4 w-4 text-blue-600" : "mt-2 mb-4"}
+              />
+            </div>
           </Field>
           <Field>
-            <Label htmlFor="content" className={"ms-6 me-3"}>
+            <Label
+              htmlFor="content"
+              className={isMobile ? "text-sm font-medium" : "ms-2 me-2"}
+            >
               내 용 :
             </Label>
             <Input
               defaultValue={content}
-              className="text-black border rounded-md p-2 w-3/4 h-48"
+              className={
+                isMobile
+                  ? "text-black border rounded-md p-2 w-full h-24"
+                  : "text-black border rounded-md p-2 w-3/4 h-48"
+              }
               id="content"
               name="content"
               placeholder="내용을 입력해주세요."
               onChange={(e) => setContent(e.target.value)}
             />
           </Field>
-          <Field className={"ms-7 me-14 mt-7 mb-5"}>
+          <Field className={"me-4 mt-7 mb-5"}>
             <div style={{ zIndex: 1 }}>
               <div className="flex justify-between">
-                <TypeRadio selected={type} setSelected={setType} />
-                <ImportantRadio
-                  selected={important}
-                  setSelected={setImportant}
-                />
+                {isMobile ? (
+                  <>
+                    <select
+                      className="border rounded-md p-2 ms-4"
+                      value={type}
+                      onChange={(e) => setType(e.target.value)}
+                    >
+                      <option value="WORK">일정 및 업무</option>
+                      <option value="REST">여가 및 휴식</option>
+                    </select>
+                    <select
+                      className="border rounded-md p-2"
+                      value={important}
+                      onChange={(e) => setImportant(e.target.value)}
+                    >
+                      <option value="상">상</option>
+                      <option value="중">중</option>
+                      <option value="하">하</option>
+                    </select>
+                  </>
+                ) : (
+                  <>
+                    <TypeRadio selected={type} setSelected={setType} />
+                    <ImportantRadio
+                      selected={important}
+                      setSelected={setImportant}
+                    />
+                  </>
+                )}
               </div>
             </div>
           </Field>
@@ -370,21 +414,25 @@ const Calendar = ({ calendarRef }) => {
             <div className="text-center">
               <Label
                 htmlFor="exampleEmail"
-                className="text-black justify-center font-semibold"
+                className="text-black justify-center font-semibold hidden md:block"
               >
                 시작 날짜(시간) - 마감 날짜(시간)
               </Label>
               <div className="divider" />
-              <DateRangePicker
-                timeSet={start}
-                editTimeSet={setStart}
-                className=""
-              />
-              <DateRangePicker
-                timeSet={end}
-                editTimeSet={setEnd}
-                className=""
-              />
+              {!isMobile && (
+                <>
+                  <DateRangePicker
+                    timeSet={start}
+                    editTimeSet={setStart}
+                    className=""
+                  />
+                  <DateRangePicker
+                    timeSet={end}
+                    editTimeSet={setEnd}
+                    className=""
+                  />
+                </>
+              )}
             </div>
           </Field>
         </Fieldset>
