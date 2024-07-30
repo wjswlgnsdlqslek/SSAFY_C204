@@ -28,7 +28,7 @@ server:
 spring:
   config:
     activate:
-      on-profile: blue # blue 프로파일 활성화
+      on-profile:  # blue 프로파일 활성화
 
 server:
   port: 8080 # blue 환경 서버 포트 설정
@@ -42,7 +42,7 @@ server:
 spring:
   config:
     activate:
-      on-profile: green # green 프로파일 활성화
+      on-profile:  # green 프로파일 활성화
 
 server:
   port: 8081 # green 환경 서버 포트 설정
