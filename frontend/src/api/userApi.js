@@ -11,6 +11,10 @@ async function login(user, success, fail) {
     await local.post(`user/login`, user).then(success).catch(fail);
 }
 
+async function logout(success, fail) {
+    await local.post(`user/logout`).then(success).catch(fail);
+}
+
 async function tokenRegeneration(user, success, fail) {
     await local.post(`user/reissue`, user).then(success).catch(fail);
 }
@@ -18,5 +22,6 @@ async function tokenRegeneration(user, success, fail) {
 export {
     register,
     login,
+    logout,
     tokenRegeneration
 };
