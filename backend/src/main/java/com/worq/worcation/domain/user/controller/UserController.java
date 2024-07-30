@@ -30,7 +30,7 @@ public class UserController {
         return userService.login(loginRequestDto, response);
     }
 
-    @DeleteMapping("/logout")
+    @PostMapping("/logout")
     public ResponseEntity<ApiResponse<String>> logout(HttpServletRequest request) {
         return userService.logout(request);
     }
