@@ -1,10 +1,9 @@
 import { create } from 'zustand';
-import persist from 'zustand/middleware';
 import { login, logout } from '../api/userApi'
 import { httpStatusCode } from '../util/http-status';
 import Swal from 'sweetalert2';
 
-const useUserStore = create(persist((set, get) => ({
+const useUserStore = create(set => ({
     isLogin: false,
     isLoginError: false,
     // userInfo: useState(""),
@@ -63,11 +62,8 @@ const useUserStore = create(persist((set, get) => ({
             }
         );
     }
-}),
-    {
-        name: 'userStorage',
-    }
-));
+})
+);
 
 export default useUserStore;
 
