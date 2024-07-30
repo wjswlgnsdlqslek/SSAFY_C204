@@ -16,6 +16,7 @@ function Navbar({}) {
     } else {
       setHiddenNav(false);
     }
+    setMobileMenuOpen(false);
   }, [location]);
 
   if (hiddenNav) return null;
