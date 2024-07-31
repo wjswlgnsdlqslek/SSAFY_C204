@@ -18,7 +18,6 @@ function FeedChannelPage() {
     setIsDrawerOpen(false);
     setSelectedContent(null);
   };
-
   return (
     <div className="flex h-full">
       <div className="flex flex-col flex-1">

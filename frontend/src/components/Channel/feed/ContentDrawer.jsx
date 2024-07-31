@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import useDeviceStore from "../../../store/deviceStore";
 import {
   ChevronDoubleRightIcon,
@@ -47,7 +47,7 @@ const ContentDrawer = ({
               isMobile ? "w-10/12" : "w-9/12 sm:w-7/12"
             } self-center bg-white text-base-content h-[90%] flex relative  rounded-xl m-2`}
           >
-            {content && (
+            {content && isOpen && (
               <>
                 {/* 닫기 버튼 */}
                 <div
