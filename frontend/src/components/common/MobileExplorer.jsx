@@ -11,7 +11,7 @@ const MobileExplorer = () => {
         {/* 햄버거 버튼 */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="md:hidden flex items-center p-2 text-gray-500 hover:text-gray-700 focus:outline-none"
+          className="md:hidden flex items-center text-gray-500 hover:text-gray-700 focus:outline-none"
         >
           <svg
             className="w-6 h-6"
@@ -32,17 +32,17 @@ const MobileExplorer = () => {
         {/* 모바일 메뉴 */}
         <Transition
           show={isOpen}
-          enter="transition-transform duration-300"
+          enter="transition-transform duration-500"
           enterFrom="-translate-x-full"
           enterTo="translate-x-0"
-          leave="transition-transform duration-300"
+          leave="transition-transform duration-500"
           leaveFrom="translate-x-0"
           leaveTo="-translate-x-full"
         >
-          <div className="rounded z-20 fixed top-0 left-0 mt-0 w-64 bg-white shadow-md p-4">
+          <div className="rounded z-20 fixed top-0 left-0 mt-0 w-32 bg-white shadow-md p-2">
             <button
               onClick={() => setIsOpen(false)}
-              className="flex w-full justify-end text-gray-500 hover:text-gray-700 focus:outline-none mb-4"
+              className="flex w-full justify-end text-gray-500 hover:text-gray-700 focus:outline-none"
             >
               <svg
                 className="w-6 h-6"
@@ -54,34 +54,34 @@ const MobileExplorer = () => {
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  strokeWidth="2"
+                  strokeWidth="1"
                   d="M6 18L18 6M6 6l12 12"
                 />
               </svg>
             </button>
-            <ul className="space-y-2">
+            <ul className="space-y-1">
               <li>
                 <Link
                   to="/"
-                  className="block py-2 px-4 text-gray-700 hover:bg-gray-200 rounded"
+                  className="block py-2 px-4 text-gray-700 hover:text-mainBlue hover:bg-gray-200 rounded"
                 >
-                  Home
+                  홈
                 </Link>
               </li>
               <li>
                 <Link
                   to="/dashboard"
-                  className="block py-2 px-4 text-gray-700 hover:bg-gray-200 rounded"
+                  className="block py-2 px-4 text-gray-700 hover:text-mainBlue hover:bg-gray-200 rounded"
                 >
-                  Dashboard
+                  대시보드
                 </Link>
               </li>
               <li>
                 <Link
                   to="/channel"
-                  className="block py-2 px-4 text-gray-700 hover:bg-gray-200 rounded"
+                  className="block py-2 px-4 text-gray-700 hover:text-mainBlue hover:bg-gray-200 rounded"
                 >
-                  Channel
+                  채널
                 </Link>
               </li>
             </ul>

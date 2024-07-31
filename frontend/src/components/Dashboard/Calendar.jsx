@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import FullCalendar from "@fullcalendar/react";
-import { useState } from "react";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
@@ -20,8 +19,6 @@ import Filters from "./Calendar/Filters";
 import MobileExplorer from "../common/MobileExplorer";
 
 const Calendar = ({ calendarRef }) => {
-  // const [filteredEvents, setFilteredEvents] = useState([]);
-  // 타입별로 설정+ 필터링된 이벤트
   const [eventsTypeFilter, setEventsTypeFilter] = useState({
     type: "ALL",
     important: "ALL",
@@ -29,6 +26,7 @@ const Calendar = ({ calendarRef }) => {
 
   const [state, setState] = useState({});
   const [isOpen, setIsOpen] = useState(false); // 모달오픈여부
+  const [showFilters, setShowFilters] = useState(false); // 필터 옵션 표시 여부
 
   // Todo Item Info
   const [start, setStart] = useState(new Date());
@@ -51,6 +49,7 @@ const Calendar = ({ calendarRef }) => {
     updateEvent,
     deleteEvent,
   } = useTodoStore();
+
   // 최초 접속 시 이벤트목록 받아오기
   useEffect(() => {
     (async () => {
@@ -58,9 +57,8 @@ const Calendar = ({ calendarRef }) => {
     })();
   }, [fetchEvents]);
 
-  // 유효성 검증 없어도 될 듯?
+  // 필터링된 이벤트 설정
   useEffect(() => {
-    // type 있으면 쓰고 아님 말고
     let filtered = null;
     switch (eventsTypeFilter.type) {
       case "WORK":
@@ -88,8 +86,6 @@ const Calendar = ({ calendarRef }) => {
       default:
         break;
     }
-
-    // console.log(filtered);
     if (Array.isArray(filtered)) {
       setFilteredEvents(filtered);
     }
@@ -133,7 +129,6 @@ const Calendar = ({ calendarRef }) => {
           [...eventInfo.event.classNames]
         }
       >
-        {/* <b>{eventInfo.timeText}</b> */}
         <i
           style={{
             whiteSpace: "nowrap",
@@ -176,7 +171,6 @@ const Calendar = ({ calendarRef }) => {
     } else {
       alert("입력값을 확인해 주세요.");
     }
-    // console.log(events);
   };
 
   // 생성 함수
@@ -242,19 +236,17 @@ const Calendar = ({ calendarRef }) => {
     };
     updateEvent(editedEvent);
   };
-  return (
-    <div className="bg-white relative rounded-lg shadow-lg text-black h-full px-4 overflow-scroll   scroll">
-      <div className="flex sticky top-0 bg-white z-10 my-2">
-        <Filters filter={eventsTypeFilter} setFilter={setEventsTypeFilter} />
-        {isMobile && <MobileExplorer />}
 
-        <button
-          className="btn btn-outline btn-primary ml-auto"
-          onClick={openModal}
-        >
-          TodoCreate
-        </button>
-      </div>
+  const renderFiltersButton = () => {
+    return {
+      text: "필터",
+      click: () => setShowFilters(!showFilters),
+    };
+  };
+
+  return (
+    <div className="bg-white relative rounded-lg shadow-lg text-black h-full px-4 overflow-scroll scroll container mx-auto p-4">
+      <div className="flex bg-white z-10">{isMobile && <MobileExplorer />}</div>
 
       <FullCalendar
         stickyHeaderDates={false}
@@ -267,19 +259,34 @@ const Calendar = ({ calendarRef }) => {
           },
         }}
         allDaySlot={false}
-        // locale={"ko"}
         ref={calendarRef}
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
         headerToolbar={{
-          left: "title",
           // center: isMobile ? "" : "title",
+          left: isMobile ? false : `todoCreate filtersButton`,
           center: isMobile ? "prev,next" : "prev,today,next",
           right: isMobile
-            ? "dayGridMonth,threeDays"
+            ? false
             : "dayGridMonth,timeGridWeek,threeDays,timeGridDay",
           // right: isMobile
           // ? "prev,next dayGridMonth,threeDays"
           // : "prev,today,next dayGridMonth,timeGridWeek,threeDays,timeGridDay",
+        }}
+        footerToolbar={
+          isMobile
+            ? {
+                left: "filtersButton",
+
+                right: "dayGridMonth,threeDays",
+              }
+            : false
+        }
+        customButtons={{
+          todoCreate: {
+            text: "일정 등록",
+            click: openModal,
+          },
+          filtersButton: renderFiltersButton(),
         }}
         editable={true}
         initialView="threeDays"
@@ -287,32 +294,39 @@ const Calendar = ({ calendarRef }) => {
         selectable={true}
         dayMaxEvents={true}
         weekends={true}
-        // 이벤트 설정 시작
         events={filteredEvents}
-        select={handleDateSelect} // 이벤트 날짜 드래그
-        eventContent={renderEventContent} // custom render function
+        select={handleDateSelect}
+        eventContent={renderEventContent}
         eventClick={handleEventClick}
         eventDrop={handleEventResizeAmdDrop}
         eventResize={handleEventResizeAmdDrop}
-        // dateClick={handleDateClick}
-        // 이벤트 설정 끝
       />
+      {showFilters && (
+        <div className="absolute top-16 left-4 bg-white border border-gray-300 rounded-md shadow-lg flex flex-col items-start z-20">
+          <Filters filter={eventsTypeFilter} setFilter={setEventsTypeFilter} />
+        </div>
+      )}
       <div className="divider" />
-
+      {/* 모달 */}
       <TodoModal
         isOpen={isOpen}
         onClose={closeModal}
         title={state.state === "update" ? "일정 수정" : "일정 추가"}
         onSubmit={state.clickInfo ? handleEdit : handleSubmit}
         onDelete={state.clickInfo && handleDelete}
-        submitText={state.clickInfo ? "Update" : "Save"}
-        deleteText="Delete"
+        submitText={state.clickInfo ? "수정" : "저장"}
+        deleteText="삭제"
       >
-        <Fieldset>
-          <Field>
-            <Label htmlFor="title">Title</Label>
+        <Fieldset className={isMobile ? "space-y-2" : ""}>
+          <Field className={isMobile ? "flex flex-col space-y-2" : ""}>
+            <Label
+              htmlFor="title"
+              className={isMobile ? "text-sm font-medium" : "ms-2 me-2"}
+            >
+              할 일 :
+            </Label>
             <Input
-              className="text-black"
+              className="text-black border rounded-md p-2 w-3/4"
               type="text"
               id="title"
               name="title"
@@ -320,49 +334,105 @@ const Calendar = ({ calendarRef }) => {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
             />
-            <Label htmlFor="isFinish">완료여부</Label>
-            <Input
-              id="isFinish"
-              type="checkbox"
-              checked={isFinish}
-              onChange={(e) => setIsFinish(e.target.checked)}
-            />
+            <div className={isMobile ? "flex items-center space-x-2" : ""}>
+              <Label
+                htmlFor="isFinish"
+                className={
+                  isMobile
+                    ? "text-sm font-medium whitespace-nowrap"
+                    : "ms-2 me-2"
+                }
+              >
+                완료 여부 :
+              </Label>
+              <Input
+                id="isFinish"
+                type="checkbox"
+                checked={isFinish}
+                onChange={(e) => setIsFinish(e.target.checked)}
+                className={isMobile ? "h-4 w-4 text-blue-600" : "mt-2 mb-4"}
+              />
+            </div>
           </Field>
-
           <Field>
-            <Label htmlFor="content">Content</Label>
+            <Label
+              htmlFor="content"
+              className={isMobile ? "text-sm font-medium" : "ms-2 me-2"}
+            >
+              내 용 :
+            </Label>
             <Input
               defaultValue={content}
-              className="text-black"
-              type="text"
+              className={
+                isMobile
+                  ? "text-black border rounded-md p-2 w-full h-24"
+                  : "text-black border rounded-md p-2 w-3/4 h-48"
+              }
               id="content"
               name="content"
               placeholder="내용을 입력해주세요."
               onChange={(e) => setContent(e.target.value)}
             />
           </Field>
-
-          {/* 옵션 선택 */}
-          <Field>
-            <Label>Type:</Label>
+          <Field className={"me-4 mt-7 mb-5"}>
             <div style={{ zIndex: 1 }}>
               <div className="flex justify-between">
-                <TypeRadio selected={type} setSelected={setType} />
-                <ImportantRadio
-                  selected={important}
-                  setSelected={setImportant}
-                />
+                {isMobile ? (
+                  <>
+                    <select
+                      className="border rounded-md p-2 ms-4"
+                      value={type}
+                      onChange={(e) => setType(e.target.value)}
+                    >
+                      <option value="WORK">일정 및 업무</option>
+                      <option value="REST">여가 및 휴식</option>
+                    </select>
+                    <select
+                      className="border rounded-md p-2"
+                      value={important}
+                      onChange={(e) => setImportant(e.target.value)}
+                    >
+                      <option value="상">상</option>
+                      <option value="중">중</option>
+                      <option value="하">하</option>
+                    </select>
+                  </>
+                ) : (
+                  <>
+                    <TypeRadio selected={type} setSelected={setType} />
+                    <ImportantRadio
+                      selected={important}
+                      setSelected={setImportant}
+                    />
+                  </>
+                )}
               </div>
             </div>
           </Field>
           {/* 옵션 선택 끝 */}
           <Field>
-            <div className="bg-slate-400">
-              <Label htmlFor="exampleEmail" className="text-black">
-                From - End
+            <div className="text-center">
+              <Label
+                htmlFor="exampleEmail"
+                className="text-black justify-center font-semibold hidden md:block"
+              >
+                시작 날짜(시간) - 마감 날짜(시간)
               </Label>
-              <DateRangePicker timeSet={start} editTimeSet={setStart} />
-              <DateRangePicker timeSet={end} editTimeSet={setEnd} />
+              <div className="divider" />
+              {!isMobile && (
+                <>
+                  <DateRangePicker
+                    timeSet={start}
+                    editTimeSet={setStart}
+                    className=""
+                  />
+                  <DateRangePicker
+                    timeSet={end}
+                    editTimeSet={setEnd}
+                    className=""
+                  />
+                </>
+              )}
             </div>
           </Field>
         </Fieldset>
