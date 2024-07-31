@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "WAVA",
+  "name": "WAVA:일과 휴식의 어시스턴트",
   "icons": [
     {
       "src": "wavalogo.png",
@@ -8,7 +8,7 @@
       "type": "image/x-icon"
     },
     {
-      "src": "logo192.png",
+      "src": "wavalogo.png",
       "type": "image/png",
       "sizes": "192x192"
     },
