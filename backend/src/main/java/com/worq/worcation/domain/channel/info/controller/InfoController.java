@@ -20,12 +20,17 @@ public class InfoController{
     public final InfoService infoService;
 
     @PostMapping("/create")
-    public ResponseEntity<List<String>> createInfo(
-            @RequestPart("file") MultipartFile[] file,
+    public ResponseEntity<?> createInfo(
+            @RequestPart("file") MultipartFile[] files,
             @RequestPart("info") InfoRequestDto requestDto) {
+
+        for(MultipartFile file : files){
+
+        }
+
         List<String> list = infoService.CreateFeed(requestDto);
 
-        return null;
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/{userid}")

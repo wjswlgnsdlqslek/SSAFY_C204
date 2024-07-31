@@ -17,7 +17,6 @@ public class PlanServiceImpl implements PlanService {
 
     @Autowired
     private PlanRepository planRepository;
-    TokenProvider tokenProvider;
 
     public List<Plan> getPlansByDashboardid(Long dashboardId) {
         return planRepository.findByDashboard_id(dashboardId);
