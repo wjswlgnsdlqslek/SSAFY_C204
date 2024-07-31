@@ -302,7 +302,7 @@ const Calendar = ({ calendarRef }) => {
         eventResize={handleEventResizeAmdDrop}
       />
       {showFilters && (
-        <div className="absolute top-16 left-4 bg-white border border-gray-300 rounded-md shadow-lg flex flex-col items-start z-20">
+        <div className="absolute top-16 left-4 bg-white border border-gray-300 rounded-md shadow-lg flex flex-col items-start z-10">
           <Filters filter={eventsTypeFilter} setFilter={setEventsTypeFilter} />
         </div>
       )}

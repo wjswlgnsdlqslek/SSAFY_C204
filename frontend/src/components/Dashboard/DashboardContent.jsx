@@ -44,11 +44,10 @@ import Calendar from "./Calendar";
 const DashboardContent = ({ calendarChange }) => {
   const [filter, setFilter] = useState({ type: "ALL", important: "ALL" });
   const [category, setCategory] = useState("WORQ"); // 카테고리 WORQ, important
-  console.log("Current Filter:", filter);
+  // console.log("Current Filter:", filter);
   const categoryChangeHandle = (evt) => {
     // 이분법
     // true면 important, false면 WORK/VACATION
-    console.log(evt.target.value);
     setCategory((state) => (state === "WORQ" ? "important" : "WORQ"));
   };
   return (

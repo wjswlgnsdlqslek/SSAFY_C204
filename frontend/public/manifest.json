@@ -3,17 +3,27 @@
   "name": "WAVA:일과 휴식의 어시스턴트",
   "icons": [
     {
-      "src": "wavalogo.png",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "src": "/icons/wava-64x64.png",
+      "sizes": "64x64",
+      "type": "image/png"
     },
     {
-      "src": "wavalogo.png",
+      "src": "/icons/wava-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/wava-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/wava-192x192.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "wavalogo.png",
+      "src": "/icons/wava-512x512.png",
       "type": "image/png",
       "sizes": "512x512"
     }

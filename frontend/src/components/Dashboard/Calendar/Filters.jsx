@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { importantOptions, typeOptions } from "../dataset";
 
 function Filters({ filter, setFilter }) {
