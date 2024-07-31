@@ -1,8 +1,8 @@
-import Explorer from "../components/common/Explorer";
-import React, { useEffect, useRef } from "react";
-import MobileExplorer from "../components/common/MobileExplorer";
-import useDeviceStore from "../store/deviceStore";
-import ChannelSubExplorer from "../components/Channel/ChannelSubExplorer";
+import Explorer from "../../components/common/Explorer";
+import React, { useEffect, useLayoutEffect, useRef } from "react";
+import MobileExplorer from "../../components/common/MobileExplorer";
+import useDeviceStore from "../../store/deviceStore";
+import ChannelSubExplorer from "../../components/Channel/ChannelSubExplorer";
 import {
   NavLink,
   Outlet,
@@ -10,6 +10,7 @@ import {
   useNavigate,
   useParams,
 } from "react-router-dom";
+import { GlobeAltIcon } from "@heroicons/react/24/solid";
 
 function ChannelPage() {
   const isMobile = useDeviceStore((state) => state.isMobile);
@@ -21,9 +22,9 @@ function ChannelPage() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     // 현재 경로가 정확히 '/channel'일 때만 리다이렉트
-    if (location.pathname === "/channel") {
+    if (location.pathname?.replaceAll("/", "") === "channel") {
       const userId = "12345"; // 여기에 실제 접속자 ID를 넣으세요
       navigate(`/channel/feed/${userId}`);
     }
@@ -205,8 +206,18 @@ function ChannelPage() {
                 <span>정보 채널</span>
               </div>
             </ChannelSubExplorer>
+
+            <div className="my-2">
+              <NavLink
+                // className={({ isActive }) => (isActive ? "cursor-wait" : "")}
+                to={`/channel/feed`}
+              >
+                <GlobeAltIcon className="w-10 h-10 mx-auto my-2 border border-gray-300 rounded-full " />
+              </NavLink>
+            </div>
           </div>
         </div>
+
         {/* 채널 탐색기 끝, 하단은 콘텐츠 영역 */}
         <div className="flex-1">
           <Outlet />

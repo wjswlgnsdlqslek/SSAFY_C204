@@ -8,6 +8,7 @@ import {
   PlusCircleIcon,
 } from "@heroicons/react/24/outline";
 import Swal from "sweetalert2";
+import ArrowButton from "./ArrowButton";
 
 function CreateContentDrawer({ isOpen, onClose }) {
   const isMobile = useDeviceStore((state) => state.isMobile);
@@ -17,6 +18,9 @@ function CreateContentDrawer({ isOpen, onClose }) {
   const [textContent, setTextContent] = useState("");
 
   const handleImageChange = (e) => {
+    if (!e.target?.files) {
+      return;
+    }
     if (e.target?.files?.length + images.length > 10) {
       Swal.fire({
         position: "top",
@@ -136,20 +140,12 @@ function CreateContentDrawer({ isOpen, onClose }) {
                             </div>
                             {images.length > 1 && (
                               <>
-                                <button
-                                  type="button"
-                                  onClick={goToPrevious}
-                                  className="absolute left-0 top-1/2 transform -translate-y-1/2 p-2 bg-blue-500 text-white rounded-full shadow-lg focus:outline-none"
-                                >
-                                  <ChevronLeftIcon className="w-6 h-6" />
-                                </button>
-                                <button
-                                  onClick={goToNext}
-                                  type="button"
-                                  className="absolute right-0 top-1/2 transform -translate-y-1/2 p-2 bg-blue-500 text-white rounded-full shadow-lg focus:outline-none"
-                                >
-                                  <ChevronRightIcon className="w-6 h-6" />
-                                </button>
+                                <div type="button" onClick={goToPrevious}>
+                                  <ArrowButton direction="left" />
+                                </div>
+                                <div onClick={goToNext} type="button">
+                                  <ArrowButton direction="right" />
+                                </div>
                               </>
                             )}
                             <button
@@ -166,7 +162,7 @@ function CreateContentDrawer({ isOpen, onClose }) {
                             <button
                               type="button"
                               onClick={() => imgInput.current.click()}
-                              className="absolute bottom-0 p-2 bg-mainOrange left-[calc(50%-20px)] text-white rounded-full shadow-lg focus:outline-none"
+                              className="absolute bottom-0 p-2  left-[calc(50%-20px)] text-mainOrange  rounded-full focus:outline-none"
                             >
                               <PlusCircleIcon className="w-6 h-6" />
                             </button>
