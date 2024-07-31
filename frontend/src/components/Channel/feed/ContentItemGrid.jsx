@@ -189,8 +189,8 @@ const ContentItemGrid = ({ onSelectContent }) => {
         {loading && (
           <>
             {[...Array(5)].map((_, index) => (
-              <div className="flex justify-center animate-pulse" key={index}>
-                <div className="rounded-md bg-gray-400 w-full h-64 lg:h-80" />
+              <div className="flex justify-center animate-pulse " key={index}>
+                <div className="rounded-md bg-gray-400 w-full aspect-square" />
               </div>
             ))}
           </>

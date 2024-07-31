@@ -1,6 +1,6 @@
 import React from "react";
 
-const FeedHeader = () => {
+const FeedHeader = ({ openCreateDrawer }) => {
   return (
     <div className="p-4 flex">
       <div className="flex flex-col items-center">
@@ -18,7 +18,9 @@ const FeedHeader = () => {
       <div className="flex flex-1 flex-col items-start p-2 mx-4">
         <div>
           <h1 className="text-2xl font-bold mt-2 inline-block">전지훈</h1>
-          <button className="btn btn-primary mt-2">글 작성</button>
+          <button onClick={openCreateDrawer} className="btn btn-primary mt-2">
+            글 작성
+          </button>
         </div>
         <div>
           <p className="mt-2">전지훈의 개인 채널입니다.</p>

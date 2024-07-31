@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useLayoutEffect } from "react";
 import { Dialog, DialogPanel } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link, useLocation } from "react-router-dom";
@@ -8,14 +8,13 @@ import MobileLoginMenu from "./MobileLoginMenu";
 import MobileLogoutMenu from "./MobileLogoutMenu";
 import useUserStore from "../../store/userStore";
 
-function Navbar({ }) {
-  
+function Navbar({}) {
   const isLogin = useUserStore((state) => state.isLogin);
-  
+
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [hiddenNav, setHiddenNav] = useState(false);
   const location = useLocation();
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (
       location.pathname.match("/dashboard") ||
       location.pathname.match("/channel")
@@ -49,7 +48,25 @@ function Navbar({ }) {
           </button>
         </div>
         <div className="hidden lg:flex lg:items-center lg:gap-x-12">
-          {isLogin ? <LogoutMenu/> : <LoginMenu/>}
+          {isLogin ? <LogoutMenu /> : <LoginMenu />}
+          {/* <Link
+            to="/dashboard"
+            className="text-sm font-semibold leading-6 text-mainTxt hover:text-mainBlue"
+          >
+            대시보드
+          </Link>
+          <Link
+            to="/channel"
+            className="text-sm font-semibold leading-6 text-mainTxt hover:text-mainBlue"
+          >
+            채널
+          </Link>
+          <Link
+            to="/login"
+            className="text-sm font-semibold leading-6 text-mainTxt hover:text-mainBlue"
+          >
+            로그인
+          </Link> */}
         </div>
       </nav>
       <Dialog
@@ -73,7 +90,7 @@ function Navbar({ }) {
           </div>
           <div className="mt-6 flow-root">
             <div className="-my-6 divide-y divide-gray-500/10">
-            {isLogin ? <MobileLogoutMenu/> : <MobileLoginMenu/>}
+              {isLogin ? <MobileLogoutMenu /> : <MobileLoginMenu />}
             </div>
           </div>
         </DialogPanel>
