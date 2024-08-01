@@ -29,8 +29,8 @@ localAxios.interceptors.request.use(
       config.headers["Authorization"] = `Bearer ${token}`;
     }
     return config;
-  },
-  (error) => Promise.reject(error)
+  }
+  // (error) => Promise.reject(error)
 );
 
 export { localAxios };
