@@ -1,12 +1,7 @@
 import { ChevronDoubleRightIcon } from "@heroicons/react/24/outline";
 import useDeviceStore from "../../../store/deviceStore";
 import { useRef, useState } from "react";
-import {
-  XMarkIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  PlusCircleIcon,
-} from "@heroicons/react/24/outline";
+import { XMarkIcon, PlusCircleIcon } from "@heroicons/react/24/outline";
 import Swal from "sweetalert2";
 import ArrowButton from "./ArrowButton";
 

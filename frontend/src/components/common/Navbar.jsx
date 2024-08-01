@@ -1,4 +1,4 @@
-import { useState, useEffect, useLayoutEffect } from "react";
+import { useState, useLayoutEffect } from "react";
 import { Dialog, DialogPanel } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link, useLocation } from "react-router-dom";
@@ -8,7 +8,7 @@ import MobileLoginMenu from "./MobileLoginMenu";
 import MobileLogoutMenu from "./MobileLogoutMenu";
 import useUserStore from "../../store/userStore";
 
-function Navbar({}) {
+function Navbar() {
   const isLogin = useUserStore((state) => state.isLogin);
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);

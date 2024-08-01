@@ -115,6 +115,7 @@ const CarouselComponent = () => {
           </div>
           <figure className="relative">
             <img
+              draggable={false}
               className="rounded-xl w-full h-auto"
               src={item.image}
               alt={item.title}
