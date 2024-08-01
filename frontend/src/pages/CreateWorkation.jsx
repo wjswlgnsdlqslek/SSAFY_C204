@@ -1,10 +1,88 @@
 import useDeviceStore from "../store/deviceStore";
 import { useNavigate } from "react-router-dom";
-import DateRangePicker from "../components/Dashboard/Calendar/DateRangePicker";
+import CustomDatePicker from "../components/common/customDatePicker";
+import { useState } from "react";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { sigungu } from "../api/dummy";
+import { createWorkation } from "../api/createWorkationApi";
+import Swal from "sweetalert2";
+import { validateWorkation } from "../util/func";
 
 function CreateWorkationPage() {
   const isMobile = useDeviceStore((state) => state.isMobile);
   const navigate = useNavigate();
+  const [start, setStart] = useState(new Date());
+  const [end, setEnd] = useState(new Date());
+  const [sido, setSido] = useState("");
+  const [gugun, setGugun] = useState("");
+  const [job, setJob] = useState("");
+
+  // 시도 변경 함수
+  const sidoChangeHandle = (e) => {
+    if (e === sido) {
+      return;
+    }
+    const elem = document.activeElement;
+    if (elem) {
+      elem?.blur();
+    }
+    setGugun("");
+    setSido(e);
+  };
+
+  // 구군 변경 함수
+  const gugunChangeHandle = (e) => {
+    const elem = document.activeElement;
+    if (elem) {
+      elem?.blur();
+    }
+    setGugun(e);
+  };
+
+  // 직업 변경 함수
+  const onChangeJob = (e) => {
+    setJob(e.target.value);
+  };
+
+  // 서브밋 함수
+  const submitHandle = async (e) => {
+    e.preventDefault();
+    try {
+      const data = {
+        start,
+        end,
+        sido,
+        gugun,
+        job,
+      };
+
+      if (validateWorkation(data)) {
+        // const result = await createWorkation(data);
+        if (true) {
+          // result 반영할것
+          Swal.fire({
+            icon: "success",
+            title: "완료!",
+            showConfirmButton: false,
+            width: "300px",
+          });
+
+          return;
+        }
+      }
+
+      Swal.fire({
+        icon: "error",
+        title: "확인해 주세요",
+        text: "입력값이 잘못되었어요!",
+        // footer: '<a href="#">Why do I have this issue?</a>',
+        timer: 3000,
+      });
+    } catch (e) {
+      console.error(e, "workation create에러");
+    }
+  };
 
   return (
     <div
@@ -48,7 +126,6 @@ function CreateWorkationPage() {
 
         <div className="w-full max-w-xs">
           <form
-            // onKeyDown={handleKeyDown}
             className={`
             ${
               isMobile
@@ -58,73 +135,86 @@ function CreateWorkationPage() {
           `}
           >
             <div className="mb-3">
-              <label
-                className="block text-gray-700 text-sm font-bold mb-2"
-                htmlFor="email"
-              >
-                아이디
-              </label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                // value={email}
-                // onChange={onChangeEmail}
-                className="focus:outline-none ps-3 drop-shadow-md w-full h-10 border border-gray-400 hover:border-[#1c77c3] mb-3 rounded-lg"
-                placeholder="이메일 입력"
-              />
               <div className="dropdown dropdown-bottom">
                 <div tabIndex={0} role="button" className="btn m-1">
-                  Click
+                  {sido ? sido : "시도 설정"}
                 </div>
                 <ul
                   tabIndex={0}
-                  className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow"
+                  className="dropdown-content select-none menu bg-base-100 rounded-box z-10 w-52 p-2 shadow overflow-y-auto max-h-96 block"
                 >
-                  <li>
-                    <a>Item 1</a>
-                  </li>
-                  <li>
-                    <a>Item 2</a>
-                  </li>
+                  {Object.keys(sigungu).map((e) => (
+                    <li key={e}>
+                      <button type="button" onClick={() => sidoChangeHandle(e)}>
+                        {e}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="dropdown dropdown-bottom">
+                <div tabIndex={0} role="button" className="btn m-1">
+                  {gugun ? gugun : "구군 설정"}
+                </div>
+                <ul
+                  tabIndex={0}
+                  className="dropdown-content menu bg-base-100 rounded-box z-10 w-52 p-2 shadow overflow-y-auto max-h-96 block"
+                >
+                  {sido !== ""
+                    ? sigungu[sido]?.map((e) => (
+                        <li key={e}>
+                          <button
+                            type="button"
+                            onClick={() => gugunChangeHandle(e)}
+                          >
+                            {e}
+                          </button>
+                        </li>
+                      ))
+                    : "시도를 설정해 주세요."}
                 </ul>
               </div>
             </div>
 
             <div>
-              <DateRangePicker />
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <CustomDatePicker
+                  label="시작일"
+                  timeSet={start}
+                  editTimeSet={setStart}
+                />
+
+                <div className="my-3" />
+                <CustomDatePicker
+                  label="종료일"
+                  timeSet={end}
+                  editTimeSet={setEnd}
+                />
+              </LocalizationProvider>
               <label
-                className="block text-gray-700 text-sm font-bold mb-2"
+                className="block text-gray-700 text-sm font-bold mb-2 my-4"
                 htmlFor="password"
               >
-                비밀번호
+                직업
               </label>
               <input
-                id="password"
-                name="password"
-                type="password"
-                // value={password}
-                // onChange={onChangePassword}
-                className="focus:outline-none ps-3 drop-shadow-md w-full h-10 border border-gray-400 hover:border-[#1c77c3] mb-3 rounded-lg"
-                placeholder="비밀번호 입력"
+                id="job"
+                name="job"
+                type="text"
+                value={job}
+                onChange={onChangeJob}
+                className="focus:outline-none ps-3  w-full h-10 border border-gray-400 hover:border-[#1c77c3] mb-3 rounded-lg"
+                placeholder=""
               />
             </div>
 
             <button
               type="button"
-              // onClick={userLogin}
+              onClick={submitHandle}
               className="w-full h-10 border rounded-[10px] mt-3 mb-1 drop-shadow-md bg-[#1c77c3] text-white"
             >
-              로그인
+              등록하기
             </button>
-            <div className="text-center">
-              <span
-                className="text-xs text-gray-400 hover:text-blue-500 cursor-pointer"
-                // onClick={goToSignup}
-              >
-                회원가입
-              </span>
-            </div>
           </form>
         </div>
       </div>

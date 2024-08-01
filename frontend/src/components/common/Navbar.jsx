@@ -8,7 +8,7 @@ import MobileLoginMenu from "./MobileLoginMenu";
 import MobileLogoutMenu from "./MobileLogoutMenu";
 import useUserStore from "../../store/userStore";
 
-function Navbar({}) {
+function Navbar() {
   const isLogin = useUserStore((state) => state.isLogin);
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);

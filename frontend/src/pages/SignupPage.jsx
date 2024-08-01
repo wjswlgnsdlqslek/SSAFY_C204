@@ -1,12 +1,7 @@
-import { Fragment } from "react";
-import SignupComponent from "../components/Signup/SignupComponent"
-
+import SignupComponent from "../components/Signup/SignupComponent";
 
 function SignupPage() {
-    
-    return (
-        <SignupComponent />
-    );
+  return <SignupComponent />;
 }
 
 export default SignupPage;

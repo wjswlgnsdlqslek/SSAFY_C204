@@ -126,7 +126,8 @@ const Calendar = ({ calendarRef }) => {
       <div
         className={
           `${eventInfo.event?.extendedProps?.isFinish ? "todo-finish " : ""}` +
-          [...eventInfo.event.classNames]
+          [...eventInfo.event.classNames] +
+          " animate-fade-in"
         }
       >
         <i

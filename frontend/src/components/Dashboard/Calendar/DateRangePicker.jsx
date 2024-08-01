@@ -2,7 +2,6 @@ import React from "react";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { TimePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
 import CustomDatePicker from "../../common/customDatePicker";
@@ -24,7 +23,7 @@ function DateRangePicker({ timeSet, editTimeSet }) {
     <div className="w-full">
       <div className="flex flex-col sm:flex-row gap-2">
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DemoContainer
+          {/* <DemoContainer
             components={["DatePicker"]}
             className="w-full sm:w-1/2"
           >
@@ -35,8 +34,8 @@ function DateRangePicker({ timeSet, editTimeSet }) {
               label=""
               className="w-full"
             />
-          </DemoContainer>
-          {/* <CustomDatePicker timeSet={timeSet} editTimeSet={editTimeSet} /> */}
+          </DemoContainer> */}
+          <CustomDatePicker timeSet={timeSet} editTimeSet={editTimeSet} />
           <DemoContainer
             components={["TimePicker"]}
             className="w-full sm:w-1/2"
