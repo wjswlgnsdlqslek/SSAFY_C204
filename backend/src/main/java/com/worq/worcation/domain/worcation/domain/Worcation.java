@@ -11,7 +11,7 @@
 
     import java.util.Date;
 
-    @Entity
+    @Entity (name = "worcation_info")
     @Data
     @Builder
     @Getter
@@ -21,17 +21,23 @@
         // Getters and Setters
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
+        @Column(name="worcation_id")
         private Long id;
 
         @OneToOne
         @JoinColumn(name = "user_id")
         private User user;
-
+        @Column(name="worcation_start_date")
         private Date start;
+        @Column(name="worcation_end_date")
         private Date end;
+        @Column(name="worcation_sido")
         private String sido;
+        @Column(name="worcation_sigungu")
         private String gugun;
+        @Column(name="worcation_job")
         private String job;
+        @Column(name="worcation_type")
         private String type;
 
         public Worcation() {
