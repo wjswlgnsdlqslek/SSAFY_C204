@@ -11,8 +11,8 @@
  * isFinish:boolean
  * }} event 
 
- * @returns {Promise<event>} - todo 이벤트 목록의 배열을 포함하는 프로미스를 반환합니다.
- * @throws {Error} - */
+ * @returns {Boolean<true|false>} - todo 이벤트 목록의 배열을 포함하는 프로미스를 반환합니다.
+*/
 export function validateEvent(event) {
   // 문자열 및 기타 필수 속성 확인
   if (!event.title || typeof event.title !== "string") {

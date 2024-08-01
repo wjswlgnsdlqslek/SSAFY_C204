@@ -5,6 +5,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { TimePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
+import CustomDatePicker from "../../common/customDatePicker";
 
 /**
  *
@@ -35,6 +36,7 @@ function DateRangePicker({ timeSet, editTimeSet }) {
               className="w-full"
             />
           </DemoContainer>
+          {/* <CustomDatePicker timeSet={timeSet} editTimeSet={editTimeSet} /> */}
           <DemoContainer
             components={["TimePicker"]}
             className="w-full sm:w-1/2"

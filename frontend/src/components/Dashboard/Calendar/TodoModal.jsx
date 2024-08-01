@@ -28,7 +28,11 @@ function TodoModal({
 
   return (
     <CustomModal isOpen={isOpen} onClose={onClose}>
-      <div className={isMobile ? "scale-90 transform origin-top" : ""}>
+      <div
+        className={`${
+          isMobile ? "scale-90 transform origin-top" : ""
+        } select-none`}
+      >
         <div className="text-center mb-4 font-semibold text-lg">{title}</div>
         <div className="text-mainTxt text-sm mb-4">
           {React.Children.map(children, (child) => {
