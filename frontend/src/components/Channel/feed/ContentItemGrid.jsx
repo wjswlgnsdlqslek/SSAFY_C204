@@ -43,7 +43,7 @@ const ContentItemGrid = ({ onSelectContent, contents }) => {
           </>
         )}
         {/* observer */}
-        <div ref={ref} />
+        {contents && <div ref={ref} />}
       </div>
     </>
   );

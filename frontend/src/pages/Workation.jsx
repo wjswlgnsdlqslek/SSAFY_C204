@@ -1,64 +1,77 @@
 import useDeviceStore from "../store/deviceStore";
 import { useNavigate } from "react-router-dom";
 import CustomDatePicker from "../components/common/customDatePicker";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { sigungu } from "../api/dummy";
 import { createWorkation } from "../api/createWorkationApi";
 import Swal from "sweetalert2";
 import { validateWorkation } from "../util/func";
+import SidoGugunSelector from "../components/Workation/SidoGugunSelector";
+import { useLocation } from "react-router-dom";
 
-function CreateWorkationPage() {
+function WorkationPage() {
   const isMobile = useDeviceStore((state) => state.isMobile);
   const navigate = useNavigate();
-  const [start, setStart] = useState(new Date());
-  const [end, setEnd] = useState(new Date());
-  const [sido, setSido] = useState("");
-  const [gugun, setGugun] = useState("");
-  const [job, setJob] = useState("");
+  const [data, setData] = useState({
+    start: new Date(),
+    end: new Date(),
+    sido: "",
+    gugun: "",
+    job: "",
+  });
 
-  // 시도 변경 함수
+  const location = useLocation();
+
+  useEffect(() => {
+    const state = location.state || {}; // type==="edit" 이면 수정
+    // 시도 변경 함수
+    if (state?.type === "edit") {
+      setData(state?.data);
+    }
+  }, []);
+
+  const dataChangeHandle = (type, value) => {
+    setData((state) => ({ ...state, [type]: value }));
+  };
+
   const sidoChangeHandle = (e) => {
-    if (e === sido) {
+    if (e === data.sido) {
       return;
     }
     const elem = document.activeElement;
     if (elem) {
       elem?.blur();
     }
-    setGugun("");
-    setSido(e);
+    setData((state) => ({ ...state, gugun: "", sido: e }));
   };
 
-  // 구군 변경 함수
+  // // 구군 변경 함수
   const gugunChangeHandle = (e) => {
     const elem = document.activeElement;
     if (elem) {
       elem?.blur();
     }
-    setGugun(e);
+    setData((state) => ({ ...state, gugun: e }));
   };
 
-  // 직업 변경 함수
-  const onChangeJob = (e) => {
-    setJob(e.target.value);
-  };
+  // // 직업 변경 함수
+  // const onChangeJob = (e) => {
+  //   setData((state) => ({ ...state, job: e.target.value }));
+  // };
 
   // 서브밋 함수
   const submitHandle = async (e) => {
     e.preventDefault();
     try {
-      const data = {
-        start,
-        end,
-        sido,
-        gugun,
-        job,
-      };
-
       if (validateWorkation(data)) {
-        // const result = await createWorkation(data);
+        if (location.state === "edit") {
+          // 에딧 api 호출
+        } else {
+          // const result = await createWorkation(data);
+        }
+
         if (true) {
           // result 반영할것
           Swal.fire({
@@ -134,61 +147,26 @@ function CreateWorkationPage() {
             }
           `}
           >
-            <div className="mb-3">
-              <div className="dropdown dropdown-bottom">
-                <div tabIndex={0} role="button" className="btn m-1">
-                  {sido ? sido : "시도 설정"}
-                </div>
-                <ul
-                  tabIndex={0}
-                  className="dropdown-content select-none menu bg-base-100 rounded-box z-10 w-52 p-2 shadow overflow-y-auto max-h-96 block"
-                >
-                  {Object.keys(sigungu).map((e) => (
-                    <li key={e}>
-                      <button type="button" onClick={() => sidoChangeHandle(e)}>
-                        {e}
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="dropdown dropdown-bottom">
-                <div tabIndex={0} role="button" className="btn m-1">
-                  {gugun ? gugun : "구군 설정"}
-                </div>
-                <ul
-                  tabIndex={0}
-                  className="dropdown-content menu bg-base-100 rounded-box z-10 w-52 p-2 shadow overflow-y-auto max-h-96 block"
-                >
-                  {sido !== ""
-                    ? sigungu[sido]?.map((e) => (
-                        <li key={e}>
-                          <button
-                            type="button"
-                            onClick={() => gugunChangeHandle(e)}
-                          >
-                            {e}
-                          </button>
-                        </li>
-                      ))
-                    : "시도를 설정해 주세요."}
-                </ul>
-              </div>
-            </div>
+            <SidoGugunSelector
+              sido={data.sido}
+              gugun={data.gugun}
+              sidoChangeHandle={sidoChangeHandle}
+              gugunChangeHandle={gugunChangeHandle}
+            />
 
             <div>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <CustomDatePicker
                   label="시작일"
-                  timeSet={start}
-                  editTimeSet={setStart}
+                  timeSet={data.start}
+                  editTimeSet={(value) => dataChangeHandle("start", value)}
                 />
 
                 <div className="my-3" />
                 <CustomDatePicker
                   label="종료일"
-                  timeSet={end}
-                  editTimeSet={setEnd}
+                  timeSet={data.end}
+                  editTimeSet={(value) => dataChangeHandle("end", value)}
                 />
               </LocalizationProvider>
               <label
@@ -201,8 +179,10 @@ function CreateWorkationPage() {
                 id="job"
                 name="job"
                 type="text"
-                value={job}
-                onChange={onChangeJob}
+                value={data.job}
+                onChange={(value) =>
+                  dataChangeHandle("job", value.target.value)
+                }
                 className="focus:outline-none ps-3  w-full h-10 border border-gray-400 hover:border-[#1c77c3] mb-3 rounded-lg"
                 placeholder=""
               />
@@ -222,4 +202,4 @@ function CreateWorkationPage() {
   );
 }
 
-export default CreateWorkationPage;
+export default WorkationPage;
