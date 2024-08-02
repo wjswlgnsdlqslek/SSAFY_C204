@@ -1,5 +1,5 @@
 import Explorer from "../../components/common/Explorer";
-import React, { useLayoutEffect, useRef } from "react";
+import React, { useEffect, useLayoutEffect, useRef } from "react";
 import MobileExplorer from "../../components/common/MobileExplorer";
 import useDeviceStore from "../../store/deviceStore";
 import ChannelSubExplorer from "../../components/Channel/ChannelSubExplorer";
@@ -137,20 +137,21 @@ function ChannelPage() {
 
           {/* 내채널 */}
           <div ref={myChannelRef} className="flex-shrink-0 text-center">
-            {/* <ChannelSubExplorer type="" data={[{ id: "asdf" }]}> */}
             <div>
               {isMobile && <MobileExplorer />}
               <div className="sticky top-0 bg-white z-10">
                 <span>내 채널</span>
               </div>
             </div>
-            <div className="my-2">
+            <div className="my-0.5">
               <NavLink to={`/channel/feed/${"내아이디"}`}>
-                <button className="w-10 h-10 mx-auto my-2 bg-gray-300 rounded-full"></button>
+                <button className="w-10 h-10 mx-auto my-0.5 bg-gray-300 rounded-full"></button>
               </NavLink>
             </div>
             {/* </ChannelSubExplorer> */}
           </div>
+
+          <div className="divider my-1 mx-2" />
 
           {/* 모임채널 */}
           <div
@@ -165,6 +166,7 @@ function ChannelPage() {
                 { id: "asdf" },
                 { id: "asdf" },
                 { id: "asdf" },
+                { id: "1`23" },
                 { id: "asdf" },
                 { id: "asdf" },
                 { id: "asdf" },
@@ -173,45 +175,35 @@ function ChannelPage() {
                 { id: "asdf" },
                 { id: "asdf" },
                 { id: "asdf" },
-                { id: "asdf" },
-                { id: "asdf" },
-                { id: "asdf" },
-                { id: "asdf" },
-                { id: "asdf" },
-                { id: "asdf" },
-                { id: "asdf" },
-                { id: "asdf" },
-                { id: "asdf" },
-                { id: "asdf" },
-                { id: "asdf" },
+                // { id: "asdf" },
+                // { id: "asdf" },
+                // { id: "asdf" },
+                // { id: "asdf" },
+                // { id: "asdf" },
+                // { id: "asdf" },
+                // { id: "asdf" },
+                // { id: "asdf" },
+                // { id: "asdf" },
+                // { id: "asdf" },
               ]}
             >
-              <div className="divider mx-2" />
-
               <div className="sticky top-0 bg-white z-10">
-                <span>모임 채널</span>
+                <span className="text-sm">모임 채널</span>
               </div>
             </ChannelSubExplorer>
           </div>
-
+          <div className="divider my-1 mx-2" />
           {/* 정보채널 */}
           <div
             ref={infoChannelsRef}
             className="flex-1 overflow-y-auto text-center"
           >
-            <ChannelSubExplorer type="feed" data={[{ id: 3 }]}>
-              <div className="divider mx-2" />
+            <div className="sticky top-0 bg-white z-10">
+              <span className="text-sm">정보 채널</span>
+            </div>
 
-              <div className="sticky top-0 bg-white z-10">
-                <span>정보 채널</span>
-              </div>
-            </ChannelSubExplorer>
-
-            <div className="my-2">
-              <NavLink
-                // className={({ isActive }) => (isActive ? "cursor-wait" : "")}
-                to={`/channel/feed`}
-              >
+            <div>
+              <NavLink to={`/channel/feed`}>
                 <GlobeAltIcon className="w-10 h-10 mx-auto my-2 border border-gray-300 rounded-full " />
               </NavLink>
             </div>
