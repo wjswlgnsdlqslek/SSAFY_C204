@@ -115,10 +115,10 @@ export function validateWorkation(data) {
     console.error("직업 정보가 유효하지 않습니다.");
     return false;
   }
-  if (typeof type !== "string" || type.trim() === "") {
-    console.error("유형 정보가 유효하지 않습니다.");
-    return false;
-  }
+  // if (typeof type !== "string" || type.trim() === "") {
+  //   console.error("유형 정보가 유효하지 않습니다.");
+  //   return false;
+  // }
 
   // 모든 검사를 통과한 경우
   return true;
