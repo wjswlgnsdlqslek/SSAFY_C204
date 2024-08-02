@@ -8,7 +8,6 @@ import {
   PlusCircleIcon,
 } from "@heroicons/react/24/outline";
 import Swal from "sweetalert2";
-import ArrowButton from "./ArrowButton";
 
 function CreateContentDrawer({ isOpen, onClose }) {
   const isMobile = useDeviceStore((state) => state.isMobile);
@@ -18,12 +17,12 @@ function CreateContentDrawer({ isOpen, onClose }) {
   const [textContent, setTextContent] = useState("");
 
   const handleImageChange = (e) => {
-    if (!e.target?.files) return;
+    if (e.target?.files?.length === 0) return;
 
     const newFiles = Array.from(e.target.files);
     if (newFiles.length + images.length > 10) {
       Swal.fire({
-        position: "top",
+        position: "center",
         icon: "error",
         title: "이미지는 최대 10장까지 가능합니다.",
         showConfirmButton: false,
@@ -171,16 +170,8 @@ function CreateContentDrawer({ isOpen, onClose }) {
             </div>
           </div>
         </div>
-        <input
-          ref={imgInput}
-          type="file"
-          multiple
-          accept="image/*"
-          onChange={handleImageChange}
-          className="hidden"
-        />
       </div>
-      <input
+      {/* <input
         ref={imgInput}
         className="hidden"
         type="file"
@@ -188,7 +179,7 @@ function CreateContentDrawer({ isOpen, onClose }) {
         accept="image/*"
         onChange={handleImageChange}
         // className="mb-4"
-      />
+      /> */}
     </>
   );
 }
