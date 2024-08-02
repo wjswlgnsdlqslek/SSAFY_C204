@@ -81,12 +81,11 @@ export function validateEvent(event) {
  * sido : string,
  * gugun : string,
  * job : string,
- * type : string,
  * }} data
  * @returns {Boolean<true|false>} - todo 이벤트 목록의 배열을 포함하는 프로미스를 반환합니다.
  */
 export function validateWorkation(data) {
-  const { start, end, sido, gugun, job, type } = data;
+  const { start, end, sido, gugun, job } = data;
 
   // 날짜 형식 검사
   if (!(start instanceof Date) || isNaN(start.getTime())) {
@@ -113,10 +112,6 @@ export function validateWorkation(data) {
   }
   if (typeof job !== "string" || job.trim() === "") {
     console.error("직업 정보가 유효하지 않습니다.");
-    return false;
-  }
-  if (typeof type !== "string" || type.trim() === "") {
-    console.error("유형 정보가 유효하지 않습니다.");
     return false;
   }
 
