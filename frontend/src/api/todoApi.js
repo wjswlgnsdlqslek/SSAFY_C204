@@ -76,9 +76,9 @@ export const deleteTodoRequest = async (todoItem) => {
   try {
     // const response = await local.delete(address+"/delete/"+todoItem?.id)
 
-    const response = { status: 200 };
+    const response = { status: 204 };
 
-    if (response.status === 200) {
+    if (response.status === 204) {
       return true;
     } else {
       throw new Error(`HTTP 오류! 상태: ${response.status}`);
