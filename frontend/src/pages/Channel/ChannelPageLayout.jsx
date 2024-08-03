@@ -1,5 +1,5 @@
 import Explorer from "../../components/common/Explorer";
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import React, { useLayoutEffect, useRef, useState } from "react";
 import MobileExplorer from "../../components/common/MobileExplorer";
 import useDeviceStore from "../../store/deviceStore";
 import ChannelSubExplorer from "../../components/Channel/ChannelSubExplorer";

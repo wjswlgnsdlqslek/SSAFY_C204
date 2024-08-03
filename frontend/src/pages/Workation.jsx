@@ -4,7 +4,6 @@ import CustomDatePicker from "../components/common/customDatePicker";
 import { useEffect, useState } from "react";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { sigungu } from "../api/dummy";
 import { createWorkation } from "../api/createWorkationApi";
 import Swal from "sweetalert2";
 import { validateWorkation } from "../util/func";
@@ -30,7 +29,7 @@ function WorkationPage() {
     if (state?.type === "edit") {
       setData(state?.data);
     }
-  }, []);
+  }, [location.state]);
 
   const dataChangeHandle = (type, value) => {
     setData((state) => ({ ...state, [type]: value }));
