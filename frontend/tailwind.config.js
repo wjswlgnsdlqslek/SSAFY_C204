@@ -36,6 +36,7 @@ module.exports = {
         dropInTitle: "dropIn 2s ease-out forwards",
         "fade-in-right": "fade-in-right 1s ease-out forwards",
         "fade-in": "fade-in 2.5s ease-out forwards",
+        "fade-in-fast": "fade-in 1s ease-out forwards",
       },
       colors: {
         mainBlue: "rgb(28, 119, 195)",

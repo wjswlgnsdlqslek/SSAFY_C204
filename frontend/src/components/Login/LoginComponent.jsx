@@ -30,7 +30,7 @@ function LoginComponent() {
 
   return (
     <div
-      className={`
+      className={`animate-fade-in-fast 
       ${
         isMobile
           ? "flex flex-col items-center justify-center min-h-screen max-h-screen w-screen overflow-auto p-4"
