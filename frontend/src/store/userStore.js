@@ -32,9 +32,9 @@ const useUserStore = create(
             async (error) => {
               const errorMessage = error.response.data.msg;
               await Swal.fire({
-                position: "top",
+                position: "center",
                 icon: "error",
-                titleText: errorMessage,
+                titleText: errorMessage || "네트워크 연결을 확인해 주세요",
                 showConfirmButton: false,
                 timer: 1500,
               });

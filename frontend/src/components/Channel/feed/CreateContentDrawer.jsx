@@ -171,7 +171,7 @@ function CreateContentDrawer({ isOpen, onClose }) {
           </div>
         </div>
       </div>
-      {/* <input
+      <input
         ref={imgInput}
         className="hidden"
         type="file"
@@ -179,7 +179,7 @@ function CreateContentDrawer({ isOpen, onClose }) {
         accept="image/*"
         onChange={handleImageChange}
         // className="mb-4"
-      /> */}
+      />
     </>
   );
 }
