@@ -1,5 +1,5 @@
 import Explorer from "../../components/common/Explorer";
-import React, { useEffect, useLayoutEffect, useRef } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import MobileExplorer from "../../components/common/MobileExplorer";
 import useDeviceStore from "../../store/deviceStore";
 import ChannelSubExplorer from "../../components/Channel/ChannelSubExplorer";
@@ -11,6 +11,9 @@ import {
   useParams,
 } from "react-router-dom";
 import { GlobeAltIcon } from "@heroicons/react/24/solid";
+import { PlusIcon } from "@heroicons/react/24/outline";
+import CustomModal from "../../components/common/customModal";
+import CreateGroupChannel from "../../components/Channel/group/CreateGroupChannel";
 
 function ChannelPage() {
   const isMobile = useDeviceStore((state) => state.isMobile);
@@ -21,6 +24,8 @@ function ChannelPage() {
   const { userId } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
+
+  const [isCreateChannelOpen, setIsCreateChannelOpen] = useState(false);
 
   useLayoutEffect(() => {
     // 현재 경로가 정확히 '/channel'일 때만 리다이렉트
@@ -125,6 +130,15 @@ function ChannelPage() {
     handleTouchEvents(infoChannelsRef);
   }, []);
 
+  // 채널 생성 포탈 오픈
+  const handleChannelPortalOpen = () => {
+    setIsCreateChannelOpen(true);
+  };
+
+  // 채널 생성 포탈 닫기
+  const handleChannelPortalClose = () => {
+    setIsCreateChannelOpen(false);
+  };
   return (
     <>
       <div className="flex h-screen ">
@@ -144,7 +158,11 @@ function ChannelPage() {
               </div>
             </div>
             <div className="my-0.5">
-              <NavLink to={`/channel/feed/${"내아이디"}`}>
+              <NavLink
+                tabIndex={-1}
+                aria-hidden={true}
+                to={`/channel/feed/${"내아이디"}`}
+              >
                 <button className="w-10 h-10 mx-auto my-0.5 bg-gray-300 rounded-full"></button>
               </NavLink>
             </div>
@@ -169,9 +187,20 @@ function ChannelPage() {
           {/* 모임채널 */}
           <div
             ref={meetingChannelsRef}
-            className="flex-1 overflow-y-auto text-center mb-2"
+            className=" flex-1 overflow-y-auto text-center mb-2"
           >
             <ChannelSubExplorer
+              // 그룹 생성 버튼(플러스버튼)
+              addBtn={
+                <div
+                  onClick={handleChannelPortalOpen}
+                  className="sticky top-0 bg-white flex items-center justify-center"
+                >
+                  <div className="border cursor-pointer rounded-full h-10 w-10 hover border-gray-300 hover:bg-gray-100 transition-colors duration-200 ">
+                    <PlusIcon className="w-6 h-6 m-4 mx-auto my-2 " />
+                  </div>
+                </div>
+              }
               type="group"
               data={[
                 { id: 2 },
@@ -212,6 +241,15 @@ function ChannelPage() {
           <Outlet />
         </div>
       </div>
+
+      {/* 채널 생성 포탈 */}
+      <CustomModal
+        styles={"backdrop-blur-sm"}
+        isOpen={isCreateChannelOpen}
+        onClose={handleChannelPortalClose}
+      >
+        <CreateGroupChannel />
+      </CustomModal>
     </>
   );
 }
