@@ -11,7 +11,7 @@
 
     import java.util.Date;
 
-    @Entity (name = "worcation_info")
+    @Entity
     @Data
     @Builder
     @Getter
