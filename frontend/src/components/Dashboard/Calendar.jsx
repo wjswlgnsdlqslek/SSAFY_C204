@@ -327,7 +327,7 @@ const Calendar = ({ calendarRef }) => {
               할 일 :
             </Label>
             <Input
-              className="text-black border rounded-md p-2 w-3/4"
+              className="text-black border rounded-md p-2 w-3/4 bg-white"
               type="text"
               id="title"
               name="title"
@@ -339,7 +339,7 @@ const Calendar = ({ calendarRef }) => {
               <Label
                 htmlFor="isFinish"
                 className={
-                  isMobile
+                  "dark:bg-white " + isMobile
                     ? "text-sm font-medium whitespace-nowrap"
                     : "ms-2 me-2"
                 }
@@ -351,7 +351,7 @@ const Calendar = ({ calendarRef }) => {
                 type="checkbox"
                 checked={isFinish}
                 onChange={(e) => setIsFinish(e.target.checked)}
-                className={isMobile ? "h-4 w-4 text-blue-600" : "mt-2 mb-4"}
+                className={isMobile ? "h-4 w-4 text-blue-600" : "mt-2 mb-4 "}
               />
             </div>
           </Field>
@@ -364,11 +364,8 @@ const Calendar = ({ calendarRef }) => {
             </Label>
             <Input
               defaultValue={content}
-              className={
-                isMobile
-                  ? "text-black border rounded-md p-2 w-full h-24"
-                  : "text-black border rounded-md p-2 w-3/4 h-48"
-              }
+              className={`text-black border rounded-md p-2 bg-white 
+                ${isMobile ? "w-full h-24" : "w-3/4 h-48"}`}
               id="content"
               name="content"
               placeholder="내용을 입력해주세요."
@@ -381,7 +378,7 @@ const Calendar = ({ calendarRef }) => {
                 {isMobile ? (
                   <>
                     <select
-                      className="border rounded-md p-2 ms-4"
+                      className="border rounded-md p-2 ms-4  bg-white"
                       value={type}
                       onChange={(e) => setType(e.target.value)}
                     >
@@ -389,7 +386,7 @@ const Calendar = ({ calendarRef }) => {
                       <option value="REST">여가 및 휴식</option>
                     </select>
                     <select
-                      className="border rounded-md p-2"
+                      className="border rounded-md p-2 bg-white"
                       value={important}
                       onChange={(e) => setImportant(e.target.value)}
                     >

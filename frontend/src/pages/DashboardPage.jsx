@@ -37,7 +37,7 @@ function DashboardPage() {
   };
 
   return (
-    <div className="flex h-screen justify-between">
+    <div className="flex h-screen justify-between bg-white">
       <Explorer />
 
       {!isMobile && (

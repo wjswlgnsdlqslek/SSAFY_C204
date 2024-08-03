@@ -164,7 +164,7 @@ function SignupComponent() {
 
   return (
     <div
-      className={`
+      className={`bg-white 
             ${
               isMobile
                 ? "flex flex-col items-center justify-center min-h-screen max-h-screen w-screen overflow-auto p-4"
@@ -222,7 +222,7 @@ function SignupComponent() {
                 name="email"
                 value={email}
                 onChange={onChangeEmail}
-                className="focus:outline-none ps-3 drop-shadow-md w-full h-10 border border-gray-400 hover:border-[#1c77c3] mb-3 rounded-lg"
+                className="bg-white focus:outline-none ps-3 drop-shadow-md w-full h-10 border border-gray-400 hover:border-[#1c77c3] mb-3 rounded-lg"
                 placeholder="이메일 입력"
               />
               <p
@@ -247,7 +247,7 @@ function SignupComponent() {
                 name="password"
                 value={password}
                 onChange={onChangePassword}
-                className="focus:outline-none ps-3 drop-shadow-md w-full h-10 border border-gray-400 hover:border-[#1c77c3] mb-3 rounded-lg"
+                className="bg-white focus:outline-none ps-3 drop-shadow-md w-full h-10 border border-gray-400 hover:border-[#1c77c3] mb-3 rounded-lg"
                 placeholder="비밀번호 입력"
               />
               <p
@@ -272,7 +272,7 @@ function SignupComponent() {
                 name="passwordConfirm"
                 value={passwordConfirm}
                 onChange={onChangePasswordConfirm}
-                className="focus:outline-none ps-3 drop-shadow-md w-full h-10 border border-gray-400 hover:border-[#1c77c3] mb-3 rounded-lg"
+                className="bg-white focus:outline-none ps-3 drop-shadow-md w-full h-10 border border-gray-400 hover:border-[#1c77c3] mb-3 rounded-lg"
                 placeholder="비밀번호 확인"
               />
               <p
@@ -296,7 +296,7 @@ function SignupComponent() {
                 name="phone"
                 value={phone}
                 onChange={onChangePhone}
-                className="focus:outline-none ps-3 drop-shadow-md w-full h-10 border border-gray-400 hover:border-[#1c77c3] mb-3 rounded-lg"
+                className="bg-white focus:outline-none ps-3 drop-shadow-md w-full h-10 border border-gray-400 hover:border-[#1c77c3] mb-3 rounded-lg"
                 placeholder="휴대폰 번호 입력"
               />
               <p
@@ -320,7 +320,7 @@ function SignupComponent() {
                 name="nickName"
                 value={nickName}
                 onChange={onChangeNickName}
-                className="focus:outline-none ps-3 drop-shadow-md w-full h-10 border border-gray-400 hover:border-[#1c77c3] mb-3 rounded-lg"
+                className="bg-white focus:outline-none ps-3 drop-shadow-md w-full h-10 border border-gray-400 hover:border-[#1c77c3] mb-3 rounded-lg"
                 placeholder="닉네임 입력"
               />
               <p
@@ -337,13 +337,13 @@ function SignupComponent() {
             >
               선호 워케이션 지역
             </label>
-            <div className="flex">
+            <div className="flex ">
               <select
                 id="sido"
                 name="sido"
                 value={sido}
                 onChange={onChangeSido}
-                className="me-0.5 mb-3 bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-32 p-2.5 dark:bg-gray-700 dark:border-blue-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                className="me-0.5 mb-3 bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-32 p-2.5"
               >
                 <option value="">시/도 입력</option>
                 <option value="US">United States</option>
@@ -356,7 +356,7 @@ function SignupComponent() {
                 name="sigungu"
                 value={sigungu}
                 onChange={onChangeSigungu}
-                className="ms-8 mb-3 bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-32 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                className="ms-8 mb-3 bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-32 p-2.5"
               >
                 <option value="">시/구/군 입력</option>
                 <option value="US">United States</option>

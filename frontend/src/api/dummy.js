@@ -3,7 +3,7 @@ let todayStr = new Date().toISOString().replace(/T.*$/, "");
 export const get_response = {
   data: [
     {
-      id: 1,
+      id: "1",
       title: "All-day event",
       start: todayStr,
       isFinish: false,
@@ -15,7 +15,7 @@ export const get_response = {
       type: "WORK",
     },
     {
-      id: 2,
+      id: "2",
       title: "Timed event",
       start: todayStr + "T12:00:00",
       end: todayStr + "T12:30:00",

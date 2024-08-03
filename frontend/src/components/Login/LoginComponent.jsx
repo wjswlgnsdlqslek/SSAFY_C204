@@ -30,7 +30,7 @@ function LoginComponent() {
 
   return (
     <div
-      className={`animate-fade-in-fast 
+      className={`animate-fade-in-fast  bg-white
       ${
         isMobile
           ? "flex flex-col items-center justify-center min-h-screen max-h-screen w-screen overflow-auto p-4"
@@ -89,7 +89,7 @@ function LoginComponent() {
                 type="email"
                 value={email}
                 onChange={onChangeEmail}
-                className="focus:outline-none ps-3 drop-shadow-md w-full h-10 border border-gray-400 hover:border-[#1c77c3] mb-3 rounded-lg"
+                className="bg-white focus:outline-none ps-3 drop-shadow-md w-full h-10 border border-gray-400 hover:border-[#1c77c3] mb-3 rounded-lg"
                 placeholder="이메일 입력"
               />
             </div>
@@ -107,7 +107,7 @@ function LoginComponent() {
                 type="password"
                 value={password}
                 onChange={onChangePassword}
-                className="focus:outline-none ps-3 drop-shadow-md w-full h-10 border border-gray-400 hover:border-[#1c77c3] mb-3 rounded-lg"
+                className="bg-white focus:outline-none ps-3 drop-shadow-md w-full h-10 border border-gray-400 hover:border-[#1c77c3] mb-3 rounded-lg"
                 placeholder="비밀번호 입력"
               />
             </div>
