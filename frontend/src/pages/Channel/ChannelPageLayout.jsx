@@ -248,7 +248,7 @@ function ChannelPage() {
         isOpen={isCreateChannelOpen}
         onClose={handleChannelPortalClose}
       >
-        <CreateGroupChannel />
+        <CreateGroupChannel onClose={handleChannelPortalClose} />
       </CustomModal>
     </>
   );

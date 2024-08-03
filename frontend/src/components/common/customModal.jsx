@@ -25,7 +25,7 @@ const CustomModal = ({ isOpen, children, onClose, styles }) => {
       <div
         className={`bg-white rounded-lg relative ${
           isMobile
-            ? "w-11/12 max-w-sm p-2 max-h-[80vh] overflow-y-auto"
+            ? "w-11/12 max-w-md p-2 max-h-[80vh] overflow-y-auto"
             : "w-full max-w-md p-4"
         }`}
         onClick={(e) => e.stopPropagation()}
