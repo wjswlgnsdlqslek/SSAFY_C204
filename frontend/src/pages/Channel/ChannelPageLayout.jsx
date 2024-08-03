@@ -152,11 +152,24 @@ function ChannelPage() {
           </div>
 
           <div className="divider my-1 mx-2" />
+          {/* 정보채널 */}
+          <div ref={infoChannelsRef} className="overflow-y-auto text-center">
+            <div className="sticky top-0 bg-white z-10">
+              <span className="text-sm">정보 채널</span>
+            </div>
+
+            <div>
+              <NavLink to={`/channel/feed`}>
+                <GlobeAltIcon className="w-10 h-10 mx-auto my-2 border border-gray-300 rounded-full " />
+              </NavLink>
+            </div>
+          </div>
+          <div className="divider my-1 mx-2" />
 
           {/* 모임채널 */}
           <div
             ref={meetingChannelsRef}
-            className="flex-1 overflow-y-auto text-center"
+            className="flex-1 overflow-y-auto text-center mb-2"
           >
             <ChannelSubExplorer
               type="group"
@@ -191,22 +204,6 @@ function ChannelPage() {
                 <span className="text-sm">모임 채널</span>
               </div>
             </ChannelSubExplorer>
-          </div>
-          <div className="divider my-1 mx-2" />
-          {/* 정보채널 */}
-          <div
-            ref={infoChannelsRef}
-            className="flex-1 overflow-y-auto text-center"
-          >
-            <div className="sticky top-0 bg-white z-10">
-              <span className="text-sm">정보 채널</span>
-            </div>
-
-            <div>
-              <NavLink to={`/channel/feed`}>
-                <GlobeAltIcon className="w-10 h-10 mx-auto my-2 border border-gray-300 rounded-full " />
-              </NavLink>
-            </div>
           </div>
         </div>
 

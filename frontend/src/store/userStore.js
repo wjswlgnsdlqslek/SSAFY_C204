@@ -36,7 +36,7 @@ const useUserStore = create(
                 icon: "error",
                 titleText: errorMessage || "네트워크 연결을 확인해 주세요",
                 showConfirmButton: false,
-                timer: 1500,
+                timer: 2500,
               });
               console.log("로그인 실패");
               console.log(error);
