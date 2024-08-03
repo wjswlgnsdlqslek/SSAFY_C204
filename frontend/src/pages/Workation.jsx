@@ -69,6 +69,7 @@ function WorkationPage() {
         if (location.state === "edit") {
           // 에딧 api 호출
         } else {
+          // 등록 api 호출
           // const result = await createWorkation(data);
         }
 
@@ -121,11 +122,29 @@ function WorkationPage() {
           }
         `}
         >
-          워케이션을 등록해 주세요!
-          <br />
-          WAVA를 시작해보아요!
-          <br />
-          문구 수정해주세요 ㅠㅠ...
+          {
+            location?.state?.type === "edit" ? (
+              // 하단 수정 페이지 컨텐츠
+              <>
+                워케이션을 수정합니다!
+                <br />
+                WAVA와 함께해 보아요!
+                <br />
+                문구 수정해주세요 ㅠㅠ...
+              </>
+            ) : (
+              // 수정 페이지 끝
+              // 등록 페이지 컨텐츠
+              <>
+                워케이션을 등록해 주세요!
+                <br />
+                WAVA를 시작해보아요!
+                <br />
+                문구 수정해주세요 ㅠㅠ...
+              </>
+            )
+            // 등록 페이지 끝
+          }
         </div>
         <div
           className={`
