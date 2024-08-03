@@ -288,7 +288,10 @@ const ContentDrawer = ({
         <label
           className="drawer-overlay"
           style={{ backgroundColor: isOpen ? "#0003" : "transparent" }}
-          onClick={onClose}
+          onClick={() => {
+            setIsEditing(false);
+            onClose();
+          }}
         />
         <div
           className={`${
@@ -296,7 +299,10 @@ const ContentDrawer = ({
           } bg-white h-full p-6 flex flex-col`}
         >
           <button
-            onClick={onClose}
+            onClick={() => {
+              setIsEditing(false);
+              onClose();
+            }}
             className="self-start mb-4 p-2 rounded-full hover:bg-gray-200 transition-colors"
           >
             <ChevronDoubleRightIcon className="h-6 w-6" />
