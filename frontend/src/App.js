@@ -14,6 +14,8 @@ import Footer from "./components/common/Footer";
 import FeedAroundPage from "./pages/Channel/Feed/FeedAroundPage";
 import FeedPersonalPage from "./pages/Channel/Feed/FeedPersonalPage";
 
+import ChatPage from "./pages/ChatPage";
+
 function App() {
   const { user } = useAuthStore();
   console.log(user);
@@ -28,6 +30,7 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/workation" element={<WorkationPage />} />
             <Route path="/dashboard" element={<DashboardPage />} />
+            <Route path="/chat" element={<ChatPage/>} />
             <Route path="/channel" element={<ChannelPageLayout />}>
               {/* 그룹 시작 */}
               <Route
