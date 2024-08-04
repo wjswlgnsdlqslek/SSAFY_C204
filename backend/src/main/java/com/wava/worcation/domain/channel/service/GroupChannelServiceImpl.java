@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -36,9 +37,10 @@ public class GroupChannelServiceImpl implements GroupChannelService {
      * @ 작성자   : user
      * @ 작성일   : 2024-08-03
      * @ 설명     :
-     * @param groupChannelRequestDto
-     * @param token
-     * @return
+     * @param groupChannelRequestDto 모임채널 생성 데이터
+     * @param token 인증 토큰
+     * @return  201
+     * @return 만들어진 모임채널 정보
      */
     @Override
     @Transactional
@@ -72,13 +74,44 @@ public class GroupChannelServiceImpl implements GroupChannelService {
                 .body(ApiResponse.success(groupChannelResponseDto));
     }
 
+
+    /**
+     *
+     * @ 작성자   : 이병수
+     * @ 작성일   : 2024-08-04
+     * @ 설명     : 모든 모임채널 보여주기
+     * @return 모든 모임채널 정보
+     */
     @Override
-    public ResponseEntity<ApiResponse<List<GroupChannelResponseDto>>> showAllGroupChannel() {
+    public ResponseEntity<ApiResponse<List<GroupChannelResponseDto>>> showAllGroupChannel(String token) {
+
+        Authentication authentication = tokenProvider.getAuthentication(token);
+        User userOpt  = userRepository.findByEmail(authentication.getName()).orElseThrow() ;
+
         List<Channel> channelList = channelRepository.findAll();
+        List<GroupChannelResponseDto> groupChannelResponseDtoList = new ArrayList<>();
+        GroupChannelResponseDto groupChannelResponseDto = null;
+        for (Channel channel : channelList) {
+            groupChannelResponseDto = new GroupChannelResponseDto();
+            groupChannelResponseDto.setId(channel.getId());
+            groupChannelResponseDto.setUserId(channel.getUser().getId());
+            groupChannelResponseDto.setDescription(channel.getChannelDescription());
+            groupChannelResponseDto.setRoomTitle(channel.getChannelTitle());
+            groupChannelResponseDto.setSido(channel.getChannelSido());
+            groupChannelResponseDto.setGugun(channel.getChannelSigungu());
+            groupChannelResponseDtoList.add(groupChannelResponseDto);
+        }
 
 
-        //return ResponseEntity.status(HttpStatus.OK).body();
 
-        return null;
+        //채널이 없을 경우 'mess
+//        if(groupChannelResponseDtoList.isEmpty()) {
+//            return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.success(null,"모임채널이 없습니다."));
+//
+//        }
+//        else {
+//            return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.success(groupChannelResponseDtoList));
+//        }
+        return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.success(groupChannelResponseDtoList));
     }
 }

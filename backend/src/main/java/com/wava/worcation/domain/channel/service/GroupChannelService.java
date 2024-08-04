@@ -11,5 +11,5 @@ import java.util.List;
 public interface GroupChannelService {
     ResponseEntity<ApiResponse<GroupChannelResponseDto>> createGroupChannel(final GroupChannelRequestDto groupChannelRequestDto, String token);
 
-    ResponseEntity<ApiResponse<List<GroupChannelResponseDto>>> showAllGroupChannel();
+    ResponseEntity<ApiResponse<List<GroupChannelResponseDto>>> showAllGroupChannel(String token);
 }

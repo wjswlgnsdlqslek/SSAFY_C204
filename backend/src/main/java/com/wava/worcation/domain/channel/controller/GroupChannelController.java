@@ -50,13 +50,11 @@ public class GroupChannelController {
      * @return
      */
     @PostMapping("/")
-    public ResponseEntity<ApiResponse<List<GroupChannelResponseDto>>> showAllGroupChannel () {
-        return groupChannelServcice.showAllGroupChannel();
+    public ResponseEntity<ApiResponse<List<GroupChannelResponseDto>>> showAllGroupChannel (HttpServletRequest request) {
+        String token = request.getHeader("Authorization").substring(7);
+        return groupChannelServcice.showAllGroupChannel(token);
 
     }
-
-
-
 
 
 }

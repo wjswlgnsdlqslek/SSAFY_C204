@@ -22,7 +22,26 @@ public class ApiResponse<T> {
     public static <T> ApiResponse<T> success(T data) {
         return new ApiResponse<T>(HttpStatus.OK,null, data);
     }
+
+    /**
+     *
+     * @ 작성자   : 이병수
+     * @ 작성일   : 2024-08-04
+     * @ 설명     : 오류는 없지만 message를 보내고 싶을때
+     * @param data
+     * @param message
+     * @return 상태코드, "데이터가 없습니다" , data
+
+
+     */
+    public static <T> ApiResponse<T> success(T data,String message) {
+        return new ApiResponse<T>(HttpStatus.OK, message, data);
+    }
     public static <T> ApiResponse<T> error(ErrorCode errorCode) {
         return new ApiResponse<T>(errorCode.getStatus(),errorCode.getMessage(),null);
+    }
+
+    public static <T> ApiResponse<T> error(HttpStatus status, String message) {
+        return new ApiResponse<T>(status,message,null);
     }
 }
