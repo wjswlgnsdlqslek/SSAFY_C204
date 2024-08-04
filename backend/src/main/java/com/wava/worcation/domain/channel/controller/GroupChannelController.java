@@ -7,10 +7,7 @@ import com.wava.worcation.domain.channel.service.GroupChannelService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,7 +19,20 @@ public class GroupChannelController {
 
     private final GroupChannelService groupChannelServcice ;
 
+    /**
+     *
+     * @ 작성자   : 이병수
+     * @ 작성일   : 2024-08-03
+     * @ 설명     : 그룹 채널 전체 보기
 
+     * @return
+     */
+    @GetMapping
+    public ResponseEntity<ApiResponse<List<GroupChannelResponseDto>>> showAllGroupChannel (HttpServletRequest request) {
+        String token = request.getHeader("Authorization").substring(7);
+        return groupChannelServcice.showAllGroupChannel(token);
+
+    }
 
 
     /**
@@ -41,20 +51,7 @@ public class GroupChannelController {
     }
 
 
-    /**
-     *
-     * @ 작성자   : 이병수
-     * @ 작성일   : 2024-08-03
-     * @ 설명     : 그룹 채널 전체 보기
 
-     * @return
-     */
-    @PostMapping("/")
-    public ResponseEntity<ApiResponse<List<GroupChannelResponseDto>>> showAllGroupChannel (HttpServletRequest request) {
-        String token = request.getHeader("Authorization").substring(7);
-        return groupChannelServcice.showAllGroupChannel(token);
-
-    }
 
 
 }
