@@ -1,6 +1,9 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import fetchChat from "../../api/chatApi";
+import MyMessageComponent from "./message/MyMessageComponent";
+import OtherMessageComponent from "./message/OtherMessageComponent";
+import ChatInputComponent from "./ChatInputComponent";
 // zustand 추가
 // axios 추가
 import { Stomp } from "@stomp/stompjs"
@@ -14,6 +17,7 @@ function ChatComponent() {
     const [messages, setMessages] = useState([]);
     // 메시지 입력 상태
     const [inputValue, setInputValue] = useState('');
+    const [name, setName] = useState('');
     // const [message, setMessage] = useState("");
     // STOMP 클라이언트를 위한 ref. 웹소켓 연결을 유지하기 위해 사용
     const stompClient = useRef(null);
@@ -29,12 +33,18 @@ function ChatComponent() {
         setInputValue(event.target.value);
     };
 
+    const handleNameChange = (event) => {
+        setName(event.target.value);
+    };
+
     useEffect(() => {
         connect();
         fetchMessages();
         // 컴포넌트 언마운트 시 웹소켓 연결 해제
         return () => disconnect();
     }, [channelId]);
+
+
     // 메시지 목록이 업데이트될 때마다 스크롤을 최하단으로 이동시키는 함수
     useEffect(() => {
         scrollToBottom();
@@ -42,11 +52,12 @@ function ChatComponent() {
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     };
+
+
     // 웹소켓 연결 설정
     const connect = () => {
         const socket = new WebSocket("ws://localhost:8080/ws");
         stompClient.current = Stomp.over(socket);
-        console.log("방방" + channelId)
         stompClient.current.connect({Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtajE1ODRAbmF2ZXIuY29tIiwiYXV0aCI6IlZJU0lUT1IiLCJleHAiOjE3MjI2Nzk2MDV9.g8ZTJn9l2_ysSphyeSHr_2LAQkj2JxEwko0uxr1Q8Xg`}, () => {
             stompClient.current.subscribe(`/sub/chatroom/${channelId}`, (message) => {
                 const newMessage = JSON.parse(message.body);
@@ -55,12 +66,16 @@ function ChatComponent() {
         });
         console.log("방 번호", channelId);
     };
+
+
     // 웹소켓 연결 해제
     const disconnect = () => {
         if (stompClient.current) {
             stompClient.current.disconnect();
         }
     };
+
+
     // 기존 채팅 메시지를 서버로부터 가져오는 함수
     const fetchMessages = () => {
         fetchChat(channelId,
@@ -73,40 +88,40 @@ function ChatComponent() {
             }
         )
     };
+
+
     // 새 메시지를 보내는 함수
     const sendMessage = () => {
-        if (stompClient.current && inputValue) {
+        if (stompClient.current && inputValue && name) {
+            console.log(name)
             const messageObj = {
                 id : 1,
-                name : "테스트1",
+                nickName : name,
                 message : inputValue    
             };
             stompClient.current.send(`/pub/message`, {}, JSON.stringify(messageObj));
-            setInputValue(""); // 입력 필드 초기화
+            setInputValue("");
+            setName("");
         }
     };
+
+
     return (
-    <div>
-      <ul>
-        <div>
-          {/* 입력 필드 */}
-       <input
-        type="text"
-        value={inputValue}
-        onChange={handleInputChange}
-      />
-      {/* 메시지 전송, 메시지 리스트에 추가 */}
-      <button onClick={sendMessage}>입력</button>
-        </div>
-        {/* 메시지 리스트 출력 */}
-        {messages.map((item, index) => (
-          <div key={index} className="list-item">{item.message}</div>
-        ))}
-      </ul>
-    </div>
+        <>
+            <div className="flex flex-col items-end">
+                <div className="bg-blue-400 w-1/3 flex flex-col rounded-t-lg overflow-y-auto min-h-screen max-h-screen">
+                    {messages.map((item, index) => (
+                        <div key={index} className="m-4">
+                            <MyMessageComponent item={item} index={index} />
+                            <OtherMessageComponent item={item} index={index} />
+                        </div>
+                    ))}
+                    <div ref={messagesEndRef} />
+                </div>
+                <ChatInputComponent name={name} inputValue={inputValue} handleNameChange={handleNameChange} handleInputChange={handleInputChange} sendMessage={sendMessage} />
+            </div>
+        </>
   );
 }
-// 구독: /topic
-// 메시지 송신: /app
 
 export default ChatComponent;
