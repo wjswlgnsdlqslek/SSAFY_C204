@@ -12,6 +12,7 @@ import lombok.*;
 public class ChannelUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name= "channel_user_id")
     private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
