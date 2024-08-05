@@ -436,7 +436,9 @@ const Calendar = ({ calendarRef }) => {
                 type="checkbox"
                 checked={isFinish}
                 onChange={(e) => setIsFinish(e.target.checked)}
-                className={isMobile ? "h-4 w-4 text-blue-600" : "mt-2 mb-4 "}
+                className={
+                  isMobile ? "h-4 w-4 text-blue-600 ms-1.5" : "mt-2 mb-4 ms-1.5"
+                }
               />
             </div>
           </Field>
