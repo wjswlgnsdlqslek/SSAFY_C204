@@ -8,6 +8,7 @@ import lombok.Getter;
 @Builder
 public class LoginResponseDto {
     private String nickName;
+    private String profile;
     private Boolean isWorcation;
     private WorcationResponseDto worcation;
 
