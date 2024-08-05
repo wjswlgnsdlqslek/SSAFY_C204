@@ -23,7 +23,7 @@ function CreateGroupChannel({ onClose }) {
       <input
         type="text"
         onChange={(e) => setChannelTitle(e.target.value)}
-        className="w-full mb-2 border-gray-100 py-1 px-2 border-2 rounded-md"
+        className="w-full mb-2 border-gray-300 py-1 px-2 border rounded-md shadow-sm focus:outline-none focus:ring-0.5 focus:ring-mainBlue focus:border-mainBlue"
         value={channelTitle}
         placeholder="채널명을 입력해 주세요."
       />
