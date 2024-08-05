@@ -145,9 +145,10 @@ function FeedPersonalPage() {
   const loadMore = async () => {
     try {
       setLoading(true);
-      const feedContResp = await readFeedContentRequest(userId, pages);
+      const feedContResp = await readFeedContentRequest(userId, pages + 1);
       if (feedContResp?.data) {
         setContents((state) => [...state, ...feedContResp.data]);
+        setPages((c) => c + 1);
       }
     } catch (e) {
       console.log(e);

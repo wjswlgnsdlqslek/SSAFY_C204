@@ -163,6 +163,8 @@ import { HeartIcon as FullHeart } from "@heroicons/react/24/solid";
 import Swal from "sweetalert2";
 import {
   createCommentFeedRequest,
+  createLikeFeedRequest,
+  deleteLikeFeedRequest,
   readOneFeedDetailRequest,
 } from "../../../api/channelFeedApi";
 import { nanoid } from "nanoid";
@@ -305,15 +307,31 @@ const ContentDrawer = ({
     });
   };
 
-  // 이거 검토필요
-  const handleLikeClick = () => {
-    const newLikedState = !isLiked;
-    setIsLiked(newLikedState);
-    setEditedContent((prev) => ({
-      ...prev,
-      heart: newLikedState ? (prev.heart || 0) + 1 : (prev.heart || 1) - 1,
-    }));
-    onLike(editedContent.id, newLikedState);
+  // 좋아요 핸들
+  const handleLikeClick = async () => {
+    if (isFetching) return;
+    try {
+      setIsFecthing(true);
+      if (isLiked) {
+        await deleteLikeFeedRequest();
+        // 좋아요면 딜리트
+      } else {
+        // 아니면 포스트
+        await createLikeFeedRequest();
+      }
+    } catch (e) {
+      console.log(e);
+    } finally {
+      // 내부 로직
+      setIsFecthing(false);
+      const newLikedState = !isLiked;
+      setIsLiked(newLikedState);
+      setEditedContent((prev) => ({
+        ...prev,
+        heart: newLikedState ? (prev.heart || 0) + 1 : (prev.heart || 1) - 1,
+      }));
+      onLike(editedContent.id, newLikedState);
+    }
   };
 
   const handleCommentSubmit = async () => {
