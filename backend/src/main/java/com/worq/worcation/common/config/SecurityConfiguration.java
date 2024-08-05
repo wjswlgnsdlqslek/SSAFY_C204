@@ -34,7 +34,7 @@ public class SecurityConfiguration {
     private final RedisUtil redisUtil;
 
     private final String[] PERMIT_ALL_ARRAY = {
-            "/","/user/signup", "/user/login", "/**"
+            "/","/user/signup", "/user/login","/**"
     };
 
     private final String[] CORS_API_METHOD = {
@@ -42,7 +42,7 @@ public class SecurityConfiguration {
     };
 
     private final String[] CORS_ALLOW_URL = {
-            "http://localhost:3000", "https://i11c204.p.ssafy.io"
+            "http://localhost:3000", "https://i11c204.p.ssafy.io:443", "https://i11c204.p.ssafy.io"
     };
 
     @Bean
