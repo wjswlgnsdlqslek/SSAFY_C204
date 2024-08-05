@@ -145,8 +145,8 @@ export const createCommentFeedRequest = async (id, data) => {
 };
 
 // 피드 좋아요
-export const createLikeFeedRequest = async (id, data) => {
-  return await handleRequest(() => local.post(`${address}/${id}/like`, data));
+export const createLikeFeedRequest = async (id) => {
+  return await handleRequest(() => local.post(`${address}/${id}/like`, {}));
 };
 
 // 피드 좋아요 취소
