@@ -308,20 +308,21 @@ const ContentDrawer = ({
   };
 
   // 좋아요 핸들
-  const handleLikeClick = () => {
+  const handleLikeClick = async () => {
     if (isFetching) return;
     try {
       setIsFecthing(true);
       if (isLiked) {
-        deleteLikeFeedRequest();
+        await deleteLikeFeedRequest();
         // 좋아요면 딜리트
       } else {
         // 아니면 포스트
-        createLikeFeedRequest();
+        await createLikeFeedRequest();
       }
     } catch (e) {
       console.log(e);
     } finally {
+      // 내부 로직
       setIsFecthing(false);
       const newLikedState = !isLiked;
       setIsLiked(newLikedState);
