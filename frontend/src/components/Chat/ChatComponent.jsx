@@ -4,7 +4,8 @@ import fetchChat from "../../api/chatApi";
 import MyMessageComponent from "./message/MyMessageComponent";
 import OtherMessageComponent from "./message/OtherMessageComponent";
 import ChatInputComponent from "./ChatInputComponent";
-// zustand 추가
+// zustand
+import useUserStore from "../../store/userStore";
 // axios 추가
 import { Stomp } from "@stomp/stompjs"
 
@@ -18,11 +19,8 @@ function ChatComponent() {
     // 메시지 입력 상태
     const [inputValue, setInputValue] = useState('');
     const [name, setName] = useState('');
-    // const [message, setMessage] = useState("");
     // STOMP 클라이언트를 위한 ref. 웹소켓 연결을 유지하기 위해 사용
     const stompClient = useRef(null);
-    // Redux store에서 현재 사용자 정보 가져오기
-    // const currentUser = useSelector((state) => state.user);
     // 채팅 메시지 목록의 끝을 참조하는 ref. 이를 이용해 새 메시지가 추가될 때 스크롤을 이동
     const messagesEndRef = useRef(null);
     // 컴포넌트 마운트 시 실행. 웹소켓 연결 및 초기 메시지 로딩
@@ -33,9 +31,11 @@ function ChatComponent() {
         setInputValue(event.target.value);
     };
 
-    const handleNameChange = (event) => {
-        setName(event.target.value);
-    };
+    const nickName = useUserStore((state) => state.userInfo?.nickName);
+
+    // const handleNameChange = (event) => {
+    //     setName(event.target.value);
+    // };
 
     useEffect(() => {
         connect();
@@ -92,33 +92,39 @@ function ChatComponent() {
 
     // 새 메시지를 보내는 함수
     const sendMessage = () => {
-        if (stompClient.current && inputValue && name) {
+        if (stompClient.current && inputValue) {
             console.log(name)
             const messageObj = {
-                id : 1,
-                nickName : name,
+                channelId : 1,
+                nickName : nickName,
                 message : inputValue    
             };
             stompClient.current.send(`/pub/message`, {}, JSON.stringify(messageObj));
             setInputValue("");
-            setName("");
+            // setName("");
         }
     };
 
 
     return (
         <>
-            <div className="flex flex-col items-end">
+            <div className="flex flex-col items-end me-3">
                 <div className="bg-blue-400 w-1/3 flex flex-col rounded-t-lg overflow-y-auto min-h-screen max-h-screen">
                     {messages.map((item, index) => (
                         <div key={index} className="m-4">
-                            <MyMessageComponent item={item} index={index} />
-                            <OtherMessageComponent item={item} index={index} />
+                            {nickName}
+                            {
+                                
+                                item.nickName === nickName
+                                ? <MyMessageComponent item={item} index={index} />
+                                : <OtherMessageComponent item={item} index={index} />
+                            }
+
                         </div>
                     ))}
                     <div ref={messagesEndRef} />
                 </div>
-                <ChatInputComponent name={name} inputValue={inputValue} handleNameChange={handleNameChange} handleInputChange={handleInputChange} sendMessage={sendMessage} />
+                <ChatInputComponent inputValue={inputValue} handleInputChange={handleInputChange} sendMessage={sendMessage} />
             </div>
         </>
   );
