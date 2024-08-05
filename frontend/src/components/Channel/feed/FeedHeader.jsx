@@ -149,20 +149,13 @@ const FeedHeader = ({
   userId,
 }) => {
   const isMobile = useDeviceStore((state) => state.isMobile);
-  const [name, setName] = useState(initialName);
+  const [name] = useState(initialName); // name 상태는 그대로 유지하되 수정은 하지 않음
   const [bio, setBio] = useState(initialBio);
-  const [isEditingName, setIsEditingName] = useState(false);
   const [isEditingBio, setIsEditingBio] = useState(false);
   const [isFollowDrawerOpen, setIsFollowDrawerOpen] = useState(false);
   const [followDrawerTab, setFollowDrawerTab] = useState("followers");
 
-  const handleNameChange = (e) => setName(e.target.value);
   const handleBioChange = (e) => setBio(e.target.value);
-
-  const handleNameSubmit = () => {
-    console.log("Updated name:", name);
-    setIsEditingName(false);
-  };
 
   const handleBioSubmit = () => {
     console.log("Updated bio:", bio);
@@ -212,40 +205,13 @@ const FeedHeader = ({
             } mb-2`}
           >
             <div className={`flex items-center ${isMobile ? "mb-2" : ""}`}>
-              {isEditingName ? (
-                <div className="flex items-center">
-                  <input
-                    type="text"
-                    value={name}
-                    onChange={handleNameChange}
-                    className={`${
-                      isMobile ? "text-xl" : "text-2xl"
-                    } font-bold mr-2 p-1 border rounded`}
-                  />
-                  <button
-                    onClick={handleNameSubmit}
-                    className="px-2 py-1 bg-green-500 text-white text-xs rounded"
-                  >
-                    저장
-                  </button>
-                </div>
-              ) : (
-                <>
-                  <h1
-                    className={`${
-                      isMobile ? "text-xl" : "text-2xl"
-                    } font-bold mr-2`}
-                  >
-                    {name}
-                  </h1>
-                  <button
-                    onClick={() => setIsEditingName(true)}
-                    className="text-gray-500 hover:text-gray-700"
-                  >
-                    <Edit size={16} />
-                  </button>
-                </>
-              )}
+              <h1
+                className={`${
+                  isMobile ? "text-xl" : "text-2xl"
+                } font-bold mr-2`}
+              >
+                {name}
+              </h1>
             </div>
             <button
               onClick={openCreateDrawer}

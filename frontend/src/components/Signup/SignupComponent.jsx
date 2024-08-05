@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { register } from "../../api/userApi";
+import { register, checkNicknameAvailability } from "../../api/userApi";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import useDeviceStore from "../../store/deviceStore";
@@ -27,12 +27,22 @@ function SignupComponent() {
   const [isPassword, setIsPassword] = useState("");
   const [isPasswordConfirm, setIsPasswordConfirm] = useState("");
   const [isPhone, setIsPhone] = useState("");
+
+  const [isNicknameAvailable, setIsNicknameAvailable] = useState(false);
+  const [isCheckingNickname, setIsCheckingNickname] = useState(false);
+
   const [isNickName, setIsNickName] = useState("");
 
   const [isFormVaild, setIsFormValid] = useState("");
 
   const onChangeFormVaild = () => {
-    if (isEmail && isPassword && isPasswordConfirm && isNickName) {
+    if (
+      isEmail &&
+      isPassword &&
+      isPasswordConfirm &&
+      isNickName &&
+      isNicknameAvailable
+    ) {
       setIsFormValid(true);
     } else {
       setIsFormValid(false);
@@ -86,13 +96,29 @@ function SignupComponent() {
   const onChangeNickName = (e) => {
     const currentNickName = e.target.value;
     setNickName(currentNickName);
+    setIsCheckingNickname(true);
 
     if (currentNickName.length === 0) {
       setIsNickName(false);
       setNickNameMessage("이름을 입력해주세요.");
+      setIsCheckingNickname(false);
+      setIsNicknameAvailable(false);
     } else {
-      setIsNickName(true);
-      setNickNameMessage("올바른 이름 형식입니다.");
+      checkNicknameAvailability(
+        currentNickName,
+        (response) => {
+          setIsNickName(true);
+          setIsNicknameAvailable(true);
+          setNickNameMessage("사용 가능한 닉네임입니다.");
+          setIsCheckingNickname(false);
+        },
+        (error) => {
+          setIsNickName(false);
+          setIsNicknameAvailable(false);
+          setNickNameMessage(error.response.data.msg);
+          setIsCheckingNickname(false);
+        }
+      );
     }
     onChangeFormVaild();
   };
@@ -135,21 +161,21 @@ function SignupComponent() {
       newUser,
       (response) => {
         Swal.fire({
-          position: "top",
+          position: "center",
           icon: "success",
           title: "회원가입이 완료되었습니다!",
           showConfirmButton: false,
-          timer: 2000,
+          timer: 1000,
         });
         navigate("/login");
       },
       (error) => {
         Swal.fire({
-          position: "top",
+          position: "center",
           icon: "error",
           title: "회원가입이 실패하였습니다!",
           showConfirmButton: false,
-          timer: 2000,
+          timer: 1500,
         });
         console.log(error);
       }
@@ -264,7 +290,7 @@ function SignupComponent() {
                 className="block text-gray-700 text-sm font-bold mb-2"
                 htmlFor="passwordConfirm"
               >
-                비밀번호 재입력 *
+                비밀번호 확인 *
               </label>
               <input
                 type="password"
@@ -297,7 +323,7 @@ function SignupComponent() {
                 value={phone}
                 onChange={onChangePhone}
                 className="bg-white focus:outline-none ps-3 drop-shadow-md w-full h-10 border border-gray-400 hover:border-[#1c77c3] mb-3 rounded-lg"
-                placeholder="휴대폰 번호 입력"
+                placeholder="-는 빼고, 숫자만 입력해 주세요."
               />
               <p
                 className={`message ${
@@ -313,23 +339,29 @@ function SignupComponent() {
                 className="block text-gray-700 text-sm font-bold mb-2"
                 htmlFor="nickName"
               >
-                이름 *
+                WAVA ID *
               </label>
               <input
                 id="nickName"
                 name="nickName"
                 value={nickName}
                 onChange={onChangeNickName}
-                className="bg-white focus:outline-none ps-3 drop-shadow-md w-full h-10 border border-gray-400 hover:border-[#1c77c3] mb-3 rounded-lg"
-                placeholder="닉네임 입력"
+                className="bg-white focus:outline-none ps-3 drop-shadow-md w-full h-10 border border-gray-400 hover:border-[#1c77c3] mb-3 rounded-lg text-xs"
+                placeholder="변경할 수 없습니다. 신중하게 작성해 주세요."
               />
-              <p
-                className={`message ${
-                  isNickName ? "text-green-600" : "text-red-600"
-                } text-xs`}
-              >
-                {nickNameMessage}
-              </p>
+              {isCheckingNickname ? (
+                <p className="text-blue-600 text-xs">닉네임 확인 중...</p>
+              ) : (
+                <p
+                  className={`message ${
+                    isNickName && isNicknameAvailable
+                      ? "text-green-600"
+                      : "text-red-600"
+                  } text-xs`}
+                >
+                  {nickNameMessage}
+                </p>
+              )}
             </div>
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
