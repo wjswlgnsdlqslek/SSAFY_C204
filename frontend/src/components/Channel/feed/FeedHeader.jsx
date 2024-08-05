@@ -142,17 +142,8 @@ import { Camera, Edit } from "lucide-react";
 import FollowDrawer from "./FollowDrawer";
 import useDeviceStore from "../../../store/deviceStore";
 
-const FeedHeader = ({
-  openCreateDrawer,
-  initialName = "전지훈",
-  initialBio = "전지훈의 개인 채널입니다.",
-  userId,
-  setUserInfo,
-  userInfo,
-}) => {
+const FeedHeader = ({ openCreateDrawer, userId, setUserInfo, userInfo }) => {
   const isMobile = useDeviceStore((state) => state.isMobile);
-  // const [name, setName] = useState(userInfo?.nickname);
-  // const [bio, setBio] = useState(userInfo?.description);
   const [isEditingName, setIsEditingName] = useState(false);
   const [isEditingBio, setIsEditingBio] = useState(false);
   const [isFollowDrawerOpen, setIsFollowDrawerOpen] = useState(false);
@@ -160,6 +151,7 @@ const FeedHeader = ({
 
   const handleNameChange = (e) =>
     setUserInfo((state) => ({ ...state, nickname: e.target.value }));
+
   const handleBioChange = (e) =>
     setUserInfo((state) => ({ ...state, description: e.target.value }));
 

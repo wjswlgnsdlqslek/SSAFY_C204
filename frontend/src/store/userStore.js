@@ -12,7 +12,6 @@ const useUserStore = create(
       isValidToken: false,
       userInfo: null,
       loginFunc: async (user) => {
-        console.log(user);
         try {
           await login(
             user,

@@ -197,11 +197,11 @@ const ContentDrawer = ({
         const resp = await readOneFeedDetailRequest(feedId);
         if (resp) {
           setFeedContent({
-            isOwner: resp?.nickName === userInfo.nickName,
+            isOwner: resp?.nickName === userInfo?.nickName,
             ...resp,
           });
           setEditedContent({
-            isOwner: resp?.nickName === userInfo.nickName,
+            isOwner: resp?.nickName === userInfo?.nickName,
             ...resp,
           });
           setImages(resp?.image || []);
@@ -549,9 +549,9 @@ const ContentDrawer = ({
                     <div className="border-t border-gray-200 pt-4 mb-4">
                       <h3 className="font-semibold mb-2">댓글</h3>
 
-                      {feedContent?.comment?.map((item) => {
+                      {feedContent?.comment?.map((item, index) => {
                         return (
-                          <div key={item.nickName}>
+                          <div key={index}>
                             <img
                               className="h-8 w-8 rounded-full object-cover"
                               src={item?.profile}

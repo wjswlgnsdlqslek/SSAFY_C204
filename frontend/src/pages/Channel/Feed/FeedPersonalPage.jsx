@@ -137,6 +137,10 @@ function FeedPersonalPage() {
     //     });
   };
 
+  const addItem = () => {
+    window.location.reload();
+  };
+
   return (
     <>
       <div className="flex h-full">
@@ -160,6 +164,7 @@ function FeedPersonalPage() {
             feedId={selectedFeedId}
           />
           <CreateContentDrawer
+            addItem={addItem}
             onClose={() => setIsCreateDrawerOpen(false)}
             isOpen={isCreateDrawerOpen}
           />

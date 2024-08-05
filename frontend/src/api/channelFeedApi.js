@@ -75,9 +75,24 @@ export const readFeedInfoRequest = async (id) => {
   );
 };
 
+// 헤더 덮어씌워서 명시적으로 지정
 // 피드 생성
 export const createFeedRequest = async (data) => {
-  return await handleRequest(() => local.post(address + "/create", data));
+  // const token = localStorage.getItem("authToken");
+  const token = "MYTOKEN";
+  if (token) {
+    return true;
+    return await handleRequest(() =>
+      local.post(address + "/feed/create", data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+    );
+  } else {
+    return false;
+  }
 };
 
 // 피드 디테일 보기
@@ -154,15 +169,34 @@ export const followRequest = async (channelId) => {
 };
 
 // 팔로우 상세
-export const readFollowUserRequest = async (nickname) => {
+export const readFollowUserRequest = async (nickName) => {
   return await handleRequest(() =>
-    local.get(`${address}/${nickname}/follower`)
+    local.get(`${address}/${nickName}/follower`)
   );
 };
 
 // 팔로워 상세
-export const readFollowerUserRequest = async (nickname) => {
+export const readFollowerUserRequest = async (nickName) => {
   return await handleRequest(() =>
-    local.get(`${address}/${nickname}/followering`)
+    local.get(`${address}/${nickName}/followering`)
   );
+};
+
+// 헤더 덮어씌워서 명시적으로 지정
+// 프로필 이미지 저장
+export const createProfileImageRequest = async (nickName, data) => {
+  // const token = localStorage.getItem("authToken");
+  const token = "MYTOKEN";
+  if (token) {
+    return await handleRequest(() =>
+      local.post(`personal/${nickName}/profile`, data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+    );
+  } else {
+    return false;
+  }
 };

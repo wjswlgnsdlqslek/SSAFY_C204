@@ -8,9 +8,12 @@ import {
   PlusCircleIcon,
 } from "@heroicons/react/24/outline";
 import Swal from "sweetalert2";
+import { createFeedRequest } from "../../../api/channelFeedApi";
+import useUserStore from "../../../store/userStore";
 
-function CreateContentDrawer({ isOpen, onClose }) {
+function CreateContentDrawer({ isOpen, onClose, addItem }) {
   const isMobile = useDeviceStore((state) => state.isMobile);
+  const userInfo = useUserStore((state) => state.userInfo);
   const imgInput = useRef(null);
   const [images, setImages] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -35,6 +38,7 @@ function CreateContentDrawer({ isOpen, onClose }) {
       file,
       url: URL.createObjectURL(file),
     }));
+
     setImages((prevImages) => [...prevImages, ...newImages]);
     setCurrentIndex(images.length);
   };
@@ -51,7 +55,7 @@ function CreateContentDrawer({ isOpen, onClose }) {
     });
   };
 
-  const submitHandle = (e) => {
+  const submitHandle = async (e) => {
     e.preventDefault();
     if (images.length === 0 || textContent === "") {
       Swal.fire({
@@ -61,9 +65,27 @@ function CreateContentDrawer({ isOpen, onClose }) {
         showConfirmButton: false,
         timer: 2000,
       });
+
       return;
     }
-    console.log(images, textContent);
+
+    const formData = new FormData();
+    images.forEach((img) => {
+      formData.append("image", img?.file);
+    });
+    formData.append("content", textContent);
+    formData.append("sido", userInfo?.worcation?.sido);
+    formData.append("gugun", userInfo?.worcation?.gugun);
+    const resp = await createFeedRequest(formData);
+    if (resp) {
+      // addItem();
+      setImages([]);
+      setTextContent("");
+      setCurrentIndex(0);
+      onClose();
+
+      addItem();
+    }
   };
 
   return (
