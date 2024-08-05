@@ -5,7 +5,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import useAuthStore from "./store/authStore";
 import ChannelPageLayout from "./pages/Channel/ChannelPageLayout";
 import GroupChannelPage from "./pages/GroupChannelPage";
-import WorkationPage from "./pages/Workation";
+import WorcationPage from "./pages/Worcation";
 import DashboardPage from "./pages/DashboardPage";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
@@ -26,7 +26,7 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/signup" element={<SignupPage />} />
             <Route path="/login" element={<LoginPage />} />
-            <Route path="/workation" element={<WorkationPage />} />
+            <Route path="/worcation" element={<WorcationPage />} />
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/channel" element={<ChannelPageLayout />}>
               {/* 그룹 시작 */}

@@ -10,6 +10,7 @@ const useUserStore = create(
       isLogin: false,
       isLoginError: false,
       isValidToken: false,
+      userInfo: null,
       loginFunc: async (user) => {
         console.log(user);
         try {
@@ -25,6 +26,8 @@ const useUserStore = create(
                 set(() => ({ isLogin: true }));
                 set(() => ({ isLoginError: false }));
                 set(() => ({ isValidToken: true }));
+                const { nickName, worcation, profile } = response?.data;
+                set(() => ({ userInfo: { nickName, profile, worcation } }));
                 sessionStorage.setItem("accessToken", accessToken);
                 sessionStorage.setItem("refreshToken", refreshToken);
               }

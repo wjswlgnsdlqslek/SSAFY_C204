@@ -143,9 +143,10 @@
 
 // 수정 및 삭제 기능 간단 구현 -> 수정 필요 위는 수정 삭제 없는 클린 코드
 // 댓글, 프로필 클릭->이동, 게시글 수정/삭제,
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useLayoutEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import useDeviceStore from "../../../store/deviceStore";
+import useUserStore from "../../../store/userStore";
 import {
   ChevronDoubleRightIcon,
   HeartIcon as EmptyHeart,
@@ -160,39 +161,65 @@ import {
 } from "@heroicons/react/24/outline";
 import { HeartIcon as FullHeart } from "@heroicons/react/24/solid";
 import Swal from "sweetalert2";
+import {
+  createCommentFeedRequest,
+  readOneFeedDetailRequest,
+} from "../../../api/channelFeedApi";
+import { nanoid } from "nanoid";
 
 const ContentDrawer = ({
   isOpen,
   onClose,
-  content,
-  onLeftClick,
-  onRightClick,
   onEdit,
   onDelete,
   onLike,
+  feedId,
 }) => {
   const isMobile = useDeviceStore((state) => state.isMobile);
+  const userInfo = useUserStore((state) => state.userInfo);
+  const imgInput = useRef(null);
   const navigate = useNavigate();
+
   const [isEditing, setIsEditing] = useState(false);
   const [editedContent, setEditedContent] = useState(null);
   const [images, setImages] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const imgInput = useRef(null);
   const [isLiked, setIsLiked] = useState(false);
+  const [feedContent, setFeedContent] = useState(null);
+  const [writedComment, setWritedComment] = useState("");
 
-  useEffect(() => {
-    // 여기서 데이터를 받아오는 로직을 구현합니다.
+  const [isFetching, setIsFecthing] = useState(false);
+  useLayoutEffect(() => {
     // 임시
-    if (content) {
-      setEditedContent({ ...content });
-      setImages([{ url: content.imageUrl }]);
-      setIsLiked(content.isLiked || false);
-    }
-  }, [content]);
+    const getData = async () => {
+      try {
+        setIsFecthing(true);
+        const resp = await readOneFeedDetailRequest(feedId);
+        if (resp) {
+          setFeedContent({
+            isOwner: resp?.nickName === userInfo.nickName,
+            ...resp,
+          });
+          setEditedContent({
+            isOwner: resp?.nickName === userInfo.nickName,
+            ...resp,
+          });
+          setImages(resp?.image || []);
+          setIsLiked(resp?.isLiked || false);
+        }
+      } catch (e) {
+        console.log(e);
+      } finally {
+        setIsFecthing(false);
+      }
+    };
+
+    getData();
+  }, [feedId]);
 
   const handleAuthorClick = () => {
-    if (content && content.authorId) {
-      navigate(`/personal/${content.authorId}`);
+    if (feedContent && feedContent?.nickName) {
+      navigate(`/channel/feed/${feedContent.nickName}`);
       onClose();
     }
   };
@@ -219,8 +246,8 @@ const ContentDrawer = ({
   };
 
   const handleCancelEdit = () => {
-    setEditedContent({ ...content });
-    setImages([{ url: content.imageUrl }]);
+    setEditedContent({ ...feedContent });
+    setImages(feedContent?.image ?? []);
     setIsEditing(false);
   };
 
@@ -235,7 +262,8 @@ const ContentDrawer = ({
       cancelButtonText: "취소",
     }).then((result) => {
       if (result.isConfirmed) {
-        onDelete(content.id);
+        console.log(feedContent);
+        onDelete(feedContent?.id);
         onClose();
         Swal.fire("컨텐츠가 성공적으로 삭제되었습니다.", "", "success");
       }
@@ -259,7 +287,7 @@ const ContentDrawer = ({
 
     const newImages = newFiles.map((file) => ({
       file,
-      url: URL.createObjectURL(file),
+      imageUrl: URL.createObjectURL(file),
     }));
     setImages((prevImages) => [...prevImages, ...newImages]);
     setCurrentIndex(images.length);
@@ -277,14 +305,41 @@ const ContentDrawer = ({
     });
   };
 
+  // 이거 검토필요
   const handleLikeClick = () => {
     const newLikedState = !isLiked;
     setIsLiked(newLikedState);
     setEditedContent((prev) => ({
       ...prev,
-      likes: newLikedState ? (prev.likes || 0) + 1 : (prev.likes || 1) - 1,
+      heart: newLikedState ? (prev.heart || 0) + 1 : (prev.heart || 1) - 1,
     }));
     onLike(editedContent.id, newLikedState);
+  };
+
+  const handleCommentSubmit = async () => {
+    if (isFetching) return;
+    try {
+      setIsFecthing(true);
+      if (await createCommentFeedRequest(feedId, writedComment)) {
+        const newComment = {
+          id: nanoid(),
+          userId: nanoid(),
+          nickName: userInfo?.nickName,
+          profile: userInfo?.profile,
+          comment: writedComment,
+        };
+
+        setFeedContent((state) => ({
+          ...state,
+          comment: [...state.comment, newComment],
+        }));
+        setWritedComment("");
+      }
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setIsFecthing(false);
+    }
   };
 
   return (
@@ -324,9 +379,9 @@ const ContentDrawer = ({
               <div className="w-full max-w-lg mb-4">
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center space-x-2">
-                    {editedContent.profileImage ? (
+                    {editedContent?.profile ? (
                       <img
-                        src={editedContent.profileImage}
+                        src={editedContent?.profile}
                         alt="Profile"
                         className="h-10 w-10 rounded-full object-cover"
                       />
@@ -337,7 +392,7 @@ const ContentDrawer = ({
                       onClick={handleAuthorClick}
                       className="text-lg font-semibold hover:underline"
                     >
-                      {editedContent.authorName}
+                      {editedContent?.nickName}
                     </button>
                   </div>
                   {editedContent.isOwner && !isEditing && (
@@ -377,7 +432,7 @@ const ContentDrawer = ({
                 </div>
               </div>
 
-              <div className="w-full max-w-lg aspect-square relative mb-6">
+              <div className="w-full max-w-lg aspect-video relative mb-6">
                 {images.length === 0 ? (
                   <div
                     onClick={() => imgInput.current.click()}
@@ -388,7 +443,7 @@ const ContentDrawer = ({
                 ) : (
                   <>
                     <img
-                      src={images[currentIndex]?.url}
+                      src={images[currentIndex]?.imageUrl}
                       alt={`Content ${currentIndex + 1}`}
                       className="w-full h-full object-contain rounded-lg"
                     />
@@ -442,11 +497,11 @@ const ContentDrawer = ({
                     ) : (
                       <EmptyHeart className="w-6 h-6 text-gray-500 hover:text-red-500" />
                     )}
-                    <span>{editedContent.likes || 0}</span>
+                    <span>{editedContent.heart || 0}</span>
                   </button>
                   <div className="flex items-center space-x-1">
                     <ChatBubbleLeftIcon className="w-6 h-6" />
-                    <span>{editedContent.comments?.length || 0}</span>
+                    <span>{editedContent.comment?.length || 0}</span>
                   </div>
                 </div>
               </div>
@@ -455,11 +510,11 @@ const ContentDrawer = ({
                 {isEditing ? (
                   <>
                     <textarea
-                      value={editedContent.description}
+                      value={editedContent?.content}
                       onChange={(e) =>
                         setEditedContent({
                           ...editedContent,
-                          description: e.target.value,
+                          content: e.target.value,
                         })
                       }
                       className="mb-6 w-full p-2 border rounded"
@@ -485,24 +540,45 @@ const ContentDrawer = ({
                     <h2 className="text-xl font-bold mb-2">
                       {editedContent.title}
                     </h2>
-                    <p className="text-gray-600 mb-4">
+                    {/* <p className="text-gray-600 mb-4">
                       {editedContent.authorName} {editedContent.visitDate}
-                    </p>
-                    <p className="mb-6">{editedContent.description}</p>
+                    </p> */}
+                    <p className="mb-6">{editedContent.content}</p>
 
                     {/* 댓글 섹션 - 편집 모드가 아닐 때만 표시 */}
                     <div className="border-t border-gray-200 pt-4 mb-4">
                       <h3 className="font-semibold mb-2">댓글</h3>
+
+                      {feedContent?.comment?.map((item) => {
+                        return (
+                          <div key={item.nickName}>
+                            <img
+                              className="h-8 w-8 rounded-full object-cover"
+                              src={item?.profile}
+                              alt="프로필이미지"
+                            />
+                            {item?.nickName} : {item?.comment}
+                          </div>
+                        );
+                      })}
                       {/* 여기에 댓글 목록을 렌더링합니다 */}
                     </div>
 
                     <div className="flex items-center space-x-2">
                       <input
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter") handleCommentSubmit();
+                        }}
                         type="text"
+                        onChange={(e) => setWritedComment(e.target.value)}
+                        value={writedComment}
                         placeholder="댓글을 입력하세요..."
                         className="flex-grow px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-0.5 focus:ring-mainBlue focus:border-mainBlue"
                       />
-                      <button className="bg-mainBlue text-white px-4 py-2 rounded-md hover:bg-blue-500 transition-colors">
+                      <button
+                        onClick={handleCommentSubmit}
+                        className="bg-mainBlue text-white px-4 py-2 rounded-md hover:bg-blue-500 transition-colors"
+                      >
                         작성
                       </button>
                     </div>

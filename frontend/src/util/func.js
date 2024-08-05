@@ -84,7 +84,7 @@ export function validateEvent(event) {
  * }} data
  * @returns {Boolean<true|false>} - todo 이벤트 목록의 배열을 포함하는 프로미스를 반환합니다.
  */
-export function validateWorkation(data) {
+export function validateWorcation(data) {
   const { start, end, sido, gugun, job } = data;
 
   // 날짜 형식 검사

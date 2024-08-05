@@ -4,13 +4,13 @@ import CustomDatePicker from "../components/common/customDatePicker";
 import { useEffect, useState } from "react";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { createWorkation } from "../api/createWorkationApi";
+import { createWorcation } from "../api/createWorcationApi";
 import Swal from "sweetalert2";
-import { validateWorkation } from "../util/func";
-import SidoGugunSelector from "../components/Workation/SidoGugunSelector";
+import { validateWorcation } from "../util/func";
+import SidoGugunSelector from "../components/Worcation/SidoGugunSelector";
 import { useLocation } from "react-router-dom";
 
-function WorkationPage() {
+function WorcationPage() {
   const isMobile = useDeviceStore((state) => state.isMobile);
   const navigate = useNavigate();
   const [data, setData] = useState({
@@ -64,12 +64,12 @@ function WorkationPage() {
   const submitHandle = async (e) => {
     e.preventDefault();
     try {
-      if (validateWorkation(data)) {
+      if (validateWorcation(data)) {
         if (location.state === "edit") {
           // 에딧 api 호출
         } else {
           // 등록 api 호출
-          // const result = await createWorkation(data);
+          // const result = await createWorcation(data);
         }
 
         if (true) {
@@ -93,7 +93,7 @@ function WorkationPage() {
         timer: 1000,
       });
     } catch (e) {
-      console.error(e, "workation create에러");
+      console.error(e, "worcation create에러");
     }
   };
 
@@ -224,4 +224,4 @@ function WorkationPage() {
   );
 }
 
-export default WorkationPage;
+export default WorcationPage;

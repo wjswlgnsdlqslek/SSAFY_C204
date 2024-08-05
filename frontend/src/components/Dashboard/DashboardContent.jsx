@@ -55,7 +55,7 @@ const DashboardContent = ({ calendarChange }) => {
 
   // 수정 페이지로 이동
   const handleClick = () => {
-    navigate("/workation", {
+    navigate("/worcation", {
       state: {
         type: "edit",
         data: {

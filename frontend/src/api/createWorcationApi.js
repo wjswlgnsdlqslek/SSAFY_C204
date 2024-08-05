@@ -1,6 +1,6 @@
 import { localAxios as local } from "../util/http-commons";
 
-export const createWorkation = async (data) => {
+export const createWorcation = async (data) => {
   try {
     const response = await local.post("/worcation/create");
     if (response.status === 201) {

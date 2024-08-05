@@ -56,44 +56,57 @@
 
 // export default FeedPersonalPage;
 
-import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useLocation, useParams } from "react-router-dom";
 import ContentDrawer from "../../../components/Channel/feed/ContentDrawer";
 import ContentItemGrid from "../../../components/Channel/feed/ContentItemGrid";
 import CreateContentDrawer from "../../../components/Channel/feed/CreateContentDrawer";
 import FeedHeader from "../../../components/Channel/feed/FeedHeader";
-import { get_feedData } from "../../../api/dummy";
+import {
+  readFeedContentRequest,
+  readFeedInfoRequest,
+} from "../../../api/channelFeedApi";
 
 function FeedPersonalPage() {
   const { userId } = useParams(); // URL에서 userId를 가져옵니다
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [selectedContent, setSelectedContent] = useState(null);
+  const [selectedFeedId, setSelectedFeedId] = useState(null);
   const [isCreateDrawerOpen, setIsCreateDrawerOpen] = useState(false);
 
-  // // 더미 데이터를 현재 페이지 소유자의 정보로 수정합니다
-  // const contents = get_feedData.map((content) => ({
-  //   ...content,
-  //   authorId: userId,
-  //   authorName: `User ${userId}`, // 실제로는 사용자 이름을 가져오는 로직이 필요합니다
-  //   isOwner: true, // 모든 컨텐츠가 현재 사용자의 것임을 표시
-  // }));
-  const [contents, setContents] = useState(
-    get_feedData.map((content) => ({
-      ...content,
-      authorId: userId,
-      authorName: `User ${userId}`,
-      isOwner: true,
-    }))
-  );
+  const [userInfo, setUserInfo] = useState(null);
+  const [contents, setContents] = useState(null);
+
+  const [loading, setLoading] = useState(false);
+
+  const location = useLocation();
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        setLoading(true);
+        const feedInfoResp = await readFeedInfoRequest(userId);
+        const feedContResp = await readFeedContentRequest(userId);
+        // 1페이지 컨텐츠 있는지 서버 붙었을때 테스트 할 것
+        if (feedContResp?.data) {
+          setContents(feedContResp.data);
+        }
+        if (feedInfoResp) setUserInfo(feedInfoResp);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    getData();
+  }, [userId, location.pathname]);
 
   const handleSelectContent = (content) => {
-    setSelectedContent(content);
+    setSelectedFeedId(content.id);
     setIsDrawerOpen(true);
   };
 
   const handleCloseDrawer = () => {
     setIsDrawerOpen(false);
-    setSelectedContent(null);
+    setSelectedFeedId(null);
   };
 
   const handleEditContent = (editedContent) => {
@@ -102,7 +115,8 @@ function FeedPersonalPage() {
         content.id === editedContent.id ? editedContent : content
       )
     );
-    setSelectedContent(editedContent);
+    setSelectedFeedId(editedContent?.id);
+    // setSelectedContent(editedContent?.id);
   };
 
   const handleDeleteContent = (contentId) => {
@@ -127,18 +141,23 @@ function FeedPersonalPage() {
     <>
       <div className="flex h-full">
         <div className="flex flex-col flex-1">
-          <FeedHeader openCreateDrawer={() => setIsCreateDrawerOpen(true)} />
+          <FeedHeader
+            userInfo={userInfo}
+            setUserInfo={setUserInfo}
+            openCreateDrawer={() => setIsCreateDrawerOpen(true)}
+          />
           <ContentItemGrid
+            loading={loading}
             contents={contents}
             onSelectContent={handleSelectContent}
           />
           <ContentDrawer
             isOpen={isDrawerOpen}
             onClose={handleCloseDrawer}
-            content={selectedContent}
             onEdit={handleEditContent}
             onDelete={handleDeleteContent}
             onLike={handleLike}
+            feedId={selectedFeedId}
           />
           <CreateContentDrawer
             onClose={() => setIsCreateDrawerOpen(false)}
