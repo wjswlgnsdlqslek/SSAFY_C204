@@ -18,4 +18,5 @@ public interface UserService {
     ResponseEntity<ApiResponse<LoginResponseDto>> login(@Valid final LoginRequestDto loginRequestDto, HttpServletResponse response);
     ResponseEntity<ApiResponse<String>> logout(final HttpServletRequest request);
     ResponseEntity<ApiResponse<String>> reissue(final HttpServletRequest request, final HttpServletResponse response);
+    ResponseEntity<ApiResponse<String>> nickNameCheck(String nickName);
 }

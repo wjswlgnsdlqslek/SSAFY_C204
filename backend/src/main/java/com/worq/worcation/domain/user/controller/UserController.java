@@ -42,4 +42,8 @@ public class UserController {
     public ResponseEntity<ApiResponse<String>> reissue(HttpServletRequest request,HttpServletResponse response) {
         return userService.reissue(request,response);
     }
+    @PostMapping("/nickname/check")
+    private ResponseEntity<ApiResponse<String>> nickNameCheck(String nickName) {
+        return userService.nickNameCheck(nickName);
+    }
 }

@@ -10,7 +10,6 @@ import com.worq.worcation.domain.user.dto.response.LoginResponseDto;
 import com.worq.worcation.domain.user.dto.response.TokenDto;
 import com.worq.worcation.domain.user.dto.response.UserResponseDto;
 import com.worq.worcation.domain.user.repository.UserRepository;
-import com.worq.worcation.domain.worcation.dao.WorcationRepository;
 import com.worq.worcation.domain.worcation.domain.Worcation;
 import com.worq.worcation.domain.worcation.dto.WorcationResponseDto;
 import jakarta.servlet.http.HttpServletRequest;
@@ -117,6 +116,7 @@ public class UserServiceImpl implements UserService{
         return ResponseEntity.status(HttpStatus.OK)
                 .body(ApiResponse.success(LoginResponseDto.builder()
                                 .nickName(userOpt.get().getNickName())
+                                .profile(userOpt.get().getProfileImg())
                                 .isWorcation(worcation != null ? true : false)
                                 .worcation(worcationResponseDto)
                                 .build()));
@@ -159,6 +159,17 @@ public class UserServiceImpl implements UserService{
 
         return ResponseEntity.status(HttpStatus.OK)
                         .body(ApiResponse.success("토큰 재발급 성공"));
+    }
+
+    @Override
+    @Transactional
+    public ResponseEntity<ApiResponse<String>> nickNameCheck(String nickName) {
+        if(nickNameValidate(nickName)) {
+            return ResponseEntity.status(ErrorCode.DUPLICATE_NICKNAME.getStatus())
+                    .body(ApiResponse.error(ErrorCode.DUPLICATE_NICKNAME));
+        }
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(ApiResponse.success("사용가능한 닉네임 입니다."));
     }
 
     private boolean emailValidate(String email) {
