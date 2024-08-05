@@ -114,4 +114,22 @@ public class GroupChannelServiceImpl implements GroupChannelService {
 //        }
         return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.success(groupChannelResponseDtoList));
     }
+
+
+    /**
+     *
+     * @ 작성자   : 이병수
+     * @ 작성일   : 2024-08-05
+     * @ 설명     :
+     * @param channelId
+     * @param token
+     * @return
+     */
+    @Override
+    public ResponseEntity<ApiResponse<GroupChannelResponseDto>> getGroupChannelDetail(String channelId, String token) {
+        Authentication authentication = tokenProvider.getAuthentication(token);
+        User userOpt  = userRepository.findByEmail(authentication.getName()).orElseThrow() ;
+//        channelRepository.
+        return null;
+    }
 }

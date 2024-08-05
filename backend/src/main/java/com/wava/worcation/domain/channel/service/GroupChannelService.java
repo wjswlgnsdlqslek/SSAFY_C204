@@ -12,4 +12,6 @@ public interface GroupChannelService {
     ResponseEntity<ApiResponse<GroupChannelResponseDto>> createGroupChannel(final GroupChannelRequestDto groupChannelRequestDto, String token);
 
     ResponseEntity<ApiResponse<List<GroupChannelResponseDto>>> showAllGroupChannel(String token);
+
+    ResponseEntity<ApiResponse<GroupChannelResponseDto>> getGroupChannelDetail(String channelId, String token);
 }

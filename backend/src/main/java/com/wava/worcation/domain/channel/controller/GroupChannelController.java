@@ -50,6 +50,12 @@ public class GroupChannelController {
 
     }
 
+    @GetMapping ("/detail/{channelId}")
+    public ResponseEntity<ApiResponse<GroupChannelResponseDto>> getGroupChannelDetail (@PathVariable("channelId") String channelId, HttpServletRequest request) {
+        String token = request.getHeader("Authorization").substring(7);
+        return groupChannelServcice.getGroupChannelDetail(channelId,token);
+    }
+
 
 
 
