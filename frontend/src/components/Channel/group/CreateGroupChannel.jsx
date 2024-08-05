@@ -1,4 +1,5 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import { Button } from "@headlessui/react";
 import useDeviceStore from "../../../store/deviceStore";
 
 function CreateGroupChannel({ onClose }) {
@@ -11,7 +12,11 @@ function CreateGroupChannel({ onClose }) {
     console.log("서브밋핸들");
   };
   return (
-    <div className="p-5">
+    <div
+      className={`${
+        isMobile ? "scale-90 transform origin-top" : ""
+      } select-none p-5`}
+    >
       <p className="text-2xl text-center font-bold">채널 생성</p>
 
       <div className="divider" />
@@ -22,16 +27,27 @@ function CreateGroupChannel({ onClose }) {
         value={channelTitle}
         placeholder="채널명을 입력해 주세요."
       />
-      <input
-        type="text"
+      <textarea
         value={channelDescription}
         onChange={(e) => setChannelDescription(e.target.value)}
         className="w-full h-36 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-0.5 focus:ring-mainBlue focus:border-mainBlue"
         placeholder="설명을 입력하세요"
       />
-      <div className="divider" />
-      <button onClick={submitHandle}>작성</button>
-      <button onClick={onClose}>취소</button>
+      <div className="divider my-4" />
+      <div className="flex flex-wrap gap-2 mt-6">
+        <Button
+          className="flex-grow sm:flex-grow-0 inline-flex justify-center items-center gap-2 rounded-md bg-gray-200 py-2 px-4 text-sm font-semibold text-gray-700 shadow-md transition-colors duration-300 hover:bg-gray-300 focus:outline-none"
+          onClick={onClose}
+        >
+          취소
+        </Button>
+        <Button
+          className="flex-grow sm:flex-grow-0 inline-flex justify-center items-center gap-2 rounded-md bg-mainBlue py-2 px-4 text-sm font-semibold text-white shadow-md shadow-[#ff93ac]/20 transition-colors duration-300 hover:bg-subBlue focus:outline-none"
+          onClick={submitHandle}
+        >
+          작성
+        </Button>
+      </div>
     </div>
   );
 }
