@@ -35,7 +35,6 @@ import java.util.Optional;
 @Component
 @Slf4j
 public class StompHandler implements ChannelInterceptor {
-    private final RedisUtil redisUtil;
     private final TokenProvider tokenProvider;
     private final ChannelUserRepository channelUserRepository;
     private final ChannelRepository channelRepository;
@@ -63,13 +62,9 @@ public class StompHandler implements ChannelInterceptor {
                     throw new JwtException("토큰이 유효하지 않습니다.");
                 }
                 String userEmail = tokenProvider.getAuthentication(userToken.substring(7)).getName();
-                boolean isSubscriber = false;
-                for (ChannelUser channelUser : channelUsers) {
-                    if(channelUser.getUser().getEmail().equals(userEmail)) {
-                        isSubscriber = true;
-                        break;
-                    }
-                }
+
+                boolean isSubscriber = channelUsers.stream()
+                        .anyMatch(channelUser -> channelUser.getUser().getEmail().equals(userEmail));
 
                 if(!isSubscriber && channelUserRepository.countChannelId(roomId) <= 4) {
                     Optional<User> userOpt = userRepository.findByEmail(userEmail);
