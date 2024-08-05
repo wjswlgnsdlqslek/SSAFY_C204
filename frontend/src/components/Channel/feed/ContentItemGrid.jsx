@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import useDeviceStore from "../../../store/deviceStore";
 
-const ContentItemGrid = ({ onSelectContent, contents, loading }) => {
+const ContentItemGrid = ({ loadMore, onSelectContent, contents, loading }) => {
   const isMobile = useDeviceStore((state) => state.isMobile);
   const [ref, inView] = useInView({
     threshold: 1,
@@ -10,8 +10,7 @@ const ContentItemGrid = ({ onSelectContent, contents, loading }) => {
 
   useEffect(() => {
     if (inView) {
-      console.log("요청");
-      // setLoading(true);
+      loadMore();
     }
   }, [inView]);
 

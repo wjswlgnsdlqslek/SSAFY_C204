@@ -109,11 +109,11 @@ export const readOneFeedDetailRequest = async (id) => {
     image: [
       {
         imageName: nanoid(),
-        imageUrl: "https://cataas.com/cat",
+        imageUrl: "https://loremflickr.com/600/400",
       },
       {
         imageName: nanoid(),
-        imageUrl: "https://cataas.com/cat",
+        imageUrl: "https://loremflickr.com/600/400",
       },
     ],
     comment: [
@@ -121,14 +121,14 @@ export const readOneFeedDetailRequest = async (id) => {
         id: 1,
         userId: 1234,
         nickName: "와바사용자2",
-        profile: "https://cataas.com/cat",
+        profile: "https://loremflickr.com/600/400",
         comment: "와정말좋아요",
       },
       {
         id: 2,
         userId: 3324,
         nickName: "와바사용자3",
-        profile: "https://cataas.com/cat",
+        profile: "https://loremflickr.com/600/400",
         comment: "와진짜대단해요",
       },
     ],
@@ -154,7 +154,7 @@ export const deleteLikeFeedRequest = async (id) => {
   return await handleRequest(() => local.delete(`${address}/${id}/dislike`));
 };
 
-// 피드 검색 -> 에러 핸들링 할 것
+// 피드 검색 -> 에러 핸들링 할 것 ->마지막페이지, 페이지아웃
 export const searchFeedRequest = async (keyword = "") => {
   return get_feedData;
 

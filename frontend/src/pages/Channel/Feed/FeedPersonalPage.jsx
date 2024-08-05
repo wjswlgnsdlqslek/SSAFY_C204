@@ -78,6 +78,7 @@ function FeedPersonalPage() {
 
   const [loading, setLoading] = useState(false);
 
+  const [pages, setPages] = useState(1);
   const location = useLocation();
   useEffect(() => {
     const getData = async () => {
@@ -141,6 +142,19 @@ function FeedPersonalPage() {
     window.location.reload();
   };
 
+  const loadMore = async () => {
+    try {
+      setLoading(true);
+      const feedContResp = await readFeedContentRequest(userId, pages);
+      if (feedContResp?.data) {
+        setContents((state) => [...state, ...feedContResp.data]);
+      }
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <>
       <div className="flex h-full">
@@ -151,6 +165,7 @@ function FeedPersonalPage() {
             openCreateDrawer={() => setIsCreateDrawerOpen(true)}
           />
           <ContentItemGrid
+            loadMore={loadMore}
             loading={loading}
             contents={contents}
             onSelectContent={handleSelectContent}
