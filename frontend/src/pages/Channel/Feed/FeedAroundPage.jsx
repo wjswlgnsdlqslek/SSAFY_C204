@@ -44,22 +44,34 @@
 // export default FeedAroundPage;
 
 // 랜덤 유저 정보 생성 후 이동
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ContentDrawer from "../../../components/Channel/feed/ContentDrawer";
 import ContentItemGrid from "../../../components/Channel/feed/ContentItemGrid";
 import FeedSearchBar from "../../../components/Channel/feed/FeedSearchbar";
 import { get_feedData } from "../../../api/dummy";
+import { searchFeedRequest } from "../../../api/channelFeedApi";
 
 // Modify the dummy data to include author information
-const contents = get_feedData.map((content) => ({
-  ...content,
-  authorId: `user-${Math.floor(Math.random() * 1000)}`, // Random user ID
-  authorName: `User ${Math.floor(Math.random() * 1000)}`, // Random user name
-}));
+// const contents = get_feedData?.data?.map((content) => ({
+//   ...content,
+//   authorId: `user-${Math.floor(Math.random() * 1000)}`, // Random user ID
+//   authorName: `User ${Math.floor(Math.random() * 1000)}`, // Random user name
+// }));
 
 function FeedAroundPage() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [selectedContent, setSelectedContent] = useState(null);
+
+  const [contents, setContents] = useState([]);
+
+  useEffect(() => {
+    const getData = async () => {
+      const resp = await searchFeedRequest();
+      setContents(resp?.data);
+    };
+
+    getData();
+  }, []);
 
   const handleCloseDrawer = () => {
     setIsDrawerOpen(false);
@@ -71,7 +83,9 @@ function FeedAroundPage() {
     setIsDrawerOpen(true);
   };
 
-  const searchHandle = (searchText) => {};
+  const searchHandle = async (searchText) => {
+    setContents(await searchFeedRequest(searchText));
+  };
 
   const handleLike = (contentId, isLiked) => {
     // API 호출을 통해 서버에 좋아요 상태 업데이트

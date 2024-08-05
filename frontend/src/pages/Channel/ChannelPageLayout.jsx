@@ -10,13 +10,16 @@ import {
   useNavigate,
   useParams,
 } from "react-router-dom";
-import { GlobeAltIcon } from "@heroicons/react/24/solid";
+import { GlobeAltIcon, UserCircleIcon } from "@heroicons/react/24/solid";
 import { PlusIcon } from "@heroicons/react/24/outline";
 import CustomModal from "../../components/common/customModal";
 import CreateGroupChannel from "../../components/Channel/group/CreateGroupChannel";
+import useUserStore from "../../store/userStore";
 
 function ChannelPage() {
   const isMobile = useDeviceStore((state) => state.isMobile);
+  const userInfo = useUserStore((state) => state.userInfo);
+
   const myChannelRef = useRef(null);
   const meetingChannelsRef = useRef(null);
   const infoChannelsRef = useRef(null);
@@ -158,12 +161,15 @@ function ChannelPage() {
               </div>
             </div>
             <div className="my-0.5">
-              <NavLink
-                tabIndex={-1}
-                aria-hidden={true}
-                to={`/channel/feed/${"내아이디"}`}
-              >
-                <button className="w-10 h-10 mx-auto my-0.5 bg-gray-300 rounded-full"></button>
+              <NavLink to={`/channel/feed/${"내아이디"}`}>
+                {userInfo?.profile ? (
+                  <img
+                    src={userInfo?.profile}
+                    className="w-10 h-10 mx-auto my-0.5 bg-gray-300 rounded-full"
+                  />
+                ) : (
+                  <UserCircleIcon className="w-10 h-10 mx-auto my-0.5 rounded-full" />
+                )}
               </NavLink>
             </div>
             {/* </ChannelSubExplorer> */}

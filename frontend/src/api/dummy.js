@@ -1,3 +1,4 @@
+import { nanoid } from "nanoid";
 let todayStr = new Date().toISOString().replace(/T.*$/, "");
 // console.log(todayStr);
 export const get_response = {
@@ -31,158 +32,315 @@ export const get_response = {
   status: 200,
 };
 
-export const get_feedData = [
-  {
-    imageUrl:
-      "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
-  },
-  {
-    imageUrl:
-      "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
-  },
-  {
-    imageUrl:
-      "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
-  },
-  {
-    imageUrl:
-      "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
-  },
-  {
-    imageUrl:
-      "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
-  },
-  {
-    imageUrl:
-      "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
-  },
-  {
-    imageUrl:
-      "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
-  },
-  {
-    imageUrl:
-      "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
-  },
-  {
-    imageUrl:
-      "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
-  },
-  {
-    imageUrl:
-      "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
-  },
-  {
-    imageUrl:
-      "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
-  },
-  {
-    imageUrl:
-      "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
-  },
-  {
-    imageUrl:
-      "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
-  },
-  {
-    imageUrl:
-      "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
-  },
-  {
-    imageUrl:
-      "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
-  },
-  {
-    imageUrl:
-      "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
-  },
-  {
-    imageUrl:
-      "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
-  },
-  {
-    imageUrl:
-      "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
-  },
-  {
-    imageUrl:
-      "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
-  },
-  {
-    imageUrl:
-      "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
-  },
-  {
-    imageUrl:
-      "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
-  },
-  {
-    imageUrl:
-      "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
-  },
-  {
-    imageUrl:
-      "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
-  },
-  {
-    imageUrl:
-      "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
-  },
-  {
-    imageUrl:
-      "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
-  },
-  {
-    imageUrl:
-      "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
-  },
-  {
-    imageUrl:
-      "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
-  },
-  {
-    imageUrl:
-      "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
-  },
-  {
-    imageUrl:
-      "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
-  },
-  {
-    imageUrl:
-      "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
-  },
-  {
-    imageUrl:
-      "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
-  },
-  {
-    imageUrl:
-      "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
-  },
-  {
-    imageUrl:
-      "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
-  },
-  {
-    imageUrl: "https://picsum.photos/200",
-  },
-  {
-    imageUrl: "https://picsum.photos/200",
-  },
-  {
-    imageUrl: "https://picsum.photos/200",
-  },
-  {
-    imageUrl:
-      "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
-  },
-  {
-    imageUrl:
-      "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
-  },
-  /* array of content data */
-];
+export const get_feedData = {
+  hasMore: true,
+  currentPage: 1, // 현재 페이지
+  totalPages: 10, // 전체 페이지
+  data: [
+    {
+      id: nanoid(), // 피드 아이디
+      imageUrl:
+        "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
+      likes: 1,
+      comments: 1,
+      owner: "email/string",
+    },
+    {
+      id: nanoid(), // 피드 아이디
+      imageUrl:
+        "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
+      likes: 1,
+      comments: 1,
+      owner: "email/string",
+    },
+    {
+      id: nanoid(), // 피드 아이디
+      imageUrl:
+        "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
+      likes: 1,
+      comments: 1,
+      owner: "email/string",
+    },
+    {
+      id: nanoid(), // 피드 아이디
+      imageUrl:
+        "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
+      likes: 1,
+      comments: 1,
+      owner: "email/string",
+    },
+    {
+      id: nanoid(), // 피드 아이디
+      imageUrl:
+        "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
+      likes: 1,
+      comments: 1,
+      owner: "email/string",
+    },
+    {
+      id: nanoid(), // 피드 아이디
+      imageUrl:
+        "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
+      likes: 1,
+      comments: 1,
+      owner: "email/string",
+    },
+    {
+      id: nanoid(), // 피드 아이디
+      imageUrl:
+        "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
+      likes: 1,
+      comments: 1,
+      owner: "email/string",
+    },
+    {
+      id: nanoid(), // 피드 아이디
+      imageUrl:
+        "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
+      likes: 1,
+      comments: 1,
+      owner: "email/string",
+    },
+    {
+      id: nanoid(), // 피드 아이디
+      imageUrl:
+        "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
+      likes: 1,
+      comments: 1,
+      owner: "email/string",
+    },
+    {
+      id: nanoid(), // 피드 아이디
+      imageUrl:
+        "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
+      likes: 1,
+      comments: 1,
+      owner: "email/string",
+    },
+    {
+      id: nanoid(), // 피드 아이디
+      imageUrl:
+        "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
+      likes: 1,
+      comments: 1,
+      owner: "email/string",
+    },
+    {
+      id: nanoid(), // 피드 아이디
+      imageUrl:
+        "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
+      likes: 1,
+      comments: 1,
+      owner: "email/string",
+    },
+    {
+      id: nanoid(), // 피드 아이디
+      imageUrl:
+        "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
+      likes: 1,
+      comments: 1,
+      owner: "email/string",
+    },
+    {
+      id: nanoid(), // 피드 아이디
+      imageUrl:
+        "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
+      likes: 1,
+      comments: 1,
+      owner: "email/string",
+    },
+    {
+      id: nanoid(), // 피드 아이디
+      imageUrl:
+        "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
+      likes: 1,
+      comments: 1,
+      owner: "email/string",
+    },
+    {
+      id: nanoid(), // 피드 아이디
+      imageUrl:
+        "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
+      likes: 1,
+      comments: 1,
+      owner: "email/string",
+    },
+    {
+      id: nanoid(), // 피드 아이디
+      imageUrl:
+        "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
+      likes: 1,
+      comments: 1,
+      owner: "email/string",
+    },
+    {
+      id: nanoid(), // 피드 아이디
+      imageUrl:
+        "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
+      likes: 1,
+      comments: 1,
+      owner: "email/string",
+    },
+    {
+      id: nanoid(), // 피드 아이디
+      imageUrl:
+        "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
+      likes: 1,
+      comments: 1,
+      owner: "email/string",
+    },
+    {
+      id: nanoid(), // 피드 아이디
+      imageUrl:
+        "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
+      likes: 1,
+      comments: 1,
+      owner: "email/string",
+    },
+    {
+      id: nanoid(), // 피드 아이디
+      imageUrl:
+        "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
+      likes: 1,
+      comments: 1,
+      owner: "email/string",
+    },
+    {
+      id: nanoid(), // 피드 아이디
+      imageUrl:
+        "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
+      likes: 1,
+      comments: 1,
+      owner: "email/string",
+    },
+    {
+      id: nanoid(), // 피드 아이디
+      imageUrl:
+        "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
+      likes: 1,
+      comments: 1,
+      owner: "email/string",
+    },
+    {
+      id: nanoid(), // 피드 아이디
+      imageUrl:
+        "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
+      likes: 1,
+      comments: 1,
+      owner: "email/string",
+    },
+    {
+      id: nanoid(), // 피드 아이디
+      imageUrl:
+        "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
+      likes: 1,
+      comments: 1,
+      owner: "email/string",
+    },
+    {
+      id: nanoid(), // 피드 아이디
+      imageUrl:
+        "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
+      likes: 1,
+      comments: 1,
+      owner: "email/string",
+    },
+    {
+      id: nanoid(), // 피드 아이디
+      imageUrl:
+        "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
+      likes: 1,
+      comments: 1,
+      owner: "email/string",
+    },
+    {
+      id: nanoid(), // 피드 아이디
+      imageUrl:
+        "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
+      likes: 1,
+      comments: 1,
+      owner: "email/string",
+    },
+    {
+      id: nanoid(), // 피드 아이디
+      imageUrl:
+        "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
+      likes: 1,
+      comments: 1,
+      owner: "email/string",
+    },
+    {
+      id: nanoid(), // 피드 아이디
+      imageUrl:
+        "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
+      likes: 1,
+      comments: 1,
+      owner: "email/string",
+    },
+    {
+      id: nanoid(), // 피드 아이디
+      imageUrl:
+        "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
+      likes: 1,
+      comments: 1,
+      owner: "email/string",
+    },
+    {
+      id: nanoid(), // 피드 아이디
+      imageUrl:
+        "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
+      likes: 1,
+      comments: 1,
+      owner: "email/string",
+    },
+    {
+      id: nanoid(), // 피드 아이디
+      imageUrl:
+        "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
+      likes: 1,
+      comments: 1,
+      owner: "email/string",
+    },
+    {
+      id: nanoid(), // 피드 아이디
+      imageUrl: "https://picsum.photos/200",
+      likes: 1,
+      comments: 1,
+      owner: "email/string",
+    },
+    {
+      id: nanoid(), // 피드 아이디
+      imageUrl: "https://picsum.photos/200",
+      likes: 1,
+      comments: 1,
+      owner: "email/string",
+    },
+    {
+      id: nanoid(), // 피드 아이디
+      imageUrl: "https://picsum.photos/200",
+      likes: 1,
+      comments: 1,
+      owner: "email/string",
+    },
+    {
+      id: nanoid(), // 피드 아이디
+      imageUrl:
+        "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
+      likes: 1,
+      comments: 1,
+      owner: "email/string",
+    },
+    {
+      id: nanoid(), // 피드 아이디
+      imageUrl:
+        "https://fastly.picsum.photos/id/184/250/250.jpg?hmac=6ULGFzE9ycGK0cgb3NB9AJG6Jt0_w_Ez-QWFZpWEFRI",
+      likes: 1,
+      comments: 1,
+      owner: "email/string",
+    },
+    /* array of content data */
+  ],
+};
 
 export const sigungu = {
   서울특별시: [

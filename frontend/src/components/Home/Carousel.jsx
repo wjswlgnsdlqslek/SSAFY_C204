@@ -34,7 +34,7 @@ const carouselItems = [
   {
     title: "데스커",
     image: "/assets/팜플렛/데스커 팜플렛.png",
-    url: "https://www.deskerworkation.com/",
+    url: "https://www.deskerworcation.com/",
   },
   {
     title: "부산",
@@ -59,12 +59,12 @@ const carouselItems = [
   {
     title: "제주도",
     image: "/assets/팜플렛/제주 팜플렛.png",
-    url: "https://jejuworkation.or.kr/",
+    url: "https://jejuworcation.or.kr/",
   },
   {
     title: "충청남도",
     image: "/assets/팜플렛/충남 팜플렛.png",
-    url: "https://cnctf.or.kr/site/workation/main.php",
+    url: "https://cnctf.or.kr/site/worcation/main.php",
   },
 ];
 
