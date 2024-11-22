@@ -371,9 +371,9 @@ server {
         RUN echo "REACT_APP_WEBSOCKET_ADDRESS=wss://${SERVER_DOMAIN}:${SERVER_PORT}/api/ws" >> .env
         RUN echo "REACT_APP_CURSOR_WEBSOCKET_ADDRESS=wss://${SERVER_DOMAIN}:${SERVER_PORT}/api/cursor" >> .env
         RUN echo "REACT_APP_MARKER_WEBSOCKET_ADDRESS=wss://${SERVER_DOMAIN}:${SERVER_PORT}/api/marker" >> .env
-        RUN echo ***REMOVED*** >> .env
-        RUN echo ***REMOVED*** >> .env
-        RUN echo ***REMOVED*** >> .env
+        RUN echo "REACT_APP_KAKAO_MAPS_API_KEY=***REMOVED***" >> .env
+        RUN echo "REACT_APP_OPENAI_API_KEY=***REMOVED***" >> .env
+        RUN echo "REACT_APP_OPENWEATHER_API_KEY=***REMOVED***" >> .env
         # 애플리케이션 빌드
         RUN npm run build
         
