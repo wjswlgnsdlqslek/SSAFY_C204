@@ -25,7 +25,7 @@ C204의 역작!
 | **전지훈(팀장) [FE]**                                          | **김민주** [FE]                                                                      | **한세훈** [FE]                                                       |
 | -------------------------------------------------------------- | ------------------------------------------------------------------------------------ | --------------------------------------------------------------------- |
 | ![이름](https://avatars.githubusercontent.com/u/156789228?v=4) | ![이름](https://avatars.githubusercontent.com/u/87603324?v=4)                        | ![이름](https://avatars.githubusercontent.com/u/156265425?v=4)        |
-| 팀장 <br> 디자인 <br>                                          | AI <br> Notion 정리 <br> 커서 공유 <br> 공유 마커                                    | 프론트 리더 <br> 프론트 스켈레톤 설계 <br> 기능 구현 <br> 답변 전문가 |
+| 팀장 <br> 프로젝트 기획 <br> 프로젝트 설계 <br> 기획서 작성 <br> 전체 UI 디자인 설계 <br> 워케이션 크롤링 <br>                                           | AI <br> Notion 정리 <br> 커서 공유 <br> 공유 마커                                    | 프론트 리더 <br> 프론트 스켈레톤 설계 <br> 기능 구현 <br> 답변 전문가 |
 | **안진우 [BE]**                                                | **이병수 [BE]**                                                                      | **최승호 [BE]**                                                       |
 | ![이름](https://avatars.githubusercontent.com/u/66781422?v=4)  | ![이름](https://avatars.githubusercontent.com/u/75319125?v=4)                        | ![이름](https://avatars.githubusercontent.com/u/148317140?v=4)        |
 | 채팅 구현 <br> 공유 마커 <br> DB 설계 <br> jwt 로그인          | <br> UCC 제작 <br> 무중단 배포 <br> 채널 crud <br> test 코드 작성 <br> openvidu 세팅 | api 설계 및 구현<br> 피드 채널 <br> 정보 채널 <br> 발표 및 ppt 제작   |
